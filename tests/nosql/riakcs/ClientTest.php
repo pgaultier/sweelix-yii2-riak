@@ -15,8 +15,8 @@
 
 namespace sweelix\yii2\nosql\tests\riakcs;
 
-
 use sweelix\yii2\nosql\tests\TestCase;
+use sweelix\yii2\nosql\riakcs\Client;
 
 /**
  * Class ClientTest tests the riak-cs client.
@@ -94,7 +94,7 @@ class ClientTest extends TestCase {
 	 * @return void
 	 * @since  XXX
 	 */
-	public function testPutObject() {		
+	public function testPutObject() {
 		/* Insert Object with json data */
 		$response = \Yii::$app->riakcs->client->putObject($this->bucketName, $this->objectName, $this->objectData);
 		$this->assertTrue($response, "PutObject ".$this->objectName.", response should be true. Current value : ".var_export($response, true));
@@ -105,9 +105,16 @@ class ClientTest extends TestCase {
 		$response = \Yii::$app->riakcs->client->putObject($this->bucketName, $xmlObjectName, $xmlData, 'application/xml');
 		$this->assertTrue($response, "PutObject ".$xmlObjectName." in ".$this->bucketName." failed. Current value : ".var_export($response, true));
 		
+		/* Insert Object With metadata */
+		
+		
 		/* Insert object in inexistant bucket */
 		$response = \Yii::$app->riakcs->client->putObject($this->bucketError, $this->objectName, $this->objectData);
 		$this->assertFalse($response, "PutObject ".$this->objectName." in bucket named ".$this->bucketError." should return false. Current value .".var_export($response, true));
+		
+		$object = new Client();
+		$response = \Yii::$app->riakcs->client->putObject($this->bucketName, $this->objectName.'failed', $object);
+		$this->assertFalse($response);
 	}
 
 	/**
@@ -154,8 +161,8 @@ class ClientTest extends TestCase {
 	 * @since  XXX
 	 */
 	public function testPutFile() {
-		$littleFilePath = \Yii::getAlias('@yiiunit').DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'file.php'; //74 KO
-		$bigFilePath = \Yii::getAlias('@yiiunit').DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'music.mp3';   //15,7 MB
+		$littleFilePath = \Yii::getAlias('@sweelix/yii2/nosql/tests').DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'file.php'; //74 KO
+		$bigFilePath = \Yii::getAlias('@sweelix/yii2/nosql/tests').DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'music.mp3';   //15,7 MB
 		
 		/* Put little file */
 		$response = \Yii::$app->riakcs->client->putFile($this->bucketName, $this->objectKeyFilename, $littleFilePath);
@@ -164,6 +171,18 @@ class ClientTest extends TestCase {
 		/* Put big file (if file > 5MB, it will upload with a multiupload) */
 		$response = \Yii::$app->riakcs->client->putFile($this->bucketName, $this->objectKeyMusicname, $bigFilePath);
 		$this->assertTrue($response);
+		
+		/* Put file in inexsistant bucket */
+		$response = \Yii::$app->riakcs->client->putFile($this->bucketError, $this->objectKeyMusicname, $bigFilePath);
+		$this->assertFalse($response);
+		
+		/* Put an inexistant File */
+		$response = \Yii::$app->riakcs->client->putFile($this->bucketName, 'FileInexistant.inexistant', 'pathToInexistantFile');
+		$this->assertFalse($response);
+
+		/* Put Dir */
+		$response = \Yii::$app->riakcs->client->putFile($this->bucketName, 'dirname', __DIR__);
+		$this->assertFalse($response);
 	}
 
 	/**
