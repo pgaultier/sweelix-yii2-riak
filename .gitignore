@@ -3,3 +3,4 @@
 .settings/
 vendor/
 tests/runtime/logs/
+tests/rapport/
