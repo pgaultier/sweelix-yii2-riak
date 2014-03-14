@@ -741,7 +741,7 @@ class Client extends Component {
 			
 			return $ret;
 		} catch (\Exception $e) {
-			$this->handleException($e);
+			return $this->handleException($e);
 		}
 	}
 	
@@ -1079,7 +1079,7 @@ class Client extends Component {
 	 */	
 	private function createRequest($verb, $bucket,$objectKey = '', $headers = array(), $parameters = array()) {
 		//URL CREATE
-		$baseUrl = ($this->_useSsl === true ? 'https://' : 'http://').$bucket.'.'.$this->_endPoint.'/';
+		$baseUrl = ($this->useSsl === true ? 'https://' : 'http://').$bucket.'.'.$this->endPoint.'/';
 		$tmpParam = array();
 		foreach ($parameters as $key => $param) {
 			$tmpParam[$key] = urlencode($param);
@@ -1148,7 +1148,7 @@ class Client extends Component {
 		$amz = (empty($amz) === false ? "\n".$amz : '');
 		$stringToSign = $verb."\n".$contentMd5."\n".$contentType."\n".''.$amz."\n".$resource;
 		\Yii::info('StringToSign : '.preg_replace("/\n/", '\n', $stringToSign), __METHOD__);
-		return 'AWS '.$this->_accessKey.':'.$this->getHash($stringToSign);
+		return 'AWS '.$this->accessKey.':'.$this->getHash($stringToSign);
 	}
 	
 	/**
@@ -1160,7 +1160,7 @@ class Client extends Component {
 	 * @since  XXX
 	 */
 	private function getHash($string) {
-		return base64_encode(hash_hmac('sha1', $string, $this->_secretKey, true));
+		return base64_encode(hash_hmac('sha1', $string, $this->secretKey, true));
 	}
 	
 	/**
@@ -1237,7 +1237,7 @@ class Client extends Component {
 	
 	private function handleException(\Exception $e, $retValue = false, $method = __METHOD__) {
 		if ($e instanceof RiakException) {
-			if ($this->_useExceptions) {
+			if ($this->useExceptions) {
 				throw $e;
 			} else {
 				return $retValue;
@@ -1254,7 +1254,7 @@ class Client extends Component {
 	 * @since  XXX
 	 */
 	public function getProxyUrl() {
-		return ($this->_useSsl === true ? 'https://' : 'http://').$this->_proxy;
+		return ($this->useSsl === true ? 'https://' : 'http://').$this->proxy;
 	}
 	
 }
