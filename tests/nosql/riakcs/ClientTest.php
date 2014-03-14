@@ -106,7 +106,13 @@ class ClientTest extends TestCase {
 		$this->assertTrue($response, "PutObject ".$xmlObjectName." in ".$this->bucketName." failed. Current value : ".var_export($response, true));
 		
 		/* Insert Object With metadata */
-		
+		$metada = array(
+			'metaKey' => 'metaValue',
+			'email' => 'clatour@ibitux.com',
+		);
+		$metaObjectName = $this->objectName.'Metadata';
+		$response = \Yii::$app->riakcs->client->putObject($this->bucketName, $metaObjectName, $this->objectData, 'application/json', $metada);
+		$this->assertTrue($response);
 		
 		/* Insert object in inexistant bucket */
 		$response = \Yii::$app->riakcs->client->putObject($this->bucketError, $this->objectName, $this->objectData);
@@ -148,6 +154,14 @@ class ClientTest extends TestCase {
 		$this->checkArrayHasKeys($objectKeys, $object);
 		$this->checkArrayHasKeys($headerDefaultKeys, $object['headers']);
 		$this->assertEquals('application/xml', $object['headers']['Content-Type']);
+		
+		/* Object with metadata */
+		$metaObjectName = $this->objectName.'Metadata';
+		$object = \Yii::$app->riakcs->client->getObject($this->bucketName, $metaObjectName);
+		$this->assertNotEmpty($object);
+		$this->checkArrayHasKeys($objectKeys, $object);
+		$this->checkArrayHasKeys($headerDefaultKeys, $object['headers']);
+		$this->assertEquals('application/json', $object['headers']['Content-Type']);
 		
 		/* NO OBJECT FOUND */
 		$objectNotFound = \Yii::$app->riakcs->client->getObject($this->bucketError, $this->objectName);
@@ -209,7 +223,7 @@ class ClientTest extends TestCase {
 		$mandotoryKeys = array("key", "Last-Modified", "etag", "size", "storage", "ownerId", "ownerName");
 		$objects = \Yii::$app->riakcs->client->getBucket($this->bucketName);
 		$this->assertNotEmpty($objects, "GetFilledBucket ".$this->bucketName." should return an not empty array. Current value : ".var_export($objects, true));
-		$this->assertEquals(2, count($objects));
+		$this->assertEquals(3, count($objects));
 		foreach ($objects as $object) {
 			$this->checkArrayHasKeys($mandotoryKeys, $object);
 		}
@@ -230,6 +244,11 @@ class ClientTest extends TestCase {
 		$xmlObjectName = $this->objectName."Xml";
 		$response = \Yii::$app->riakcs->client->deleteObject($this->bucketName, $xmlObjectName);
 		$this->assertTrue($response, "DeleteObject ".$xmlObjectName." in bucket ".$this->bucketName.", response should be true. Current value :".var_export($response, true));
+		
+		/* DELETE METAOBJECT */
+		$metaObjectName = $this->objectName."Metadata";
+		$response = \Yii::$app->riakcs->client->deleteObject($this->bucketName, $metaObjectName);
+		$this->assertTrue($response);
 		
 		/* DELETE OBJECT FROM INEXISTANT BUCKET */
 		$response = \Yii::$app->riakcs->client->deleteObject($this->bucketError, $this->objectName);
