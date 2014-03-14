@@ -602,8 +602,8 @@ class Client extends Component {
 	 */
 	public function putObject($bucket, $objectKey, $data, 
 							$contentType = 'application/octet-stream',
-							$acl = self::ACL_PRIVATE,
 							$metaHeaders = array(),
+							$acl = self::ACL_PRIVATE,
 							$headers = array()) {
 		try {
 			\Yii::trace('Trace: '.__CLASS__.'::'.__FUNCTION__.'()', __METHOD__);
@@ -773,7 +773,7 @@ class Client extends Component {
 				} else {
 					$data = fread($f, $infoFile['size']);
 					fclose($f);
-					$ret = $this->putObject($bucket, $objectKey, $data, $infoFile['type'], $acl, $metaData);
+					$ret = $this->putObject($bucket, $objectKey, $data, $infoFile['type'], $metaData, $acl);
 				}
 			} else {
 				$ret = $this->multiPartUpload($bucket, $objectKey, $filename, $partSize, $metaData, $acl);
