@@ -2,6 +2,9 @@
 	"name" : "sweelix/yii2-nosql",
 	"description" : "PHP 5.4+ nosql driver for yii2",
 	"type" : "library",
+	"config" : {
+		"vendor-dir" : "vendor"
+	},
 	"keywords" : [ "yii2", "riak", "nosql", "riakcs" ],
 	"license" : "BSD-3-Clause",
 	"authors" : [ {
@@ -11,14 +14,20 @@
 	"name" : "Christophe Latour",
 		"email" : "clatour@ibitux.net"
 	} ],
+	"minimum-stability" : "dev",
 	"require" : {
 		"php" : ">=5.4.0",
 		"ext-curl" : "*",
 		"sweelix/curl" : ">=1.1.0"
 	},
+	"require-dev" : {
+		"yiisoft/yii2" : "*",
+		"phpunit/phpunit" : "3.7.*"
+	},
 	"autoload" : {
 		"psr-4" : {
-			"sweelix\\yii2\\nosql\\" : ""
+			"sweelix\\yii2\\nosql\\" : "src/",
+			"sweelix\\yii2\\nosql\\tests\\" : "tests/"
 		}
 	}
 }
