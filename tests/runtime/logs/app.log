@@ -1,0 +1,2422 @@
+2014/03/14 10:00:51 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 10:00:51 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putBucket] Trace: sweelix\yii2\nosql\riakcs\Client::putBucket()
+2014/03/14 10:00:51 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394787532.462540-1374253328',
+  'SSH_CLIENT' => '192.168.1.108 56345 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56345 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql/src',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394791251.7791,
+  'REQUEST_TIME' => 1394791251,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 10:01:51 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 10:01:51 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putBucket] Trace: sweelix\yii2\nosql\riakcs\Client::putBucket()
+2014/03/14 10:01:51 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394787532.462540-1374253328',
+  'SSH_CLIENT' => '192.168.1.108 56345 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56345 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql/src',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394791311.6813,
+  'REQUEST_TIME' => 1394791311,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 10:01:59 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 10:01:59 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putBucket] Trace: sweelix\yii2\nosql\riakcs\Client::putBucket()
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n\n\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 10:01:59 +0000\n/bucketunittesting/
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:01:59 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:u4LPKeEyBAD/yQ0NzBUvGEpRHJc=',
+)
+2014/03/14 10:01:59 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putBucket] Trace: sweelix\yii2\nosql\riakcs\Client::putBucket()
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketError.s3.amazonaws.com/
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n\n\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 10:01:59 +0000\n/bucketError/
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:01:59 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:qsvD/ALvQsf0pXzZIdi35/I1Y74=',
+)
+2014/03/14 10:01:59 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394787532.462540-1374253328',
+  'SSH_CLIENT' => '192.168.1.108 56345 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56345 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql/src',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394791319.4937,
+  'REQUEST_TIME' => 1394791319,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 10:01:59 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 10:01:59 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getBucket] Trace: sweelix\yii2\nosql\riakcs\Client::getBucket()
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketunittesting.s3.amazonaws.com/
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:01:59 +0000\n/bucketunittesting/
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:01:59 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:F+8fEjJEYjJ2k9Z+BIREKuSznQI=',
+)
+2014/03/14 10:01:59 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getBucket] Trace: sweelix\yii2\nosql\riakcs\Client::getBucket()
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketError.s3.amazonaws.com/
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:01:59 +0000\n/bucketError/
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:01:59 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:YCQZ4AozDm/B16vfePFT+pZQT1U=',
+)
+2014/03/14 10:01:59 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394787532.462540-1374253328',
+  'SSH_CLIENT' => '192.168.1.108 56345 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56345 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql/src',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394791319.4937,
+  'REQUEST_TIME' => 1394791319,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 10:01:59 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 10:01:59 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putObject] Trace: sweelix\yii2\nosql\riakcs\Client::putObject()
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/objectTest
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\nPRIV+hryex+gzeO1FEwzKw==\napplication/json\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 10:01:59 +0000\n/bucketunittesting/objectTest
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'Content-MD5' => 'PRIV+hryex+gzeO1FEwzKw==',
+  'Content-Type' => 'application/json',
+  'Content-Length' => 44,
+  'Expect' => '100-continue',
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:01:59 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:kVCq0XuI/4Z8ND9LJ04G/G2mL3M=',
+)
+2014/03/14 10:01:59 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putObject] Trace: sweelix\yii2\nosql\riakcs\Client::putObject()
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/objectTestXml
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n/uO7Ei5so9U2Hr1E/WM13w==\napplication/xml\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 10:01:59 +0000\n/bucketunittesting/objectTestXml
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'Content-MD5' => '/uO7Ei5so9U2Hr1E/WM13w==',
+  'Content-Type' => 'application/xml',
+  'Content-Length' => 120,
+  'Expect' => '100-continue',
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:01:59 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:tgCYRmhlajCWN1m/kZjwZt2H8LY=',
+)
+2014/03/14 10:01:59 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putObject] Trace: sweelix\yii2\nosql\riakcs\Client::putObject()
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketError.s3.amazonaws.com/objectTest
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\nPRIV+hryex+gzeO1FEwzKw==\napplication/json\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 10:01:59 +0000\n/bucketError/objectTest
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'Content-MD5' => 'PRIV+hryex+gzeO1FEwzKw==',
+  'Content-Type' => 'application/json',
+  'Content-Length' => 44,
+  'Expect' => '100-continue',
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:01:59 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:QuPxmBTQsK8RTaNIk/UlHTkxqWg=',
+)
+2014/03/14 10:01:59 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394787532.462540-1374253328',
+  'SSH_CLIENT' => '192.168.1.108 56345 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56345 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql/src',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394791319.4937,
+  'REQUEST_TIME' => 1394791319,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 10:01:59 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 10:01:59 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getObject] Trace: sweelix\yii2\nosql\riakcs\Client::getObject()
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketunittesting.s3.amazonaws.com/objectTest
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:01:59 +0000\n/bucketunittesting/objectTest
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:01:59 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:hsbKUHQLW5/ihP2etlMggBsuxE4=',
+)
+2014/03/14 10:01:59 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getObject] Trace: sweelix\yii2\nosql\riakcs\Client::getObject()
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketunittesting.s3.amazonaws.com/objectTestXml
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:01:59 +0000\n/bucketunittesting/objectTestXml
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:01:59 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:Quy6B1wm/WZ97VBsccnN0RR6A9Y=',
+)
+2014/03/14 10:01:59 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getObject] Trace: sweelix\yii2\nosql\riakcs\Client::getObject()
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketError.s3.amazonaws.com/objectTest
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:01:59 +0000\n/bucketError/objectTest
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:01:59 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:/qG0zJYGJpvISJKHtZyBvMVHVN0=',
+)
+2014/03/14 10:01:59 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394787532.462540-1374253328',
+  'SSH_CLIENT' => '192.168.1.108 56345 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56345 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql/src',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394791319.4937,
+  'REQUEST_TIME' => 1394791319,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 10:01:59 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 10:01:59 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putFile] Trace: sweelix\yii2\nosql\riakcs\Client::putFile()
+2014/03/14 10:01:59 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putObject] Trace: sweelix\yii2\nosql\riakcs\Client::putObject()
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/file.php
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\nkbFtOvVCwgKRPlxJohIijQ==\ntext/x-c++; charset=utf-8\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 10:01:59 +0000\n/bucketunittesting/file.php
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'Content-MD5' => 'kbFtOvVCwgKRPlxJohIijQ==',
+  'Content-Type' => 'text/x-c++; charset=utf-8',
+  'Content-Length' => 73638,
+  'Expect' => '100-continue',
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:01:59 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:cO+k7yKF70ReG3yyXrP4iPgDW5I=',
+)
+2014/03/14 10:01:59 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putFile] Trace: sweelix\yii2\nosql\riakcs\Client::putFile()
+2014/03/14 10:01:59 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::multiPartUpload] Trace: sweelix\yii2\nosql\riakcs\Client::multiPartUpload()
+2014/03/14 10:01:59 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::initMultiPartUpload] Trace: sweelix\yii2\nosql\riakcs\Client::initMultiPartUpload()
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request POST http://bucketunittesting.s3.amazonaws.com/music.mp3?uploads
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : POST\n\napplication/octet-stream; charset=binary\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 10:01:59 +0000\n/bucketunittesting/music.mp3?uploads
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'Content-Type' => 'application/octet-stream; charset=binary',
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:01:59 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:10zonYMod/8CwbtAGZC4xjV9ecY=',
+)
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::initMultiPartUpload] Response of initMutliPartUpload :sweelix\curl\Response::__set_state(array(
+   'statusCode' => 200,
+   'headers' => 
+  array (
+    'Server' => 'Riak CS',
+    'Date' => 'Fri, 14 Mar 2014 10:01:59 GMT',
+    'Content-Type' => 'application/xml',
+    'Content-Length' => '248',
+  ),
+   'lowercaseHeaders' => 
+  array (
+    'server' => 'Riak CS',
+    'date' => 'Fri, 14 Mar 2014 10:01:59 GMT',
+    'content-type' => 'application/xml',
+    'content-length' => '248',
+  ),
+   'body' => '<?xml version="1.0" encoding="UTF-8"?><InitiateMultipartUploadResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Bucket>bucketunittesting</Bucket><Key>music.mp3</Key><UploadId>GiJ9auTcQVK1AwUWeTPkwQ==</UploadId></InitiateMultipartUploadResult>',
+))
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::multiPartUpload] Init multi part upload succeed (uploadId : GiJ9auTcQVK1AwUWeTPkwQ==). Beginning upload.
+2014/03/14 10:01:59 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Trace: sweelix\yii2\nosql\riakcs\Client::uploadAllPart()
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Uploading part 1 of size 5242880
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/music.mp3?partNumber=1&uploadId=GiJ9auTcQVK1AwUWeTPkwQ==
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n\napplication/octet-stream; charset=binary\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 10:01:59 +0000\n/bucketunittesting/music.mp3?partNumber=1&uploadId=GiJ9auTcQVK1AwUWeTPkwQ==
+2014/03/14 10:01:59 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'Content-Type' => 'application/octet-stream; charset=binary',
+  'Content-Length' => 5242880,
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:01:59 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:enA5reFg80AGc5MIDNYrR+oWWbQ=',
+)
+2014/03/14 10:02:00 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Response of upload part (1) :sweelix\curl\Response::__set_state(array(
+   'statusCode' => 200,
+   'headers' => 
+  array (
+    'Server' => 'Riak CS',
+    'Etag' => '"f20ea4ea84f6473046a1199682d48661"',
+    'Date' => 'Fri, 14 Mar 2014 10:02:00 GMT',
+    'Content-Type' => 'application/xml',
+    'Content-Length' => '0',
+  ),
+   'lowercaseHeaders' => 
+  array (
+    'server' => 'Riak CS',
+    'etag' => '"f20ea4ea84f6473046a1199682d48661"',
+    'date' => 'Fri, 14 Mar 2014 10:02:00 GMT',
+    'content-type' => 'application/xml',
+    'content-length' => '0',
+  ),
+   'body' => '',
+))
+2014/03/14 10:02:00 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Uploading part 2 of size 5242880
+2014/03/14 10:02:00 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/music.mp3?partNumber=2&uploadId=GiJ9auTcQVK1AwUWeTPkwQ==
+2014/03/14 10:02:00 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n\napplication/octet-stream; charset=binary\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 10:02:00 +0000\n/bucketunittesting/music.mp3?partNumber=2&uploadId=GiJ9auTcQVK1AwUWeTPkwQ==
+2014/03/14 10:02:00 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'Content-Type' => 'application/octet-stream; charset=binary',
+  'Content-Length' => 5242880,
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:02:00 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:n9iBr69IT3lPwUCX1DJ2APnQmnw=',
+)
+2014/03/14 10:02:00 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Response of upload part (2) :sweelix\curl\Response::__set_state(array(
+   'statusCode' => 200,
+   'headers' => 
+  array (
+    'Server' => 'Riak CS',
+    'Etag' => '"79a4d8a265aa775227ab46a2402cb5a2"',
+    'Date' => 'Fri, 14 Mar 2014 10:02:00 GMT',
+    'Content-Type' => 'application/xml',
+    'Content-Length' => '0',
+  ),
+   'lowercaseHeaders' => 
+  array (
+    'server' => 'Riak CS',
+    'etag' => '"79a4d8a265aa775227ab46a2402cb5a2"',
+    'date' => 'Fri, 14 Mar 2014 10:02:00 GMT',
+    'content-type' => 'application/xml',
+    'content-length' => '0',
+  ),
+   'body' => '',
+))
+2014/03/14 10:02:00 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Uploading part 3 of size 5222942
+2014/03/14 10:02:00 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/music.mp3?partNumber=3&uploadId=GiJ9auTcQVK1AwUWeTPkwQ==
+2014/03/14 10:02:00 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n\napplication/octet-stream; charset=binary\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 10:02:00 +0000\n/bucketunittesting/music.mp3?partNumber=3&uploadId=GiJ9auTcQVK1AwUWeTPkwQ==
+2014/03/14 10:02:00 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'Content-Type' => 'application/octet-stream; charset=binary',
+  'Content-Length' => 5222942,
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:02:00 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:ITIV39itLEwr60n1SXfg0xX6X1M=',
+)
+2014/03/14 10:02:00 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Response of upload part (3) :sweelix\curl\Response::__set_state(array(
+   'statusCode' => 200,
+   'headers' => 
+  array (
+    'Server' => 'Riak CS',
+    'Etag' => '"86e9029b0d2284da3575f3e48dd78cd8"',
+    'Date' => 'Fri, 14 Mar 2014 10:02:00 GMT',
+    'Content-Type' => 'application/xml',
+    'Content-Length' => '0',
+  ),
+   'lowercaseHeaders' => 
+  array (
+    'server' => 'Riak CS',
+    'etag' => '"86e9029b0d2284da3575f3e48dd78cd8"',
+    'date' => 'Fri, 14 Mar 2014 10:02:00 GMT',
+    'content-type' => 'application/xml',
+    'content-length' => '0',
+  ),
+   'body' => '',
+))
+2014/03/14 10:02:00 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::multiPartUpload] Upload all parts succeed.
+2014/03/14 10:02:00 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::completeMultiPartUpload] Trace: sweelix\yii2\nosql\riakcs\Client::completeMultiPartUpload()
+2014/03/14 10:02:00 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request POST http://bucketunittesting.s3.amazonaws.com/music.mp3?uploadId=GiJ9auTcQVK1AwUWeTPkwQ==
+2014/03/14 10:02:00 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : POST\n\napplication/json\n\nx-amz-date:Fri, 14 Mar 2014 10:02:00 +0000\n/bucketunittesting/music.mp3?uploadId=GiJ9auTcQVK1AwUWeTPkwQ==
+2014/03/14 10:02:00 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'Content-Length' => 177,
+  'Content-Type' => 'application/json',
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:02:00 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:pUSEDKQh04Mrz5iWea45W23FIkk=',
+)
+2014/03/14 10:02:00 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::completeMultiPartUpload] Complete multi part upload response : sweelix\curl\Response::__set_state(array(
+   'statusCode' => 200,
+   'headers' => 
+  array (
+    'Server' => 'Riak CS',
+    'Date' => 'Fri, 14 Mar 2014 10:02:00 GMT',
+    'Content-Type' => 'application/xml',
+    'Content-Length' => '312',
+  ),
+   'lowercaseHeaders' => 
+  array (
+    'server' => 'Riak CS',
+    'date' => 'Fri, 14 Mar 2014 10:02:00 GMT',
+    'content-type' => 'application/xml',
+    'content-length' => '312',
+  ),
+   'body' => '<?xml version="1.0" encoding="UTF-8"?><CompleteMultipartUploadResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Location>http://bucketunittesting.s3.amazonaws.com/music.mp3</Location><Bucket>bucketunittesting</Bucket><Key>music.mp3</Key><ETag>GiJ9auTcQVK1AwUWeTPkwQ==</ETag></CompleteMultipartUploadResult>',
+))
+2014/03/14 10:02:00 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::multiPartUpload] Complete upload part succeed
+2014/03/14 10:01:59 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394787532.462540-1374253328',
+  'SSH_CLIENT' => '192.168.1.108 56345 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56345 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql/src',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394791319.4937,
+  'REQUEST_TIME' => 1394791319,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 10:02:00 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 10:02:00 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketunittesting.s3.amazonaws.com/file.php
+2014/03/14 10:02:00 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:02:00 +0000\n/bucketunittesting/file.php
+2014/03/14 10:02:00 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:02:00 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:N3FRBPQxsW9aDNiaXiAe3zB4Wb4=',
+)
+2014/03/14 10:02:00 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketunittesting.s3.amazonaws.com/music.mp3
+2014/03/14 10:02:00 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:02:00 +0000\n/bucketunittesting/music.mp3
+2014/03/14 10:02:00 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:02:00 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:orb7gwaApNPLVAqP6h1kMZ1PUE4=',
+)
+2014/03/14 10:01:59 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394787532.462540-1374253328',
+  'SSH_CLIENT' => '192.168.1.108 56345 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56345 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql/src',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394791319.4937,
+  'REQUEST_TIME' => 1394791319,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 10:02:00 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 10:02:00 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getBucket] Trace: sweelix\yii2\nosql\riakcs\Client::getBucket()
+2014/03/14 10:02:00 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketunittesting.s3.amazonaws.com/
+2014/03/14 10:02:00 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:02:00 +0000\n/bucketunittesting/
+2014/03/14 10:02:00 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:02:00 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:bZdmRf9+XYqiKo1YaGvpeRWcybQ=',
+)
+2014/03/14 10:01:59 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394787532.462540-1374253328',
+  'SSH_CLIENT' => '192.168.1.108 56345 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56345 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql/src',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394791319.4937,
+  'REQUEST_TIME' => 1394791319,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 10:02:01 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 10:02:01 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketunittesting.s3.amazonaws.com/objectTest
+2014/03/14 10:02:01 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:02:01 +0000\n/bucketunittesting/objectTest
+2014/03/14 10:02:01 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:02:01 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:4eUyQykYxjcNEAjEO/fleYH7rC0=',
+)
+2014/03/14 10:02:01 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketunittesting.s3.amazonaws.com/objectTestXml
+2014/03/14 10:02:01 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:02:01 +0000\n/bucketunittesting/objectTestXml
+2014/03/14 10:02:01 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:02:01 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:49j5fUZc9407ALGusgEQlpxvA5s=',
+)
+2014/03/14 10:02:01 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketError.s3.amazonaws.com/objectTest
+2014/03/14 10:02:01 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:02:01 +0000\n/bucketError/objectTest
+2014/03/14 10:02:01 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:02:01 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:+3fFLLLwqr+wUOsnjyjbUfW82DY=',
+)
+2014/03/14 10:01:59 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394787532.462540-1374253328',
+  'SSH_CLIENT' => '192.168.1.108 56345 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56345 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql/src',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394791319.4937,
+  'REQUEST_TIME' => 1394791319,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 10:02:01 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 10:02:01 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::deleteBucket] Trace: sweelix\yii2\nosql\riakcs\Client::deleteBucket()
+2014/03/14 10:02:01 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketunittesting.s3.amazonaws.com/
+2014/03/14 10:02:01 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:02:01 +0000\n/bucketunittesting/
+2014/03/14 10:02:01 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:02:01 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:NPFXWjbG+x4x9AwxRCCd21gQip4=',
+)
+2014/03/14 10:02:01 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::deleteBucket] Trace: sweelix\yii2\nosql\riakcs\Client::deleteBucket()
+2014/03/14 10:02:01 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketError.s3.amazonaws.com/
+2014/03/14 10:02:01 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:02:01 +0000\n/bucketError/
+2014/03/14 10:02:01 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:02:01 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:gvLNGcOzc1lcoht7xxVWYC8PMLc=',
+)
+2014/03/14 10:01:59 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394787532.462540-1374253328',
+  'SSH_CLIENT' => '192.168.1.108 56345 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56345 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql/src',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394791319.4937,
+  'REQUEST_TIME' => 1394791319,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 10:04:11 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 10:04:11 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putBucket] Trace: sweelix\yii2\nosql\riakcs\Client::putBucket()
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n\n\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 10:04:11 +0000\n/bucketunittesting/
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:11 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:cCZ9/6z9Lm8uNUAOOi3HWUtouIc=',
+)
+2014/03/14 10:04:11 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putBucket] Trace: sweelix\yii2\nosql\riakcs\Client::putBucket()
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketError.s3.amazonaws.com/
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n\n\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 10:04:11 +0000\n/bucketError/
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:11 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:L0TbC8D8JazWgrXwdoJ+pcrT+LM=',
+)
+2014/03/14 10:04:11 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394787532.462540-1374253328',
+  'SSH_CLIENT' => '192.168.1.108 56345 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56345 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql/vendor',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394791451.5334,
+  'REQUEST_TIME' => 1394791451,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 10:04:11 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 10:04:11 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getBucket] Trace: sweelix\yii2\nosql\riakcs\Client::getBucket()
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketunittesting.s3.amazonaws.com/
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:04:11 +0000\n/bucketunittesting/
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:11 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:ruzdCu0nrugh4U6Bre2VGYoL6cw=',
+)
+2014/03/14 10:04:11 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getBucket] Trace: sweelix\yii2\nosql\riakcs\Client::getBucket()
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketError.s3.amazonaws.com/
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:04:11 +0000\n/bucketError/
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:11 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:rdZ/PnLanB/X7jA2LMB4ZSwtYZs=',
+)
+2014/03/14 10:04:11 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394787532.462540-1374253328',
+  'SSH_CLIENT' => '192.168.1.108 56345 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56345 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql/vendor',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394791451.5334,
+  'REQUEST_TIME' => 1394791451,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 10:04:11 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 10:04:11 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putObject] Trace: sweelix\yii2\nosql\riakcs\Client::putObject()
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/objectTest
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\nPRIV+hryex+gzeO1FEwzKw==\napplication/json\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 10:04:11 +0000\n/bucketunittesting/objectTest
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'Content-MD5' => 'PRIV+hryex+gzeO1FEwzKw==',
+  'Content-Type' => 'application/json',
+  'Content-Length' => 44,
+  'Expect' => '100-continue',
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:11 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:n/SY2lSXdDpMsElAkefrzRVlXVw=',
+)
+2014/03/14 10:04:11 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putObject] Trace: sweelix\yii2\nosql\riakcs\Client::putObject()
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/objectTestXml
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n/uO7Ei5so9U2Hr1E/WM13w==\napplication/xml\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 10:04:11 +0000\n/bucketunittesting/objectTestXml
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'Content-MD5' => '/uO7Ei5so9U2Hr1E/WM13w==',
+  'Content-Type' => 'application/xml',
+  'Content-Length' => 120,
+  'Expect' => '100-continue',
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:11 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:ZNXsVvfm9aObjhrrq+U/r8gcGJk=',
+)
+2014/03/14 10:04:11 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putObject] Trace: sweelix\yii2\nosql\riakcs\Client::putObject()
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketError.s3.amazonaws.com/objectTest
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\nPRIV+hryex+gzeO1FEwzKw==\napplication/json\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 10:04:11 +0000\n/bucketError/objectTest
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'Content-MD5' => 'PRIV+hryex+gzeO1FEwzKw==',
+  'Content-Type' => 'application/json',
+  'Content-Length' => 44,
+  'Expect' => '100-continue',
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:11 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:wchaXV0yovM0GhskgZFdTk79wRE=',
+)
+2014/03/14 10:04:11 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394787532.462540-1374253328',
+  'SSH_CLIENT' => '192.168.1.108 56345 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56345 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql/vendor',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394791451.5334,
+  'REQUEST_TIME' => 1394791451,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 10:04:11 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 10:04:11 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getObject] Trace: sweelix\yii2\nosql\riakcs\Client::getObject()
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketunittesting.s3.amazonaws.com/objectTest
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:04:11 +0000\n/bucketunittesting/objectTest
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:11 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:lgyvgdP6GwiWzc1DNoaSS5U2lQU=',
+)
+2014/03/14 10:04:11 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getObject] Trace: sweelix\yii2\nosql\riakcs\Client::getObject()
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketunittesting.s3.amazonaws.com/objectTestXml
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:04:11 +0000\n/bucketunittesting/objectTestXml
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:11 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:qElHdDwbMQKx3n0K25/akTpuYD4=',
+)
+2014/03/14 10:04:11 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getObject] Trace: sweelix\yii2\nosql\riakcs\Client::getObject()
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketError.s3.amazonaws.com/objectTest
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:04:11 +0000\n/bucketError/objectTest
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:11 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:OxTCIk2Cu703QZoPNvD9BXkkw4s=',
+)
+2014/03/14 10:04:11 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394787532.462540-1374253328',
+  'SSH_CLIENT' => '192.168.1.108 56345 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56345 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql/vendor',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394791451.5334,
+  'REQUEST_TIME' => 1394791451,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 10:04:11 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 10:04:11 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putFile] Trace: sweelix\yii2\nosql\riakcs\Client::putFile()
+2014/03/14 10:04:11 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putObject] Trace: sweelix\yii2\nosql\riakcs\Client::putObject()
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/file.php
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\nkbFtOvVCwgKRPlxJohIijQ==\ntext/x-c++; charset=utf-8\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 10:04:11 +0000\n/bucketunittesting/file.php
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'Content-MD5' => 'kbFtOvVCwgKRPlxJohIijQ==',
+  'Content-Type' => 'text/x-c++; charset=utf-8',
+  'Content-Length' => 73638,
+  'Expect' => '100-continue',
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:11 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:JCHVkCaX5GjB67S6pAl8PgKvD/Q=',
+)
+2014/03/14 10:04:11 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putFile] Trace: sweelix\yii2\nosql\riakcs\Client::putFile()
+2014/03/14 10:04:11 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::multiPartUpload] Trace: sweelix\yii2\nosql\riakcs\Client::multiPartUpload()
+2014/03/14 10:04:11 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::initMultiPartUpload] Trace: sweelix\yii2\nosql\riakcs\Client::initMultiPartUpload()
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request POST http://bucketunittesting.s3.amazonaws.com/music.mp3?uploads
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : POST\n\napplication/octet-stream; charset=binary\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 10:04:11 +0000\n/bucketunittesting/music.mp3?uploads
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'Content-Type' => 'application/octet-stream; charset=binary',
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:11 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:dbNEXtrOGvfLENBqxxDgEBEjEtc=',
+)
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::initMultiPartUpload] Response of initMutliPartUpload :sweelix\curl\Response::__set_state(array(
+   'statusCode' => 200,
+   'headers' => 
+  array (
+    'Server' => 'Riak CS',
+    'Date' => 'Fri, 14 Mar 2014 10:04:11 GMT',
+    'Content-Type' => 'application/xml',
+    'Content-Length' => '248',
+  ),
+   'lowercaseHeaders' => 
+  array (
+    'server' => 'Riak CS',
+    'date' => 'Fri, 14 Mar 2014 10:04:11 GMT',
+    'content-type' => 'application/xml',
+    'content-length' => '248',
+  ),
+   'body' => '<?xml version="1.0" encoding="UTF-8"?><InitiateMultipartUploadResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Bucket>bucketunittesting</Bucket><Key>music.mp3</Key><UploadId>sPQEPY3ZQRC31TZQfy4noA==</UploadId></InitiateMultipartUploadResult>',
+))
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::multiPartUpload] Init multi part upload succeed (uploadId : sPQEPY3ZQRC31TZQfy4noA==). Beginning upload.
+2014/03/14 10:04:11 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Trace: sweelix\yii2\nosql\riakcs\Client::uploadAllPart()
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Uploading part 1 of size 5242880
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/music.mp3?partNumber=1&uploadId=sPQEPY3ZQRC31TZQfy4noA==
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n\napplication/octet-stream; charset=binary\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 10:04:11 +0000\n/bucketunittesting/music.mp3?partNumber=1&uploadId=sPQEPY3ZQRC31TZQfy4noA==
+2014/03/14 10:04:11 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'Content-Type' => 'application/octet-stream; charset=binary',
+  'Content-Length' => 5242880,
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:11 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:k77P5dtWWqwVwlyYqoyN2Po7i6M=',
+)
+2014/03/14 10:04:12 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Response of upload part (1) :sweelix\curl\Response::__set_state(array(
+   'statusCode' => 200,
+   'headers' => 
+  array (
+    'Server' => 'Riak CS',
+    'Etag' => '"f20ea4ea84f6473046a1199682d48661"',
+    'Date' => 'Fri, 14 Mar 2014 10:04:12 GMT',
+    'Content-Type' => 'application/xml',
+    'Content-Length' => '0',
+  ),
+   'lowercaseHeaders' => 
+  array (
+    'server' => 'Riak CS',
+    'etag' => '"f20ea4ea84f6473046a1199682d48661"',
+    'date' => 'Fri, 14 Mar 2014 10:04:12 GMT',
+    'content-type' => 'application/xml',
+    'content-length' => '0',
+  ),
+   'body' => '',
+))
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Uploading part 2 of size 5242880
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/music.mp3?partNumber=2&uploadId=sPQEPY3ZQRC31TZQfy4noA==
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n\napplication/octet-stream; charset=binary\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 10:04:12 +0000\n/bucketunittesting/music.mp3?partNumber=2&uploadId=sPQEPY3ZQRC31TZQfy4noA==
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'Content-Type' => 'application/octet-stream; charset=binary',
+  'Content-Length' => 5242880,
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:12 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:cyzClPf8lsmYlgCtnW6m6pHI7uM=',
+)
+2014/03/14 10:04:12 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Response of upload part (2) :sweelix\curl\Response::__set_state(array(
+   'statusCode' => 200,
+   'headers' => 
+  array (
+    'Server' => 'Riak CS',
+    'Etag' => '"79a4d8a265aa775227ab46a2402cb5a2"',
+    'Date' => 'Fri, 14 Mar 2014 10:04:12 GMT',
+    'Content-Type' => 'application/xml',
+    'Content-Length' => '0',
+  ),
+   'lowercaseHeaders' => 
+  array (
+    'server' => 'Riak CS',
+    'etag' => '"79a4d8a265aa775227ab46a2402cb5a2"',
+    'date' => 'Fri, 14 Mar 2014 10:04:12 GMT',
+    'content-type' => 'application/xml',
+    'content-length' => '0',
+  ),
+   'body' => '',
+))
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Uploading part 3 of size 5222942
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/music.mp3?partNumber=3&uploadId=sPQEPY3ZQRC31TZQfy4noA==
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n\napplication/octet-stream; charset=binary\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 10:04:12 +0000\n/bucketunittesting/music.mp3?partNumber=3&uploadId=sPQEPY3ZQRC31TZQfy4noA==
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'Content-Type' => 'application/octet-stream; charset=binary',
+  'Content-Length' => 5222942,
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:12 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:+G09fPgf5J3D/rcT6XiHY3QZ3PU=',
+)
+2014/03/14 10:04:12 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Response of upload part (3) :sweelix\curl\Response::__set_state(array(
+   'statusCode' => 200,
+   'headers' => 
+  array (
+    'Server' => 'Riak CS',
+    'Etag' => '"86e9029b0d2284da3575f3e48dd78cd8"',
+    'Date' => 'Fri, 14 Mar 2014 10:04:12 GMT',
+    'Content-Type' => 'application/xml',
+    'Content-Length' => '0',
+  ),
+   'lowercaseHeaders' => 
+  array (
+    'server' => 'Riak CS',
+    'etag' => '"86e9029b0d2284da3575f3e48dd78cd8"',
+    'date' => 'Fri, 14 Mar 2014 10:04:12 GMT',
+    'content-type' => 'application/xml',
+    'content-length' => '0',
+  ),
+   'body' => '',
+))
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::multiPartUpload] Upload all parts succeed.
+2014/03/14 10:04:12 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::completeMultiPartUpload] Trace: sweelix\yii2\nosql\riakcs\Client::completeMultiPartUpload()
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request POST http://bucketunittesting.s3.amazonaws.com/music.mp3?uploadId=sPQEPY3ZQRC31TZQfy4noA==
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : POST\n\napplication/json\n\nx-amz-date:Fri, 14 Mar 2014 10:04:12 +0000\n/bucketunittesting/music.mp3?uploadId=sPQEPY3ZQRC31TZQfy4noA==
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'Content-Length' => 177,
+  'Content-Type' => 'application/json',
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:12 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:iMYlOFU5LEZgOw63uNUfimgtiTs=',
+)
+2014/03/14 10:04:12 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::completeMultiPartUpload] Complete multi part upload response : sweelix\curl\Response::__set_state(array(
+   'statusCode' => 200,
+   'headers' => 
+  array (
+    'Server' => 'Riak CS',
+    'Date' => 'Fri, 14 Mar 2014 10:04:12 GMT',
+    'Content-Type' => 'application/xml',
+    'Content-Length' => '312',
+  ),
+   'lowercaseHeaders' => 
+  array (
+    'server' => 'Riak CS',
+    'date' => 'Fri, 14 Mar 2014 10:04:12 GMT',
+    'content-type' => 'application/xml',
+    'content-length' => '312',
+  ),
+   'body' => '<?xml version="1.0" encoding="UTF-8"?><CompleteMultipartUploadResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Location>http://bucketunittesting.s3.amazonaws.com/music.mp3</Location><Bucket>bucketunittesting</Bucket><Key>music.mp3</Key><ETag>sPQEPY3ZQRC31TZQfy4noA==</ETag></CompleteMultipartUploadResult>',
+))
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::multiPartUpload] Complete upload part succeed
+2014/03/14 10:04:11 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394787532.462540-1374253328',
+  'SSH_CLIENT' => '192.168.1.108 56345 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56345 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql/vendor',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394791451.5334,
+  'REQUEST_TIME' => 1394791451,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 10:04:12 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketunittesting.s3.amazonaws.com/file.php
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:04:12 +0000\n/bucketunittesting/file.php
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:12 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:yUp47Znsfd1ShvoxjM7jBd7i2Y8=',
+)
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketunittesting.s3.amazonaws.com/music.mp3
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:04:12 +0000\n/bucketunittesting/music.mp3
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:12 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:ys/7BYvOeIJtyybdtnItikLmwpQ=',
+)
+2014/03/14 10:04:11 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394787532.462540-1374253328',
+  'SSH_CLIENT' => '192.168.1.108 56345 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56345 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql/vendor',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394791451.5334,
+  'REQUEST_TIME' => 1394791451,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 10:04:12 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 10:04:12 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getBucket] Trace: sweelix\yii2\nosql\riakcs\Client::getBucket()
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketunittesting.s3.amazonaws.com/
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:04:12 +0000\n/bucketunittesting/
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:12 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:AJHZuWY2yTWvPubZHHF7eBRedHg=',
+)
+2014/03/14 10:04:11 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394787532.462540-1374253328',
+  'SSH_CLIENT' => '192.168.1.108 56345 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56345 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql/vendor',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394791451.5334,
+  'REQUEST_TIME' => 1394791451,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 10:04:12 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketunittesting.s3.amazonaws.com/objectTest
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:04:12 +0000\n/bucketunittesting/objectTest
+2014/03/14 10:04:12 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:12 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:p1yvrupMnHMODVWy3h0R60wISCk=',
+)
+2014/03/14 10:04:13 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketunittesting.s3.amazonaws.com/objectTestXml
+2014/03/14 10:04:13 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:04:12 +0000\n/bucketunittesting/objectTestXml
+2014/03/14 10:04:13 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:12 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:JX70+wQeLpEl+cC+mELo0JcvlR8=',
+)
+2014/03/14 10:04:13 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketError.s3.amazonaws.com/objectTest
+2014/03/14 10:04:13 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:04:13 +0000\n/bucketError/objectTest
+2014/03/14 10:04:13 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:13 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:oJKjGNYn00DFQs867pX4xlRx3MI=',
+)
+2014/03/14 10:04:11 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394787532.462540-1374253328',
+  'SSH_CLIENT' => '192.168.1.108 56345 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56345 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql/vendor',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394791451.5334,
+  'REQUEST_TIME' => 1394791451,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 10:04:13 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 10:04:13 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::deleteBucket] Trace: sweelix\yii2\nosql\riakcs\Client::deleteBucket()
+2014/03/14 10:04:13 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketunittesting.s3.amazonaws.com/
+2014/03/14 10:04:13 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:04:13 +0000\n/bucketunittesting/
+2014/03/14 10:04:13 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:13 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:Gu3zN2ubSwOQ6aJTvi/Rosczkus=',
+)
+2014/03/14 10:04:13 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::deleteBucket] Trace: sweelix\yii2\nosql\riakcs\Client::deleteBucket()
+2014/03/14 10:04:13 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketError.s3.amazonaws.com/
+2014/03/14 10:04:13 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 10:04:13 +0000\n/bucketError/
+2014/03/14 10:04:13 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 10:04:13 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:UvT5bDjBAHvBwqXkxpAXs3MA91g=',
+)
+2014/03/14 10:04:11 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394787532.462540-1374253328',
+  'SSH_CLIENT' => '192.168.1.108 56345 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56345 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql/vendor',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394791451.5334,
+  'REQUEST_TIME' => 1394791451,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 13:22:24 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 13:22:24 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putBucket] Trace: sweelix\yii2\nosql\riakcs\Client::putBucket()
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n\n\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 13:22:24 +0000\n/bucketunittesting/
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:24 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:2W33gY7x2GJg5kN5CnxfAshAzJQ=',
+)
+2014/03/14 13:22:24 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putBucket] Trace: sweelix\yii2\nosql\riakcs\Client::putBucket()
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketError.s3.amazonaws.com/
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n\n\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 13:22:24 +0000\n/bucketError/
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:24 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:XtooUvO/jug9M2QDhME7rxu4WK8=',
+)
+2014/03/14 13:22:24 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394801685.314923-2103641836',
+  'SSH_CLIENT' => '192.168.1.108 56794 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56794 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394803344.5878,
+  'REQUEST_TIME' => 1394803344,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 13:22:24 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 13:22:24 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getBucket] Trace: sweelix\yii2\nosql\riakcs\Client::getBucket()
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketunittesting.s3.amazonaws.com/
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:22:24 +0000\n/bucketunittesting/
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:24 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:DrBTVAqt7Nn5Bao1EbHxpgZwNJw=',
+)
+2014/03/14 13:22:24 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getBucket] Trace: sweelix\yii2\nosql\riakcs\Client::getBucket()
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketError.s3.amazonaws.com/
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:22:24 +0000\n/bucketError/
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:24 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:tPnTpPhbATelYpSaqMIclHkz20s=',
+)
+2014/03/14 13:22:24 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394801685.314923-2103641836',
+  'SSH_CLIENT' => '192.168.1.108 56794 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56794 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394803344.5878,
+  'REQUEST_TIME' => 1394803344,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 13:22:24 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 13:22:24 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putObject] Trace: sweelix\yii2\nosql\riakcs\Client::putObject()
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/objectTest
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\nPRIV+hryex+gzeO1FEwzKw==\napplication/json\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 13:22:24 +0000\n/bucketunittesting/objectTest
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'Content-MD5' => 'PRIV+hryex+gzeO1FEwzKw==',
+  'Content-Type' => 'application/json',
+  'Content-Length' => 44,
+  'Expect' => '100-continue',
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:24 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:QYO8owreGtv6lWXUO6Sl0wuNkZ0=',
+)
+2014/03/14 13:22:24 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putObject] Trace: sweelix\yii2\nosql\riakcs\Client::putObject()
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/objectTestXml
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n/uO7Ei5so9U2Hr1E/WM13w==\napplication/xml\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 13:22:24 +0000\n/bucketunittesting/objectTestXml
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'Content-MD5' => '/uO7Ei5so9U2Hr1E/WM13w==',
+  'Content-Type' => 'application/xml',
+  'Content-Length' => 120,
+  'Expect' => '100-continue',
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:24 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:O8KfbpO2ECz3Y0rgpu4P9qP7LdA=',
+)
+2014/03/14 13:22:24 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putObject] Trace: sweelix\yii2\nosql\riakcs\Client::putObject()
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketError.s3.amazonaws.com/objectTest
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\nPRIV+hryex+gzeO1FEwzKw==\napplication/json\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 13:22:24 +0000\n/bucketError/objectTest
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'Content-MD5' => 'PRIV+hryex+gzeO1FEwzKw==',
+  'Content-Type' => 'application/json',
+  'Content-Length' => 44,
+  'Expect' => '100-continue',
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:24 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:0GL4FTtECHCoIQob/tm2GTObwcY=',
+)
+2014/03/14 13:22:24 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394801685.314923-2103641836',
+  'SSH_CLIENT' => '192.168.1.108 56794 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56794 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394803344.5878,
+  'REQUEST_TIME' => 1394803344,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 13:22:24 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 13:22:24 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getObject] Trace: sweelix\yii2\nosql\riakcs\Client::getObject()
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketunittesting.s3.amazonaws.com/objectTest
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:22:24 +0000\n/bucketunittesting/objectTest
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:24 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:IjbLVgTSr4QdTtNpy7LQ9OdA0WA=',
+)
+2014/03/14 13:22:24 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getObject] Trace: sweelix\yii2\nosql\riakcs\Client::getObject()
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketunittesting.s3.amazonaws.com/objectTestXml
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:22:24 +0000\n/bucketunittesting/objectTestXml
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:24 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:br/LDrluSnu+OJR0Up3dCpJUFEs=',
+)
+2014/03/14 13:22:24 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getObject] Trace: sweelix\yii2\nosql\riakcs\Client::getObject()
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketError.s3.amazonaws.com/objectTest
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:22:24 +0000\n/bucketError/objectTest
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:24 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:rSsfOFrTLvNnd2PYMrQc4FDaq8k=',
+)
+2014/03/14 13:22:24 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394801685.314923-2103641836',
+  'SSH_CLIENT' => '192.168.1.108 56794 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56794 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394803344.5878,
+  'REQUEST_TIME' => 1394803344,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 13:22:24 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 13:22:24 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putFile] Trace: sweelix\yii2\nosql\riakcs\Client::putFile()
+2014/03/14 13:22:24 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putObject] Trace: sweelix\yii2\nosql\riakcs\Client::putObject()
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/file.php
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\nkbFtOvVCwgKRPlxJohIijQ==\ntext/x-c++; charset=utf-8\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 13:22:24 +0000\n/bucketunittesting/file.php
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'Content-MD5' => 'kbFtOvVCwgKRPlxJohIijQ==',
+  'Content-Type' => 'text/x-c++; charset=utf-8',
+  'Content-Length' => 73638,
+  'Expect' => '100-continue',
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:24 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:D8Z+6AkOVj60HUzp3dLFYu4Kvc8=',
+)
+2014/03/14 13:22:24 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putFile] Trace: sweelix\yii2\nosql\riakcs\Client::putFile()
+2014/03/14 13:22:24 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::multiPartUpload] Trace: sweelix\yii2\nosql\riakcs\Client::multiPartUpload()
+2014/03/14 13:22:24 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::initMultiPartUpload] Trace: sweelix\yii2\nosql\riakcs\Client::initMultiPartUpload()
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request POST http://bucketunittesting.s3.amazonaws.com/music.mp3?uploads
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : POST\n\napplication/octet-stream; charset=binary\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 13:22:24 +0000\n/bucketunittesting/music.mp3?uploads
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'Content-Type' => 'application/octet-stream; charset=binary',
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:24 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:l1a9/t56QFY3lVWhK2dar64hM2A=',
+)
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::initMultiPartUpload] Response of initMutliPartUpload :sweelix\curl\Response::__set_state(array(
+   'statusCode' => 200,
+   'headers' => 
+  array (
+    'Server' => 'Riak CS',
+    'Date' => 'Fri, 14 Mar 2014 13:22:24 GMT',
+    'Content-Type' => 'application/xml',
+    'Content-Length' => '248',
+  ),
+   'lowercaseHeaders' => 
+  array (
+    'server' => 'Riak CS',
+    'date' => 'Fri, 14 Mar 2014 13:22:24 GMT',
+    'content-type' => 'application/xml',
+    'content-length' => '248',
+  ),
+   'body' => '<?xml version="1.0" encoding="UTF-8"?><InitiateMultipartUploadResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Bucket>bucketunittesting</Bucket><Key>music.mp3</Key><UploadId>5jPWiXeGSLCRZHEzinYgew==</UploadId></InitiateMultipartUploadResult>',
+))
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::multiPartUpload] Init multi part upload succeed (uploadId : 5jPWiXeGSLCRZHEzinYgew==). Beginning upload.
+2014/03/14 13:22:24 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Trace: sweelix\yii2\nosql\riakcs\Client::uploadAllPart()
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Uploading part 1 of size 5242880
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/music.mp3?partNumber=1&uploadId=5jPWiXeGSLCRZHEzinYgew==
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n\napplication/octet-stream; charset=binary\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 13:22:24 +0000\n/bucketunittesting/music.mp3?partNumber=1&uploadId=5jPWiXeGSLCRZHEzinYgew==
+2014/03/14 13:22:24 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'Content-Type' => 'application/octet-stream; charset=binary',
+  'Content-Length' => 5242880,
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:24 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:gEnwttKmwg8HuDhpOpdYDdvEM24=',
+)
+2014/03/14 13:22:25 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Response of upload part (1) :sweelix\curl\Response::__set_state(array(
+   'statusCode' => 200,
+   'headers' => 
+  array (
+    'Server' => 'Riak CS',
+    'Etag' => '"f20ea4ea84f6473046a1199682d48661"',
+    'Date' => 'Fri, 14 Mar 2014 13:22:25 GMT',
+    'Content-Type' => 'application/xml',
+    'Content-Length' => '0',
+  ),
+   'lowercaseHeaders' => 
+  array (
+    'server' => 'Riak CS',
+    'etag' => '"f20ea4ea84f6473046a1199682d48661"',
+    'date' => 'Fri, 14 Mar 2014 13:22:25 GMT',
+    'content-type' => 'application/xml',
+    'content-length' => '0',
+  ),
+   'body' => '',
+))
+2014/03/14 13:22:25 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Uploading part 2 of size 5242880
+2014/03/14 13:22:25 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/music.mp3?partNumber=2&uploadId=5jPWiXeGSLCRZHEzinYgew==
+2014/03/14 13:22:25 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n\napplication/octet-stream; charset=binary\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 13:22:25 +0000\n/bucketunittesting/music.mp3?partNumber=2&uploadId=5jPWiXeGSLCRZHEzinYgew==
+2014/03/14 13:22:25 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'Content-Type' => 'application/octet-stream; charset=binary',
+  'Content-Length' => 5242880,
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:25 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:ESR7q/MuTtVbeSzHW/upcjNE9K8=',
+)
+2014/03/14 13:22:25 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Response of upload part (2) :sweelix\curl\Response::__set_state(array(
+   'statusCode' => 200,
+   'headers' => 
+  array (
+    'Server' => 'Riak CS',
+    'Etag' => '"79a4d8a265aa775227ab46a2402cb5a2"',
+    'Date' => 'Fri, 14 Mar 2014 13:22:25 GMT',
+    'Content-Type' => 'application/xml',
+    'Content-Length' => '0',
+  ),
+   'lowercaseHeaders' => 
+  array (
+    'server' => 'Riak CS',
+    'etag' => '"79a4d8a265aa775227ab46a2402cb5a2"',
+    'date' => 'Fri, 14 Mar 2014 13:22:25 GMT',
+    'content-type' => 'application/xml',
+    'content-length' => '0',
+  ),
+   'body' => '',
+))
+2014/03/14 13:22:25 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Uploading part 3 of size 5222942
+2014/03/14 13:22:25 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/music.mp3?partNumber=3&uploadId=5jPWiXeGSLCRZHEzinYgew==
+2014/03/14 13:22:25 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n\napplication/octet-stream; charset=binary\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 13:22:25 +0000\n/bucketunittesting/music.mp3?partNumber=3&uploadId=5jPWiXeGSLCRZHEzinYgew==
+2014/03/14 13:22:25 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'Content-Type' => 'application/octet-stream; charset=binary',
+  'Content-Length' => 5222942,
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:25 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:SPDqLc5iF/+hFuqRADt679UNQvM=',
+)
+2014/03/14 13:22:25 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Response of upload part (3) :sweelix\curl\Response::__set_state(array(
+   'statusCode' => 200,
+   'headers' => 
+  array (
+    'Server' => 'Riak CS',
+    'Etag' => '"86e9029b0d2284da3575f3e48dd78cd8"',
+    'Date' => 'Fri, 14 Mar 2014 13:22:25 GMT',
+    'Content-Type' => 'application/xml',
+    'Content-Length' => '0',
+  ),
+   'lowercaseHeaders' => 
+  array (
+    'server' => 'Riak CS',
+    'etag' => '"86e9029b0d2284da3575f3e48dd78cd8"',
+    'date' => 'Fri, 14 Mar 2014 13:22:25 GMT',
+    'content-type' => 'application/xml',
+    'content-length' => '0',
+  ),
+   'body' => '',
+))
+2014/03/14 13:22:25 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::multiPartUpload] Upload all parts succeed.
+2014/03/14 13:22:25 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::completeMultiPartUpload] Trace: sweelix\yii2\nosql\riakcs\Client::completeMultiPartUpload()
+2014/03/14 13:22:25 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request POST http://bucketunittesting.s3.amazonaws.com/music.mp3?uploadId=5jPWiXeGSLCRZHEzinYgew==
+2014/03/14 13:22:25 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : POST\n\napplication/json\n\nx-amz-date:Fri, 14 Mar 2014 13:22:25 +0000\n/bucketunittesting/music.mp3?uploadId=5jPWiXeGSLCRZHEzinYgew==
+2014/03/14 13:22:25 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'Content-Length' => 177,
+  'Content-Type' => 'application/json',
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:25 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:sgvXjsOjnI1KKpFysb02KoMxwVA=',
+)
+2014/03/14 13:22:25 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::completeMultiPartUpload] Complete multi part upload response : sweelix\curl\Response::__set_state(array(
+   'statusCode' => 200,
+   'headers' => 
+  array (
+    'Server' => 'Riak CS',
+    'Date' => 'Fri, 14 Mar 2014 13:22:25 GMT',
+    'Content-Type' => 'application/xml',
+    'Content-Length' => '312',
+  ),
+   'lowercaseHeaders' => 
+  array (
+    'server' => 'Riak CS',
+    'date' => 'Fri, 14 Mar 2014 13:22:25 GMT',
+    'content-type' => 'application/xml',
+    'content-length' => '312',
+  ),
+   'body' => '<?xml version="1.0" encoding="UTF-8"?><CompleteMultipartUploadResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Location>http://bucketunittesting.s3.amazonaws.com/music.mp3</Location><Bucket>bucketunittesting</Bucket><Key>music.mp3</Key><ETag>5jPWiXeGSLCRZHEzinYgew==</ETag></CompleteMultipartUploadResult>',
+))
+2014/03/14 13:22:25 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::multiPartUpload] Complete upload part succeed
+2014/03/14 13:22:24 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394801685.314923-2103641836',
+  'SSH_CLIENT' => '192.168.1.108 56794 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56794 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394803344.5878,
+  'REQUEST_TIME' => 1394803344,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 13:22:25 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 13:22:25 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketunittesting.s3.amazonaws.com/file.php
+2014/03/14 13:22:25 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:22:25 +0000\n/bucketunittesting/file.php
+2014/03/14 13:22:25 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:25 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:XkzeLO9RQ2nLnJY0e77AuF9uOeA=',
+)
+2014/03/14 13:22:25 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketunittesting.s3.amazonaws.com/music.mp3
+2014/03/14 13:22:25 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:22:25 +0000\n/bucketunittesting/music.mp3
+2014/03/14 13:22:25 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:25 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:Np0pKFkQBVvxZoU5tAV/2n+iIMk=',
+)
+2014/03/14 13:22:24 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394801685.314923-2103641836',
+  'SSH_CLIENT' => '192.168.1.108 56794 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56794 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394803344.5878,
+  'REQUEST_TIME' => 1394803344,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 13:22:26 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 13:22:26 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getBucket] Trace: sweelix\yii2\nosql\riakcs\Client::getBucket()
+2014/03/14 13:22:26 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketunittesting.s3.amazonaws.com/
+2014/03/14 13:22:26 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:22:26 +0000\n/bucketunittesting/
+2014/03/14 13:22:26 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:26 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:ssRq79XMFwziDHeqA180EuzsFSM=',
+)
+2014/03/14 13:22:24 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394801685.314923-2103641836',
+  'SSH_CLIENT' => '192.168.1.108 56794 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56794 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394803344.5878,
+  'REQUEST_TIME' => 1394803344,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 13:22:26 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 13:22:26 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketunittesting.s3.amazonaws.com/objectTest
+2014/03/14 13:22:26 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:22:26 +0000\n/bucketunittesting/objectTest
+2014/03/14 13:22:26 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:26 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:8OUWBbmi1XEmuN7F5j9f0bhGsRc=',
+)
+2014/03/14 13:22:26 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketunittesting.s3.amazonaws.com/objectTestXml
+2014/03/14 13:22:26 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:22:26 +0000\n/bucketunittesting/objectTestXml
+2014/03/14 13:22:26 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:26 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:IHapizRo4vuUr5708pVcR8ArFus=',
+)
+2014/03/14 13:22:26 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketError.s3.amazonaws.com/objectTest
+2014/03/14 13:22:26 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:22:26 +0000\n/bucketError/objectTest
+2014/03/14 13:22:26 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:26 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:7045pnLJOlx8ENMMGWMlgAcGLLI=',
+)
+2014/03/14 13:22:24 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394801685.314923-2103641836',
+  'SSH_CLIENT' => '192.168.1.108 56794 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56794 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394803344.5878,
+  'REQUEST_TIME' => 1394803344,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 13:22:26 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 13:22:26 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::deleteBucket] Trace: sweelix\yii2\nosql\riakcs\Client::deleteBucket()
+2014/03/14 13:22:26 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketunittesting.s3.amazonaws.com/
+2014/03/14 13:22:26 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:22:26 +0000\n/bucketunittesting/
+2014/03/14 13:22:26 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:26 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:hU86v9tChJpEVY++Bw4WPXTfcNQ=',
+)
+2014/03/14 13:22:26 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::deleteBucket] Trace: sweelix\yii2\nosql\riakcs\Client::deleteBucket()
+2014/03/14 13:22:26 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketError.s3.amazonaws.com/
+2014/03/14 13:22:26 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:22:26 +0000\n/bucketError/
+2014/03/14 13:22:26 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:22:26 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:m1V/fy7r56/DMCbAk5Wwu96x8LA=',
+)
+2014/03/14 13:22:24 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394801685.314923-2103641836',
+  'SSH_CLIENT' => '192.168.1.108 56794 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56794 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394803344.5878,
+  'REQUEST_TIME' => 1394803344,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/ClientTest.php',
+  ),
+  'argc' => 2,
+)
+2014/03/14 13:33:39 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 13:33:39 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putBucket] Trace: sweelix\yii2\nosql\riakcs\Client::putBucket()
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n\n\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 13:33:39 +0000\n/bucketunittesting/
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:39 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:3/GYFTWn/xri29cUaVTjCJ93BZc=',
+)
+2014/03/14 13:33:39 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putBucket] Trace: sweelix\yii2\nosql\riakcs\Client::putBucket()
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketError.s3.amazonaws.com/
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n\n\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 13:33:39 +0000\n/bucketError/
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:39 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:ueoWLwCce5+MClk8rdK2dxXMVqA=',
+)
+2014/03/14 13:33:39 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394801685.314923-2103641836',
+  'SSH_CLIENT' => '192.168.1.108 56794 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56794 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394804019.5709,
+  'REQUEST_TIME' => 1394804019,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/',
+  ),
+  'argc' => 2,
+)
+2014/03/14 13:33:39 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 13:33:39 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getBucket] Trace: sweelix\yii2\nosql\riakcs\Client::getBucket()
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketunittesting.s3.amazonaws.com/
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:33:39 +0000\n/bucketunittesting/
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:39 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:g7x84fVJYEOwMaezR0Y3QhMOMck=',
+)
+2014/03/14 13:33:39 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getBucket] Trace: sweelix\yii2\nosql\riakcs\Client::getBucket()
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketError.s3.amazonaws.com/
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:33:39 +0000\n/bucketError/
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:39 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:19sMjbhQomjQ5P8NRutjO68CZvQ=',
+)
+2014/03/14 13:33:39 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394801685.314923-2103641836',
+  'SSH_CLIENT' => '192.168.1.108 56794 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56794 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394804019.5709,
+  'REQUEST_TIME' => 1394804019,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/',
+  ),
+  'argc' => 2,
+)
+2014/03/14 13:33:39 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 13:33:39 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putObject] Trace: sweelix\yii2\nosql\riakcs\Client::putObject()
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/objectTest
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\nPRIV+hryex+gzeO1FEwzKw==\napplication/json\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 13:33:39 +0000\n/bucketunittesting/objectTest
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'Content-MD5' => 'PRIV+hryex+gzeO1FEwzKw==',
+  'Content-Type' => 'application/json',
+  'Content-Length' => 44,
+  'Expect' => '100-continue',
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:39 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:ifkq1r7M+RZry1WzNd97ejTPy7s=',
+)
+2014/03/14 13:33:39 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putObject] Trace: sweelix\yii2\nosql\riakcs\Client::putObject()
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/objectTestXml
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n/uO7Ei5so9U2Hr1E/WM13w==\napplication/xml\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 13:33:39 +0000\n/bucketunittesting/objectTestXml
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'Content-MD5' => '/uO7Ei5so9U2Hr1E/WM13w==',
+  'Content-Type' => 'application/xml',
+  'Content-Length' => 120,
+  'Expect' => '100-continue',
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:39 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:zX8fX5fxPprsRN1+TxEIlWr6Wek=',
+)
+2014/03/14 13:33:39 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putObject] Trace: sweelix\yii2\nosql\riakcs\Client::putObject()
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketError.s3.amazonaws.com/objectTest
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\nPRIV+hryex+gzeO1FEwzKw==\napplication/json\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 13:33:39 +0000\n/bucketError/objectTest
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'Content-MD5' => 'PRIV+hryex+gzeO1FEwzKw==',
+  'Content-Type' => 'application/json',
+  'Content-Length' => 44,
+  'Expect' => '100-continue',
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:39 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:q5qNIfOx41BVvm8PIDA4JpwulOs=',
+)
+2014/03/14 13:33:39 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394801685.314923-2103641836',
+  'SSH_CLIENT' => '192.168.1.108 56794 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56794 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394804019.5709,
+  'REQUEST_TIME' => 1394804019,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/',
+  ),
+  'argc' => 2,
+)
+2014/03/14 13:33:39 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 13:33:39 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getObject] Trace: sweelix\yii2\nosql\riakcs\Client::getObject()
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketunittesting.s3.amazonaws.com/objectTest
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:33:39 +0000\n/bucketunittesting/objectTest
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:39 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:TkZG4ifISwg9HBieMor72tJsWg8=',
+)
+2014/03/14 13:33:39 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getObject] Trace: sweelix\yii2\nosql\riakcs\Client::getObject()
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketunittesting.s3.amazonaws.com/objectTestXml
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:33:39 +0000\n/bucketunittesting/objectTestXml
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:39 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:vlikcEmC4SfZvsfxTmFnjE6rxZc=',
+)
+2014/03/14 13:33:39 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getObject] Trace: sweelix\yii2\nosql\riakcs\Client::getObject()
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketError.s3.amazonaws.com/objectTest
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:33:39 +0000\n/bucketError/objectTest
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:39 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:VVLHuR/kJkzYBcPYt66fMuTPSIU=',
+)
+2014/03/14 13:33:39 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394801685.314923-2103641836',
+  'SSH_CLIENT' => '192.168.1.108 56794 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56794 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394804019.5709,
+  'REQUEST_TIME' => 1394804019,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/',
+  ),
+  'argc' => 2,
+)
+2014/03/14 13:33:39 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 13:33:39 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putFile] Trace: sweelix\yii2\nosql\riakcs\Client::putFile()
+2014/03/14 13:33:39 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putObject] Trace: sweelix\yii2\nosql\riakcs\Client::putObject()
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/file.php
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\nkbFtOvVCwgKRPlxJohIijQ==\ntext/x-c++; charset=utf-8\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 13:33:39 +0000\n/bucketunittesting/file.php
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-acl' => 'private',
+  'Content-MD5' => 'kbFtOvVCwgKRPlxJohIijQ==',
+  'Content-Type' => 'text/x-c++; charset=utf-8',
+  'Content-Length' => 73638,
+  'Expect' => '100-continue',
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:39 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:DpUVwkEXQYZM3oPP9Ho1UTs5aGE=',
+)
+2014/03/14 13:33:39 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::putFile] Trace: sweelix\yii2\nosql\riakcs\Client::putFile()
+2014/03/14 13:33:39 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::multiPartUpload] Trace: sweelix\yii2\nosql\riakcs\Client::multiPartUpload()
+2014/03/14 13:33:39 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::initMultiPartUpload] Trace: sweelix\yii2\nosql\riakcs\Client::initMultiPartUpload()
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request POST http://bucketunittesting.s3.amazonaws.com/music.mp3?uploads
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : POST\n\napplication/octet-stream; charset=binary\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 13:33:39 +0000\n/bucketunittesting/music.mp3?uploads
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'Content-Type' => 'application/octet-stream; charset=binary',
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:39 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:gonzxqeuBtFfh7gJrADRQ9welw4=',
+)
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::initMultiPartUpload] Response of initMutliPartUpload :sweelix\curl\Response::__set_state(array(
+   'statusCode' => 200,
+   'headers' => 
+  array (
+    'Server' => 'Riak CS',
+    'Date' => 'Fri, 14 Mar 2014 13:33:39 GMT',
+    'Content-Type' => 'application/xml',
+    'Content-Length' => '248',
+  ),
+   'lowercaseHeaders' => 
+  array (
+    'server' => 'Riak CS',
+    'date' => 'Fri, 14 Mar 2014 13:33:39 GMT',
+    'content-type' => 'application/xml',
+    'content-length' => '248',
+  ),
+   'body' => '<?xml version="1.0" encoding="UTF-8"?><InitiateMultipartUploadResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Bucket>bucketunittesting</Bucket><Key>music.mp3</Key><UploadId>dgMWF8U-Taq9ZzCFnx3aPg==</UploadId></InitiateMultipartUploadResult>',
+))
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::multiPartUpload] Init multi part upload succeed (uploadId : dgMWF8U-Taq9ZzCFnx3aPg==). Beginning upload.
+2014/03/14 13:33:39 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Trace: sweelix\yii2\nosql\riakcs\Client::uploadAllPart()
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Uploading part 1 of size 5242880
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/music.mp3?partNumber=1&uploadId=dgMWF8U-Taq9ZzCFnx3aPg==
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n\napplication/octet-stream; charset=binary\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 13:33:39 +0000\n/bucketunittesting/music.mp3?partNumber=1&uploadId=dgMWF8U-Taq9ZzCFnx3aPg==
+2014/03/14 13:33:39 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'Content-Type' => 'application/octet-stream; charset=binary',
+  'Content-Length' => 5242880,
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:39 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:UGSspKWwD9Nrmsuibp1euTnYPAQ=',
+)
+2014/03/14 13:33:40 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Response of upload part (1) :sweelix\curl\Response::__set_state(array(
+   'statusCode' => 200,
+   'headers' => 
+  array (
+    'Server' => 'Riak CS',
+    'Etag' => '"f20ea4ea84f6473046a1199682d48661"',
+    'Date' => 'Fri, 14 Mar 2014 13:33:40 GMT',
+    'Content-Type' => 'application/xml',
+    'Content-Length' => '0',
+  ),
+   'lowercaseHeaders' => 
+  array (
+    'server' => 'Riak CS',
+    'etag' => '"f20ea4ea84f6473046a1199682d48661"',
+    'date' => 'Fri, 14 Mar 2014 13:33:40 GMT',
+    'content-type' => 'application/xml',
+    'content-length' => '0',
+  ),
+   'body' => '',
+))
+2014/03/14 13:33:40 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Uploading part 2 of size 5242880
+2014/03/14 13:33:40 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/music.mp3?partNumber=2&uploadId=dgMWF8U-Taq9ZzCFnx3aPg==
+2014/03/14 13:33:40 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n\napplication/octet-stream; charset=binary\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 13:33:40 +0000\n/bucketunittesting/music.mp3?partNumber=2&uploadId=dgMWF8U-Taq9ZzCFnx3aPg==
+2014/03/14 13:33:40 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'Content-Type' => 'application/octet-stream; charset=binary',
+  'Content-Length' => 5242880,
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:40 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:24R11x270r0y3XCe9ju6HmpSye0=',
+)
+2014/03/14 13:33:40 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Response of upload part (2) :sweelix\curl\Response::__set_state(array(
+   'statusCode' => 200,
+   'headers' => 
+  array (
+    'Server' => 'Riak CS',
+    'Etag' => '"79a4d8a265aa775227ab46a2402cb5a2"',
+    'Date' => 'Fri, 14 Mar 2014 13:33:40 GMT',
+    'Content-Type' => 'application/xml',
+    'Content-Length' => '0',
+  ),
+   'lowercaseHeaders' => 
+  array (
+    'server' => 'Riak CS',
+    'etag' => '"79a4d8a265aa775227ab46a2402cb5a2"',
+    'date' => 'Fri, 14 Mar 2014 13:33:40 GMT',
+    'content-type' => 'application/xml',
+    'content-length' => '0',
+  ),
+   'body' => '',
+))
+2014/03/14 13:33:40 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Uploading part 3 of size 5222942
+2014/03/14 13:33:40 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request PUT http://bucketunittesting.s3.amazonaws.com/music.mp3?partNumber=3&uploadId=dgMWF8U-Taq9ZzCFnx3aPg==
+2014/03/14 13:33:40 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : PUT\n\napplication/octet-stream; charset=binary\n\nx-amz-acl:private\nx-amz-date:Fri, 14 Mar 2014 13:33:40 +0000\n/bucketunittesting/music.mp3?partNumber=3&uploadId=dgMWF8U-Taq9ZzCFnx3aPg==
+2014/03/14 13:33:40 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'Content-Type' => 'application/octet-stream; charset=binary',
+  'Content-Length' => 5222942,
+  'x-amz-acl' => 'private',
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:40 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:fiH/TJdcnjt5Lr1mXleeTgVRy8A=',
+)
+2014/03/14 13:33:40 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::uploadAllPart] Response of upload part (3) :sweelix\curl\Response::__set_state(array(
+   'statusCode' => 200,
+   'headers' => 
+  array (
+    'Server' => 'Riak CS',
+    'Etag' => '"86e9029b0d2284da3575f3e48dd78cd8"',
+    'Date' => 'Fri, 14 Mar 2014 13:33:40 GMT',
+    'Content-Type' => 'application/xml',
+    'Content-Length' => '0',
+  ),
+   'lowercaseHeaders' => 
+  array (
+    'server' => 'Riak CS',
+    'etag' => '"86e9029b0d2284da3575f3e48dd78cd8"',
+    'date' => 'Fri, 14 Mar 2014 13:33:40 GMT',
+    'content-type' => 'application/xml',
+    'content-length' => '0',
+  ),
+   'body' => '',
+))
+2014/03/14 13:33:40 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::multiPartUpload] Upload all parts succeed.
+2014/03/14 13:33:40 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::completeMultiPartUpload] Trace: sweelix\yii2\nosql\riakcs\Client::completeMultiPartUpload()
+2014/03/14 13:33:40 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request POST http://bucketunittesting.s3.amazonaws.com/music.mp3?uploadId=dgMWF8U-Taq9ZzCFnx3aPg==
+2014/03/14 13:33:40 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : POST\n\napplication/json\n\nx-amz-date:Fri, 14 Mar 2014 13:33:40 +0000\n/bucketunittesting/music.mp3?uploadId=dgMWF8U-Taq9ZzCFnx3aPg==
+2014/03/14 13:33:40 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'Content-Length' => 177,
+  'Content-Type' => 'application/json',
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:40 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:rPtYm4GtOp5sVMnWSUT36+YqHQc=',
+)
+2014/03/14 13:33:40 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::completeMultiPartUpload] Complete multi part upload response : sweelix\curl\Response::__set_state(array(
+   'statusCode' => 200,
+   'headers' => 
+  array (
+    'Server' => 'Riak CS',
+    'Date' => 'Fri, 14 Mar 2014 13:33:40 GMT',
+    'Content-Type' => 'application/xml',
+    'Content-Length' => '312',
+  ),
+   'lowercaseHeaders' => 
+  array (
+    'server' => 'Riak CS',
+    'date' => 'Fri, 14 Mar 2014 13:33:40 GMT',
+    'content-type' => 'application/xml',
+    'content-length' => '312',
+  ),
+   'body' => '<?xml version="1.0" encoding="UTF-8"?><CompleteMultipartUploadResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Location>http://bucketunittesting.s3.amazonaws.com/music.mp3</Location><Bucket>bucketunittesting</Bucket><Key>music.mp3</Key><ETag>dgMWF8U-Taq9ZzCFnx3aPg==</ETag></CompleteMultipartUploadResult>',
+))
+2014/03/14 13:33:40 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::multiPartUpload] Complete upload part succeed
+2014/03/14 13:33:39 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394801685.314923-2103641836',
+  'SSH_CLIENT' => '192.168.1.108 56794 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56794 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394804019.5709,
+  'REQUEST_TIME' => 1394804019,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/',
+  ),
+  'argc' => 2,
+)
+2014/03/14 13:33:40 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 13:33:40 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketunittesting.s3.amazonaws.com/file.php
+2014/03/14 13:33:40 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:33:40 +0000\n/bucketunittesting/file.php
+2014/03/14 13:33:40 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:40 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:OvJc/FzIE0e6ZnT8nW5X8p9VQ4s=',
+)
+2014/03/14 13:33:40 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketunittesting.s3.amazonaws.com/music.mp3
+2014/03/14 13:33:40 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:33:40 +0000\n/bucketunittesting/music.mp3
+2014/03/14 13:33:40 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:40 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:vkAiLMbBcWpF835ZJPpAW5G/FOk=',
+)
+2014/03/14 13:33:39 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394801685.314923-2103641836',
+  'SSH_CLIENT' => '192.168.1.108 56794 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56794 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394804019.5709,
+  'REQUEST_TIME' => 1394804019,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/',
+  ),
+  'argc' => 2,
+)
+2014/03/14 13:33:40 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 13:33:40 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::getBucket] Trace: sweelix\yii2\nosql\riakcs\Client::getBucket()
+2014/03/14 13:33:40 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request GET http://bucketunittesting.s3.amazonaws.com/
+2014/03/14 13:33:40 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : GET\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:33:40 +0000\n/bucketunittesting/
+2014/03/14 13:33:40 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:40 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:Ntju1Yh4CtQAPbMqReyuElE1dgY=',
+)
+2014/03/14 13:33:39 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394801685.314923-2103641836',
+  'SSH_CLIENT' => '192.168.1.108 56794 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56794 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394804019.5709,
+  'REQUEST_TIME' => 1394804019,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/',
+  ),
+  'argc' => 2,
+)
+2014/03/14 13:33:41 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 13:33:41 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketunittesting.s3.amazonaws.com/objectTest
+2014/03/14 13:33:41 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:33:41 +0000\n/bucketunittesting/objectTest
+2014/03/14 13:33:41 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:41 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:mgmBZUYPu5GOOCFQ3UekHHRLw10=',
+)
+2014/03/14 13:33:41 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketunittesting.s3.amazonaws.com/objectTestXml
+2014/03/14 13:33:41 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:33:41 +0000\n/bucketunittesting/objectTestXml
+2014/03/14 13:33:41 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:41 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:RlXbycGppvdTUXCF2B3orafs8Dk=',
+)
+2014/03/14 13:33:41 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketError.s3.amazonaws.com/objectTest
+2014/03/14 13:33:41 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:33:41 +0000\n/bucketError/objectTest
+2014/03/14 13:33:41 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:41 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:z5zyxOVonmebrsNXWMpHqGwHUX8=',
+)
+2014/03/14 13:33:39 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394801685.314923-2103641836',
+  'SSH_CLIENT' => '192.168.1.108 56794 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56794 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394804019.5709,
+  'REQUEST_TIME' => 1394804019,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/',
+  ),
+  'argc' => 2,
+)
+2014/03/14 13:33:41 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Connection::open] Opening riakCs connection
+2014/03/14 13:33:41 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::deleteBucket] Trace: sweelix\yii2\nosql\riakcs\Client::deleteBucket()
+2014/03/14 13:33:41 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketunittesting.s3.amazonaws.com/
+2014/03/14 13:33:41 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:33:41 +0000\n/bucketunittesting/
+2014/03/14 13:33:41 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:41 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:fw51hfZRrMkYPL4J96NxmJNL9+4=',
+)
+2014/03/14 13:33:41 [127.0.0.1] [trace] [sweelix\yii2\nosql\riakcs\Client::deleteBucket] Trace: sweelix\yii2\nosql\riakcs\Client::deleteBucket()
+2014/03/14 13:33:41 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Creating request DELETE http://bucketError.s3.amazonaws.com/
+2014/03/14 13:33:41 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::getSignature] StringToSign : DELETE\n\n\n\nx-amz-date:Fri, 14 Mar 2014 13:33:41 +0000\n/bucketError/
+2014/03/14 13:33:41 [127.0.0.1] [info] [sweelix\yii2\nosql\riakcs\Client::createRequest] Headers : array (
+  'x-amz-date' => 'Fri, 14 Mar 2014 13:33:41 +0000',
+  'Authorization' => 'AWS STEIORR72X2J0HBFQ-GD:cjanR4zGh3Kn0PUzeqFOmQU5N1U=',
+)
+2014/03/14 13:33:39 [127.0.0.1] [info] [application] $_SERVER = array (
+  'TERM' => 'xterm-256color',
+  'SHELL' => '/bin/bash',
+  'XDG_SESSION_COOKIE' => '31f2dad76f4f204f99a76318520b6023-1394801685.314923-2103641836',
+  'SSH_CLIENT' => '192.168.1.108 56794 22',
+  'SSH_TTY' => '/dev/pts/4',
+  'USER' => 'root',
+  'MAIL' => '/var/mail/root',
+  'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  'PWD' => '/var/www/sweelix-yii2-nosql/tests',
+  'LANG' => 'fr_FR.UTF-8',
+  'SHLVL' => '1',
+  'HOME' => '/root',
+  'LOGNAME' => 'root',
+  'SSH_CONNECTION' => '192.168.1.108 56794 192.168.1.123 22',
+  '_' => '/usr/bin/phpunit',
+  'OLDPWD' => '/var/www/sweelix-yii2-nosql',
+  'PHP_SELF' => '/usr/bin/phpunit',
+  'SCRIPT_NAME' => '//var/www/sweelix-yii2-nosql/tests',
+  'SCRIPT_FILENAME' => '/var/www/sweelix-yii2-nosql/tests/bootstrap.php',
+  'PATH_TRANSLATED' => '/usr/bin/phpunit',
+  'DOCUMENT_ROOT' => '',
+  'REQUEST_TIME_FLOAT' => 1394804019.5709,
+  'REQUEST_TIME' => 1394804019,
+  'argv' => 
+  array (
+    0 => '/usr/bin/phpunit',
+    1 => 'nosql/riakcs/',
+  ),
+  'argc' => 2,
+)
