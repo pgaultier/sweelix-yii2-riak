@@ -1,7 +1,7 @@
 {
 	"name" : "sweelix/yii2-nosql",
 	"description" : "PHP 5.4+ nosql driver for yii2",
-	"type" : "library",
+	"type" : "yii2-extension",
 	"config" : {
 		"vendor-dir" : "vendor"
 	},
