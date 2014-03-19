@@ -109,7 +109,7 @@ class Client extends Component {
 		$request->setUrlParameters($additionalParameters);
 		$request->setBody(json_encode($content));
 		
-		$response = $request->send();
+		$response = $request->execute();
 		\Yii::trace('StoreObject response : '.var_export($response, true)."\n", __CLASS__);
 		return $response;
 	}
@@ -138,7 +138,7 @@ class Client extends Component {
 		$request->setUrlParameters($additionalParameters);
 		$request->setBody(json_encode($incrementalValue));
 		
-		$response = $request->send();
+		$response = $request->execute();
 		\Yii::trace('UpdateCounters response : @POST '.$url."\n", __CLASS__);
 		return $response;
 	}
@@ -164,7 +164,7 @@ class Client extends Component {
 		$request->setHeaders($headers);
 		$request->setUrlParameters($additionalParameters);
 		
-		$response = $request->send();
+		$response = $request->execute();
 		\Yii::trace('GetCounters response : '.var_export($response, true)."\n", __CLASS__);
 		return $response();
 	}
@@ -188,7 +188,7 @@ class Client extends Component {
 		$request->setHeaders(array('Content-Type' => 'application/json'));
 		$request->setBody(json_encode($properties));
 		
-		$response = $request->send();
+		$response = $request->execute();
 		\Yii::trace('AlterBucket response : '.var_export($response, true)."\n", __CLASS__);
 		
 		return $response;
@@ -214,7 +214,7 @@ class Client extends Component {
 		$request->setHeaders($additionalHeaders);
 		$request->setUrlParameters($additionalParameters);
 		
-		$response = $request->send();
+		$response = $request->execute();
 		\Yii::trace('GetObject response : '.var_export($response, true)."\n", __CLASS__);
 		return $response;
 	}
@@ -238,7 +238,7 @@ class Client extends Component {
 		$request->setMethod('DELETE');
 		$request->setUrlParameters($additionalParameters);
 		
-		$response = $request->send();
+		$response = $request->execute();
 		\Yii::trace('DeleteObject response '.var_export($response, true)."\n", __CLASS__);
 		return $response;
 	}
@@ -271,7 +271,7 @@ class Client extends Component {
 //		$additionalHeaders['Accept'] = 'multipart/mixed';
 //		$additionalHeaders['Content-Type'] = 'application/json';
 //		$request->setHeaders($additionalHeaders);
-		$response = $request->send();
+		$response = $request->execute();
 		\Yii::trace('QueryIndexes resposne : '.var_export($response, true)."\n", __CLASS__);
 		return $response;
 	}
@@ -304,7 +304,7 @@ class Client extends Component {
 		$additionalHeaders['Content-Type'] = 'application/json';
 		$request->setHeaders($additionalHeaders);
 		$request->setBody($mapReduce);
-		$response = $request->send();
+		$response = $request->execute();
 		\Yii::trace('QueryMapReduce response : '.var_export($response, true)."\n", __CLASS__);
 		return $response;
 	}
@@ -333,7 +333,7 @@ class Client extends Component {
 		$additionalHeaders['Content-Type'] = 'multipart/mixed';
 		$request->setHeaders($additionalHeaders);
 		
-		$response = $request->send();
+		$response = $request->execute();
 		\Yii::trace('QueryLink response : '.var_export($response, true)."\n", __CLASS__);
 		return $response;
 	}
