@@ -68,7 +68,7 @@ class DataReader implements \Countable, \ArrayAccess, \Iterator {
 	public function __construct(Response $response = null) {
 		\Yii::trace('Begin build with resposne : '.var_export($response, true)."\n", __CLASS__);
 		if ($response !== null) {
-			if ($response->isMultipart === true) {
+			if ($response->getIsMultipart() === true) {
 				$test = array();
 				foreach ($response->extractMultipartDataAsResponse() as $currentResponse) {
 					$this->_objects[] = $this->buildObject($currentResponse);
@@ -106,7 +106,7 @@ class DataReader implements \Countable, \ArrayAccess, \Iterator {
 	 */
 	private function buildObject(Response $response, $objectKey = null) {
 		$ret = array();
-		if ($response->isMultiPart === true) {
+		if ($response->getIsMultiPart() === true) {
 			foreach ($response->extractMultipartDataAsResponse() as $response) {
 				$ret[] = $this->buildObject($response);
 			}
