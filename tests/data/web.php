@@ -20,12 +20,20 @@ $config = array(
 			'dsn' => 'riak:dsn=http://192.168.1.123:8098',
 		),
 		'riakcs' => array(
-			'class' => 'sweelix\yii2\nosql\riakcs\Connection',
+				'class' => 'sweelix\yii2\nosql\riakcs\Connection',
 			'proxy' => '192.168.1.123:8080',
 			'accessKey' => 'STEIORR72X2J0HBFQ-GD',
 			'secretKey' => 't_tfgGSvxYcJAmdjguGYqwJt8CuB8V8xNyfNqQ==',
 			'useSsl' => false,
 			'useExceptions' => false,
+		),
+		'riakcsError' => array(
+			'class' => 'sweelix\yii2\nosql\riakcs\Connection',
+			'proxy' => 'testForFail', //Will fail to connect
+			'accessKey' => 'STEIORR72X2J0HBFQ-GD',
+			'secretKey' => 't_tfgGSvxYcJAmdjguGYqwJt8CuB8V8xNyfNqQ==',
+			'useSsl' => false,
+			'useExceptions' => false,	
 		),
 		'log' => array(
 			'traceLevel' => YII_DEBUG ? 3 : 0,
