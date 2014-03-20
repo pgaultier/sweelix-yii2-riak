@@ -43,6 +43,18 @@ class ClientTest extends TestCase {
 		"key3" => "titi",
 	);
 	
+	private $aclKeys = array(
+		'ownerId',
+		'ownerName',
+		'grants',
+	);
+	
+	private $grantsKeys = array(
+		'userId',
+		'username',
+		'permission',
+	);
+	
 	private $objectKeyFilename = 'file.php';
 	private $objectKeyMusicname = 'music.mp3';
 	
@@ -88,6 +100,14 @@ class ClientTest extends TestCase {
 		
 	}
 		
+	public function testGetBucketAcl() {
+		$response = \Yii::$app->riakcs->client->getBucketAcl($this->bucketName);
+		$this->checkArrayHasKeys($this->aclKeys, $response);
+		foreach ($response[$this->aclKeys[2]] as $grant) {
+			$this->checkArrayHasKeys($this->grantsKeys, $grant);
+		}
+	}
+	
 	/**
 	 * Create objects in buckets.
 	 * 
@@ -123,6 +143,12 @@ class ClientTest extends TestCase {
 		$this->assertFalse($response);
 	}
 
+	public function testGetObjectAcl() {
+		$response = \Yii::$app->riakcs->client->getObjectAcl($this->bucketName, $this->objectName);
+		var_dump($response);
+	}
+	
+	
 	/**
 	 * Get object
 	 * 
@@ -199,6 +225,32 @@ class ClientTest extends TestCase {
 		$this->assertFalse($response);
 	}
 
+	public function testPutFileIncomplete() {
+		$bigFilePath = \Yii::getAlias('@sweelix/yii2/nosql/tests').DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'music.mp3';   //15,7 MB
+		$response = \Yii::$app->riakcs->client->initMultiPartUpload($this->bucketName, $this->objectKeyMusicname.'fail', $bigFilePath);
+		
+		$this->assertTrue(is_string($response));
+	}
+	
+	public function testListMultipart() {
+		$response = \Yii::$app->riakcs->client->listMultiPartUploads($this->bucketName);
+
+		$this->assertTrue(is_array($response));
+		
+		if (count($response) > 0) {
+			foreach ($response as $upload) {
+				$this->assertArrayHasKey('uploadId', $upload);
+				$this->assertArrayHasKey('key', $upload);
+				$this->assertArrayHasKey('date', $upload);
+				$bool = \Yii::$app->riakcs->client->abortUpload($this->bucketName, $upload['key'], $upload['uploadId']);
+				$this->assertTrue($bool);
+			}
+		}
+		
+		$response = \Yii::$app->riakcs->client->listMultiPartUploads($this->bucketName);
+		$this->assertEmpty($response);
+	}
+	
 	/**
 	 * Delete files (same than deleteObject)
 	 * 
