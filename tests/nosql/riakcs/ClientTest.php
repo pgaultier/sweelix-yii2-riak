@@ -64,9 +64,40 @@ class ClientTest extends TestCase {
 	}
 	
 	protected function tearDown() {
+		if (\Yii::$app->riakcs->isActive) {
+			\Yii::$app->riakcs->close();
+		}
+		
 		parent::tearDown();
 	}
 
+	public function testConnection() {
+		try {
+			\Yii::$app->riakcsError->client;
+			//YOU SHALL NOT PASS
+			$this->assertTrue(false);
+		} catch (\Exception $e) {
+			$this->assertTrue(true);
+		}
+		
+		try {
+			\Yii::$app->riakcs->client;
+			//YOU SHALL PASS
+			$this->assertTrue(true);
+		} catch (\Exception $e) {
+			$this->assertTrue(false);
+		}
+		
+	}
+
+	public function testInitialState() {
+		$this->assertNull(\Yii::$app->riakcs->client->sslKey);
+		$this->assertNull(\Yii::$app->riakcs->client->sslCert);
+		$this->assertNull(\Yii::$app->riakcs->client->sslCaCert);
+		$this->assertTrue(\Yii::$app->riakcs->client->useSslValidation);
+		$this->assertEquals(0, \Yii::$app->riakcs->client->timeOffset);
+	}
+	
 	/**
 	 * Create buckets
 	 * 
@@ -101,11 +132,16 @@ class ClientTest extends TestCase {
 	}
 		
 	public function testGetBucketAcl() {
+		/* GET ACL ON EXISTANT Bucket */
 		$response = \Yii::$app->riakcs->client->getBucketAcl($this->bucketName);
 		$this->checkArrayHasKeys($this->aclKeys, $response);
 		foreach ($response[$this->aclKeys[2]] as $grant) {
 			$this->checkArrayHasKeys($this->grantsKeys, $grant);
 		}
+		
+		/* GET ACL ON INEXISTANT Bucket */
+		$acl = \Yii::$app->riakcs->client->getBucketAcl($this->bucketError);
+		$this->assertFalse($acl);
 	}
 	
 	/**
@@ -143,9 +179,27 @@ class ClientTest extends TestCase {
 		$this->assertFalse($response);
 	}
 
+	public function testHeadObject() {
+		$headers = \Yii::$app->riakcs->client->headObject($this->bucketName, $this->objectName);
+		
+		$headers = \Yii::$app->riakcs->client->headObject($this->bucketError, 'noMatterWhat');
+		$this->assertFalse($headers);
+		
+	}
+	
 	public function testGetObjectAcl() {
-		$response = \Yii::$app->riakcs->client->getObjectAcl($this->bucketName, $this->objectName);
-		var_dump($response);
+		/* GET ACL ON EXISTANT OBJECT */
+		$acl = \Yii::$app->riakcs->client->getObjectAcl($this->bucketName, $this->objectName);
+		$this->assertTrue(is_array($acl));
+		$this->checkArrayHasKeys($this->aclKeys, $acl);
+		foreach ($acl[$this->aclKeys[2]] as $grant) {
+			$this->checkArrayHasKeys($this->grantsKeys, $grant);
+			$this->assertEquals('FULL_CONTROL', $grant[$this->grantsKeys[2]]);
+		}
+		
+		/* GET ACL ON INEXISTANT OBJECT */
+		$acl = \Yii::$app->riakcs->client->getObjectAcl($this->bucketError, $this->objectName);
+		$this->assertFalse($acl);
 	}
 	
 	
@@ -212,6 +266,11 @@ class ClientTest extends TestCase {
 		$response = \Yii::$app->riakcs->client->putFile($this->bucketName, $this->objectKeyMusicname, $bigFilePath);
 		$this->assertTrue($response);
 		
+		/* Put big file (if file > 5MB, it will upload with a multiupload) With metada*/
+		$response = \Yii::$app->riakcs->client->putFile($this->bucketName, $this->objectKeyMusicname, $bigFilePath, array('TEST' => 'TEST', 'TEST2' => 'TEST2'));
+		$this->assertTrue($response);
+		
+		
 		/* Put file in inexsistant bucket */
 		$response = \Yii::$app->riakcs->client->putFile($this->bucketError, $this->objectKeyMusicname, $bigFilePath);
 		$this->assertFalse($response);
@@ -233,10 +292,10 @@ class ClientTest extends TestCase {
 	}
 	
 	public function testListMultipart() {
-		$response = \Yii::$app->riakcs->client->listMultiPartUploads($this->bucketName);
-
-		$this->assertTrue(is_array($response));
+		$bigFilePath = \Yii::getAlias('@sweelix/yii2/nosql/tests').DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'music.mp3';   //15,7 MB
 		
+		$response = \Yii::$app->riakcs->client->listMultiPartUploads($this->bucketName);
+		$this->assertTrue(is_array($response));
 		if (count($response) > 0) {
 			foreach ($response as $upload) {
 				$this->assertArrayHasKey('uploadId', $upload);
@@ -249,6 +308,26 @@ class ClientTest extends TestCase {
 		
 		$response = \Yii::$app->riakcs->client->listMultiPartUploads($this->bucketName);
 		$this->assertEmpty($response);
+		
+		//LIST FROM INEXISTANT BUCKET
+		$response = \Yii::$app->riakcs->client->listMultiPartUploads($this->bucketError);
+		$this->assertFalse($response);
+		
+		//TEST UPLOAD PART OF INEXISTANT FILE
+		$response = \Yii::$app->riakcs->client->uploadAllPart($this->bucketName, $this->objectName, '/pathTOInexistantFile', Client::ACL_PRIVATE, 'qsdqdqsd', 5);
+		$this->assertFalse($response);
+		
+		//TEST UPLOAD FILE TO BUCKET ERROR
+		$response = \Yii::$app->riakcs->client->uploadAllPart($this->bucketError, $this->objectName, $bigFilePath, Client::ACL_PRIVATE, 'qsdqdqsd', 5);
+		$this->assertFalse($response);
+		
+		//TEST ABORT UPLOAD FROM INEXISTANT BUCKET.
+		$response = \Yii::$app->riakcs->client->abortUpload($this->bucketError, $this->objectName, '654qcxsq2321');
+		$this->assertFalse($response);
+		
+		//TEST COMPLETE INEXISTANT UPLOAD
+		$response = \Yii::$app->riakcs->client->completeMultiPartUpload($this->bucketError, $this->objectName, array("1" => "1"), '654qcxsq2321');
+		$this->assertFalse($response);
 	}
 	
 	/**
