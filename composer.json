@@ -22,7 +22,7 @@
 	"require" : {
 		"ext-curl" : "*",
 		"php" : ">=5.4.0",
-		"sweelix/curl" : ">=1.1.0"
+		"sweelix/curl" : "dev-devel"
 	},
 	"require-dev" : {
 		"phpunit/phpunit" : "3.7.*",
