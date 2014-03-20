@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "7d363747cc855febd48a6bcb71e914b0",
+    "hash": "4da967c2c600f3eb085a21d64a3a5194",
     "packages": [
         {
             "name": "sweelix/curl",
@@ -802,7 +802,8 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "sweelix/curl": 20
+        "sweelix/curl": 20,
+        "yiisoft/yii2": 20
     },
     "platform": {
         "ext-curl": "*",
