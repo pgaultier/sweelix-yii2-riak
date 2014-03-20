@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "ce1ada201f6bb6145b744a3cb4d8e69c",
+    "hash": "a67ea5545f345f1bc04f20e5682074a7",
     "packages": [
         {
             "name": "sweelix/curl",
@@ -98,7 +98,7 @@
                     "name": "Carsten Brandt",
                     "email": "mail@cebe.cc",
                     "homepage": "http://cebe.cc/",
-                    "role": "Core framework development"
+                    "role": "Creator"
                 }
             ],
             "description": "A super fast highly extensible markdown parser for PHP",
@@ -262,6 +262,52 @@
                 "iterator"
             ],
             "time": "2013-10-10 15:34:57"
+        },
+        {
+            "name": "phpunit/php-invoker",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/php-invoker.git",
+                "reference": "8aa18134acfa9e2dc046e36906645f0c83401581"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-invoker/zipball/8aa18134acfa9e2dc046e36906645f0c83401581",
+                "reference": "8aa18134acfa9e2dc046e36906645f0c83401581",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pcntl": "*",
+                "php": ">=5.2.7",
+                "phpunit/php-timer": ">=1.0.4"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "PHP/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                ""
+            ],
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sb@sebastian-bergmann.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "Utility class for invoking callables with a timeout.",
+            "homepage": "https://github.com/sebastianbergmann/php-invoker/",
+            "keywords": [
+                "process"
+            ],
+            "time": "2013-08-02 07:40:36"
         },
         {
             "name": "phpunit/php-text-template",
@@ -636,12 +682,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "dd759c5716fb553fb77c253d79b2a90074631685"
+                "reference": "f28006ee6c9b609c35fdfe90769cc509e2ee22fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/dd759c5716fb553fb77c253d79b2a90074631685",
-                "reference": "dd759c5716fb553fb77c253d79b2a90074631685",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/f28006ee6c9b609c35fdfe90769cc509e2ee22fb",
+                "reference": "f28006ee6c9b609c35fdfe90769cc509e2ee22fb",
                 "shasum": ""
             },
             "require": {
@@ -706,7 +752,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2014-03-19 13:50:53"
+            "time": "2014-03-20 10:10:51"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -763,8 +809,8 @@
 
     ],
     "platform": {
-        "php": ">=5.4.0",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "php": ">=5.4.0"
     },
     "platform-dev": [
 
