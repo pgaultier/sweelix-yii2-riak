@@ -777,7 +777,7 @@ class Client extends Component {
 			$ret = false;
 			
 			if ($infoFile['size'] < $partSize * 1024 * 1024) {
-				$f = fopen($filename, 'r');
+				$f = @fopen($filename, 'r');
 				if ($f === false) {
 					throw new RiakException($filename.' : Can\'t open file', 404);
 				} else {
@@ -858,48 +858,52 @@ class Client extends Component {
 	 * @since  XXX
 	 */
 	public function uploadAllPart($bucket, $objectKey, $filename, $acl, $uploadId, $partSize) {
-		\Yii::trace('Trace: '.__CLASS__.'::'.__FUNCTION__.'()', __METHOD__);
-		$parts = false;
-		
-		$f = fopen($filename, 'r');
-		if ($f === false) {
-			$this->abortUpload($bucket, $objectKey, $uploadId);
-			throw new RiakException($filename.' : No such file/Permission denied', 404);
-		} else {
-			$partNumber = 1;
-			$partSize *= 1024 * 1024;
-			$headers['Content-Type'] = $this->getFileType($filename);
-			while (!feof($f)) {
-				$parts = array();
-				$data = fread($f, $partSize);
-		
-				\Yii::info('Uploading part '.$partNumber.' of size '.strlen($data), __METHOD__);
-		
-				$headers['Content-Length'] = strlen($data);
-				$headers['x-amz-acl'] = $acl;
-				$request = $this->createRequest('PUT', $bucket, $objectKey, $headers, array(
-						'partNumber' => $partNumber,
-						'uploadId' => $uploadId,
-				));
-				$request->setBody($data);
-				$response = $request->execute();
-		
-				\Yii::trace('Response of upload part ('.$partNumber.') :'.var_export($response, true), __METHOD__);
-		
-		
-				if ($response->getStatus() === 200) {
-					$parts[$partNumber] = $response->getHeaderField('ETag');
-				} else {
-					$this->abortUpload($bucket, $objectKey, $uploadId);
-					fclose($f);
-					throw new RiakException($response->getData(), $response->getStatus());
+		try {
+			\Yii::trace('Trace: '.__CLASS__.'::'.__FUNCTION__.'()', __METHOD__);
+			$parts = false;
+			
+			$f = @fopen($filename, 'r');
+			if ($f === false) {
+				$this->abortUpload($bucket, $objectKey, $uploadId);
+				throw new RiakException($filename.' : No such file/Permission denied', 404);
+			} else {
+				$partNumber = 1;
+				$partSize *= 1024 * 1024;
+				$headers['Content-Type'] = $this->getFileType($filename);
+				while (!feof($f)) {
+					$parts = array();
+					$data = fread($f, $partSize);
+			
+					\Yii::info('Uploading part '.$partNumber.' of size '.strlen($data), __METHOD__);
+			
+					$headers['Content-Length'] = strlen($data);
+					$headers['x-amz-acl'] = $acl;
+					$request = $this->createRequest('PUT', $bucket, $objectKey, $headers, array(
+							'partNumber' => $partNumber,
+							'uploadId' => $uploadId,
+					));
+					$request->setBody($data);
+					$response = $request->execute();
+			
+					\Yii::trace('Response of upload part ('.$partNumber.') :'.var_export($response, true), __METHOD__);
+			
+			
+					if ($response->getStatus() === 200) {
+						$parts[$partNumber] = $response->getHeaderField('ETag');
+					} else {
+						$this->abortUpload($bucket, $objectKey, $uploadId);
+						fclose($f);
+						throw new RiakException($response->getData(), $response->getStatus());
+					}
+					$partNumber++;
 				}
-				$partNumber++;
+				fclose($f);
+					
 			}
-			fclose($f);
-				
+			return $parts;
+		} catch (\Exception $e) {
+			return $this->handleException($e);
 		}
-		return $parts;
 	}
 	
 	/**
@@ -914,28 +918,33 @@ class Client extends Component {
 	 * @since  XXX
 	 */
 	public function completeMultiPartUpload($bucket, $objectKey, $parts, $uploadId) {
-		\Yii::trace('Trace: '.__CLASS__.'::'.__FUNCTION__.'()', __METHOD__);
-		
-		$ret = false;
-
-		$xmlBody = $this->createXmlCompleteUpload($parts);
-		$headers['Content-Length'] = strlen($xmlBody);
-		$headers['Content-Type'] = 'application/json';
-		
-		$request = $this->createRequest('POST', $bucket, $objectKey, $headers, array('uploadId' => $uploadId));
-		$request->setBody($xmlBody);
-		$response = $request->execute();		
-		
-		if ($response->getStatus() === 200) {
-			$ret = true;
-			\Yii::trace('Complete multi part upload response : '.var_export($response, true), __METHOD__);
-		} else {
-			\Yii::error('Complete multipart upload failed. : '.var_export($response, true), __METHOD__);
-			$this->abortUpload($bucket, $objectKey, $uploadId);
-			throw new RiakException($response->getData(), $response->getStatus());
-				
+		try {
+			\Yii::trace('Trace: '.__CLASS__.'::'.__FUNCTION__.'()', __METHOD__);
+			
+			$ret = false;
+			
+			$xmlBody = $this->createXmlCompleteUpload($parts);
+			$headers['Content-Length'] = strlen($xmlBody);
+			$headers['Content-Type'] = 'application/json';
+			
+			$request = $this->createRequest('POST', $bucket, $objectKey, $headers, array('uploadId' => $uploadId));
+			$request->setBody($xmlBody);
+			$response = $request->execute();
+			
+			if ($response->getStatus() === 200) {
+				$ret = true;
+				\Yii::trace('Complete multi part upload response : '.var_export($response, true), __METHOD__);
+			} else {
+				\Yii::error('Complete multipart upload failed. : '.var_export($response, true), __METHOD__);
+				$this->abortUpload($bucket, $objectKey, $uploadId);
+				throw new RiakException($response->getData(), $response->getStatus());
+			
+			}
+			return $ret;
+		} catch (\Exception $e) {
+			return $this->handleException($e);
 		}
-		return $ret;
+
 	}
 	
 	/**
@@ -976,7 +985,7 @@ class Client extends Component {
 		if (!file_exists($file) || !is_file($file) || !is_readable($file)) {
 			throw new RiakException($file.': No such file/Permission denied', 404);
 		}
-		return array('file' => $file, 'size' => filesize($file), 'type' => $this->getFileType($file));
+		return array('file' => $file, 'type' => $this->getFileType($file), 'size' => filesize($file));
 	}
 	
 	/**
@@ -1050,24 +1059,28 @@ class Client extends Component {
 			$request = $this->createRequest('GET', $bucket, '', array(), array('uploads' => ''));
 			
 			$response = $request->execute();
-	
-			$multiParts = array();
-			
-			$doc = new \DOMDocument('1.0', 'UTF-8');
-			$doc->loadXML($response->getData());
-			
-			$uploads = $doc->getElementsByTagName('Upload');
-			
-			$listUploads = array();
-			foreach ($uploads as $upload) {
-				$uploadId = $upload->getElementsByTagName('UploadId')->item(0)->textContent;
-				$key = $upload->getElementsByTagName('Key')->item(0)->textContent;
-				$date = $upload->getElementsByTagName('Initiated')->item(0)->textContent;
-				$listUploads[] = array(
-					'uploadId' => $uploadId,
-					'key' => $key,
-					'date' => $date,
-				);
+
+			if ($response->getStatus() === 200) {
+				$multiParts = array();
+				
+				$doc = new \DOMDocument('1.0', 'UTF-8');
+				$doc->loadXML($response->getData());
+				
+				$uploads = $doc->getElementsByTagName('Upload');
+				
+				$listUploads = array();
+				foreach ($uploads as $upload) {
+					$uploadId = $upload->getElementsByTagName('UploadId')->item(0)->textContent;
+					$key = $upload->getElementsByTagName('Key')->item(0)->textContent;
+					$date = $upload->getElementsByTagName('Initiated')->item(0)->textContent;
+					$listUploads[] = array(
+						'uploadId' => $uploadId,
+						'key' => $key,
+						'date' => $date,
+					);
+				}
+			} else {
+				throw new RiakException($response->getData(), $response->getStatus());
 			}
 			return $listUploads;
 		} catch (\Exception $e) {
