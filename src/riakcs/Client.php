@@ -558,7 +558,7 @@ class Client extends Component {
 	 * @param string $bucket    The bucket which contains $objectKey.
 	 * @param string $objectKey The object key wanted to get.
 	 * 
-	 * @return array|boolean
+	 * @return array|false
 	 * @since  XXX
 	 */
 	public function getObjectAcl($bucket, $objectKey) {
@@ -570,7 +570,19 @@ class Client extends Component {
 			$response = $request->execute();
 			
 			if ($response->getStatus() === 200) {
-				$acl = $this->buildAcl($response->getData());
+				//ISSUE : Content-Type = application/json
+				//Should be application/xml
+				//getData() returns null cause it tries to json_decode but it's xml...
+				//So use getRawData() instead of getData()
+				//var_dump($response->getRawData());
+				//var_dump($response->getHeaderField('Content-Type'));
+				//var_dump($response->getData());
+				$data = $response->getRawData();
+				if (!empty($data)) {
+					$acl = $this->buildAcl($data);
+				} else {
+					$acl = array();
+				}
 			} else {
 				throw new RiakException($response->getData(), $response->getStatus());
 			}
@@ -796,7 +808,7 @@ class Client extends Component {
 	 * @return string Return the uploadId.
 	 * @since  XXX
 	 */
-	private function initMultiPartUpload($bucket, $objectKey, $filename, $acl, $metaData = array()) {
+	public function initMultiPartUpload($bucket, $objectKey, $filename, $acl = self::ACL_PRIVATE, $metaData = array()) {
 		\Yii::trace('Trace: '.__CLASS__.'::'.__FUNCTION__.'()', __METHOD__);
 		
 		$ret = false;
@@ -847,7 +859,7 @@ class Client extends Component {
 	 * @return array An array which contains partNumber (key) => ETag of the part (value).
 	 * @since  XXX
 	 */
-	private function uploadAllPart($bucket, $objectKey, $filename, $acl, $uploadId, $partSize) {
+	public function uploadAllPart($bucket, $objectKey, $filename, $acl, $uploadId, $partSize) {
 		\Yii::trace('Trace: '.__CLASS__.'::'.__FUNCTION__.'()', __METHOD__);
 		$parts = false;
 		
@@ -903,7 +915,7 @@ class Client extends Component {
 	 * @return boolean Whether the complete did succeed.
 	 * @since  XXX
 	 */
-	private function completeMultiPartUpload($bucket, $objectKey, $parts, $uploadId) {
+	public function completeMultiPartUpload($bucket, $objectKey, $parts, $uploadId) {
 		\Yii::trace('Trace: '.__CLASS__.'::'.__FUNCTION__.'()', __METHOD__);
 		
 		$ret = false;
@@ -1030,7 +1042,7 @@ class Client extends Component {
 	 * 
 	 * @param string $bucket The bucket name.
 	 * 
-	 * @return array Array of active uploads.
+	 * @return array|false Array of active uploads or false if an error occurred.
 	 * @since  XXX
 	 */
 	public function listMultiPartUploads($bucket) {
