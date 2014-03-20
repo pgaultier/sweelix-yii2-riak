@@ -39,14 +39,15 @@ class ActiveRecordTest extends TestCase {
 	protected function setUp() {
 		parent::setUp();
 		$this->mockApplication(require(__DIR__.'/../../data/web.php'));
-
 	}
 	
 	protected function tearDown() {
 		parent::tearDown();
 	}
 	
-	private function resetBucket() {
+	public function testTest() {
 		
 	}
+	
+	
 }
