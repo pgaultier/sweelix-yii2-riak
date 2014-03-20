@@ -580,8 +580,6 @@ class Client extends Component {
 				$data = $response->getRawData();
 				if (!empty($data)) {
 					$acl = $this->buildAcl($data);
-				} else {
-					$acl = array();
 				}
 			} else {
 				throw new RiakException($response->getData(), $response->getStatus());
