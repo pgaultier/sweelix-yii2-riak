@@ -31,5 +31,19 @@ use sweelix\yii2\nosql\tests\TestCase;
  * @package   application.test.unit.nosql.riak
  * @since     XXX
  */
-class ClientTest extends TestCase {	
+class ClientTest extends TestCase {
+
+	
+	protected function setUp() {
+		parent::setUp();
+		$this->mockApplication(require(__DIR__.'/../../data/web.php'));
+	}
+	
+	protected function tearDown() {
+		parent::tearDown();
+	}
+	
+	public function testTest() {
+		
+	}
 }
