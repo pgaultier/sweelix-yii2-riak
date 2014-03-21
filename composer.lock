@@ -652,12 +652,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/jquery-pjax.git",
-                "reference": "74330005f9d5ffdf923d6ce45c10814d9a8902bb"
+                "reference": "520f8c12b5a417e21d2cd0df499fa2a4e4e9a9d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/jquery-pjax/zipball/74330005f9d5ffdf923d6ce45c10814d9a8902bb",
-                "reference": "74330005f9d5ffdf923d6ce45c10814d9a8902bb",
+                "url": "https://api.github.com/repos/yiisoft/jquery-pjax/zipball/520f8c12b5a417e21d2cd0df499fa2a4e4e9a9d6",
+                "reference": "520f8c12b5a417e21d2cd0df499fa2a4e4e9a9d6",
                 "shasum": ""
             },
             "require": {
@@ -670,7 +670,7 @@
             ],
             "description": "pushState + ajax = pjax, a forked maintainted by the Yii Framework core developers",
             "homepage": "https://github.com/yiisoft/jquery-pjax#readme",
-            "time": "2014-03-12 16:07:37"
+            "time": "2014-03-20 17:20:33"
         },
         {
             "name": "yiisoft/yii2",
@@ -678,12 +678,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "f28006ee6c9b609c35fdfe90769cc509e2ee22fb"
+                "reference": "9e7ca6a7237e89c946b7ccf610d07cac82a32a36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/f28006ee6c9b609c35fdfe90769cc509e2ee22fb",
-                "reference": "f28006ee6c9b609c35fdfe90769cc509e2ee22fb",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/9e7ca6a7237e89c946b7ccf610d07cac82a32a36",
+                "reference": "9e7ca6a7237e89c946b7ccf610d07cac82a32a36",
                 "shasum": ""
             },
             "require": {
@@ -748,7 +748,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2014-03-20 10:10:51"
+            "time": "2014-03-21 04:02:15"
         },
         {
             "name": "yiisoft/yii2-composer",

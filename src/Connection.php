@@ -5,6 +5,7 @@
  * PHP version 5.3+
  *
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
+ * @author    Christophe Latour <clatour@ibitux.com>
  * @copyright 2010-2013 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   XXX
@@ -28,6 +29,7 @@ use sweelix\yii2\nosql\riak\QueryBuilder;
  * This class allow user to connect to a riak database
  *
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
+ * @author    Christophe Latour <clatour@ibitux.com>
  * @copyright 2010-2013 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   XXX

@@ -10,7 +10,7 @@
  * @version   XXX
  * @link      http://code.ibitux.net/redlix/
  * @category  tests
- * @package   application.test.unit.nosql.riak
+ * @package   sweelix.yii2.nosql.tests
  */
 
 namespace redlix\tests\unit\nosql\riak;
@@ -18,7 +18,7 @@ namespace redlix\tests\unit\nosql\riak;
 use sweelix\yii2\nosql\tests\TestCase;
 
 /**
- * Class ClientTest tests the riak-cs client.
+ * Class ClientTest tests the riak client
  *
  * PHP version 5.3+
  *
