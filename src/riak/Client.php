@@ -95,22 +95,22 @@ class Client extends Component {
 		
 		if ($objectKey === null) {
 			$request->setMethod('POST');
-			\Yii::trace('StoreObject request : @POST '.$url."\n", __CLASS__);
+			\Yii::info('StoreObject request : @POST '.$url."\n", __METHOD__);
 		} else {
-			\Yii::trace('StoreObject request : @PUT '.$url."\n", __CLASS__);
+			\Yii::info('StoreObject request : @PUT '.$url."\n", __METHOD__);
 			$request->setMethod('PUT');
 		}
 		$additionalHeaders['Content-Type'] = 'application/json';
 		
-		\Yii::trace('StoreObject body : '.var_export($content, true)."\n", __CLASS__);
-		\Yii::trace('StoreObject headers : '.var_export($additionalHeaders, true)."\n", __CLASS__);
+		\Yii::info('StoreObject body : '.var_export($content, true)."\n", __METHOD__);
+		\Yii::info('StoreObject headers : '.var_export($additionalHeaders, true)."\n", __METHOD__);
 		
 		$request->setHeaders($additionalHeaders);
 		$request->setUrlParameters($additionalParameters);
 		$request->setBody(json_encode($content));
 		
 		$response = $request->execute();
-		\Yii::trace('StoreObject response : '.var_export($response, true)."\n", __CLASS__);
+		\Yii::info('StoreObject response : '.var_export($response, true)."\n", __METHOD__);
 		return $response;
 	}
 
@@ -129,8 +129,8 @@ class Client extends Component {
 	public function updateCounters($bucketName, $counterKey, $incrementalValue, $additionalParameters = array(), $headers = array()) {
 		$url = $this->prepareUrl('bucketCounters', array('{bucket}' => $bucketName, '{key}' => $counterKey));
 		$request = new Request($url);
-		\Yii::trace('UpdateCounters request : @POST '.$url."\n", __CLASS__);
-		\Yii::trace('UpdateCounters body : '.var_export($incrementalValue)."\n", __CLASS__);
+		\Yii::info('UpdateCounters request : @POST '.$url."\n", __METHOD__);
+		\Yii::info('UpdateCounters body : '.var_export($incrementalValue)."\n", __METHOD__);
 		
 		$request->setMethod('POST');
 		$headers['Content-Type'] = 'application/json';
@@ -139,7 +139,7 @@ class Client extends Component {
 		$request->setBody(json_encode($incrementalValue));
 		
 		$response = $request->execute();
-		\Yii::trace('UpdateCounters response : @POST '.$url."\n", __CLASS__);
+		\Yii::info('UpdateCounters response : @POST '.$url."\n", __METHOD__);
 		return $response;
 	}
 	
@@ -157,7 +157,7 @@ class Client extends Component {
 	public function getCounters($bucketName, $counterKey, $additionalParameters = array(), $headers = array()) {
 		$url = $this->prepareUrl('bucketCounters', array('{bucket}' => $bucketName, '{key}' => $counterKey));
 		$request = new Request($url);
-		\Yii::trace('GetCounters request : @GET '.$url."\n", __CLASS__);
+		\Yii::info('GetCounters request : @GET '.$url."\n", __METHOD__);
 		
 		$request->setMethod('GET');
 		$headers['Content-Type'] = 'application/json';
@@ -165,7 +165,7 @@ class Client extends Component {
 		$request->setUrlParameters($additionalParameters);
 		
 		$response = $request->execute();
-		\Yii::trace('GetCounters response : '.var_export($response, true)."\n", __CLASS__);
+		\Yii::info('GetCounters response : '.var_export($response, true)."\n", __METHOD__);
 		return $response();
 	}
 
@@ -181,15 +181,15 @@ class Client extends Component {
 	public function alterBucket($bucketName, array $properties) {
 		$url = $this->prepareUrl('bucketProperties', array('{bucket}' => $bucketName));
 		$request = new Request($url);
-		\Yii::trace('AlterBucket request : @PUT'.$url."\n", __CLASS__);
-		\Yii::trace('AlterBucket body : '.var_export($properties)."\n", __CLASS__);
+		\Yii::info('AlterBucket request : @PUT'.$url."\n", __METHOD__);
+		\Yii::info('AlterBucket body : '.var_export($properties)."\n", __METHOD__);
 		
 		$request->setMethod('PUT');
 		$request->setHeaders(array('Content-Type' => 'application/json'));
 		$request->setBody(json_encode($properties));
 		
 		$response = $request->execute();
-		\Yii::trace('AlterBucket response : '.var_export($response, true)."\n", __CLASS__);
+		\Yii::info('AlterBucket response : '.var_export($response, true)."\n", __METHOD__);
 		
 		return $response;
 	}
@@ -209,13 +209,13 @@ class Client extends Component {
 	public function getObject($bucketName, $objectKey, $additionalParameters = array(), $additionalHeaders = array() ) {
 		$url = $this->prepareUrl('objectKey', array('{bucket}' => $bucketName, '{key}' => $objectKey));
 		$request = new Request($url);
-		\Yii::trace('GetObject request : @GET '.$url."\n", __CLASS__);
+		\Yii::info('GetObject request : @GET '.$url."\n", __METHOD__);
 		
 		$request->setHeaders($additionalHeaders);
 		$request->setUrlParameters($additionalParameters);
 		
 		$response = $request->execute();
-		\Yii::trace('GetObject response : '.var_export($response, true)."\n", __CLASS__);
+		\Yii::info('GetObject response : '.var_export($response, true)."\n", __METHOD__);
 		return $response;
 	}
 
@@ -233,13 +233,13 @@ class Client extends Component {
 	public function deleteObject($bucketName, $objectKey, $additionalParameters = array()) {
 		$url = $this->prepareUrl('objectKey', array('{bucket}' => $bucketName, '{key}' => $objectKey));
 		$request = new Request($url);
-		\Yii::trace('DeleteObject request : @DELETE '.$url."\n", __CLASS__);
+		\Yii::info('DeleteObject request : @DELETE '.$url."\n", __METHOD__);
 		
 		$request->setMethod('DELETE');
 		$request->setUrlParameters($additionalParameters);
 		
 		$response = $request->execute();
-		\Yii::trace('DeleteObject response '.var_export($response, true)."\n", __CLASS__);
+		\Yii::info('DeleteObject response '.var_export($response, true)."\n", __METHOD__);
 		return $response;
 	}
 
@@ -265,14 +265,14 @@ class Client extends Component {
 				)
 		);
 		$request = new Request($url);
-		\Yii::trace('QueryIndexes request : @GET '.$url."\n", __CLASS__);
+		\Yii::info('QueryIndexes request : @GET '.$url."\n", __METHOD__);
 		$request->setMethod('GET');
 		$request->setUrlParameters($additionalParameters);
 //		$additionalHeaders['Accept'] = 'multipart/mixed';
 //		$additionalHeaders['Content-Type'] = 'application/json';
 //		$request->setHeaders($additionalHeaders);
 		$response = $request->execute();
-		\Yii::trace('QueryIndexes resposne : '.var_export($response, true)."\n", __CLASS__);
+		\Yii::info('QueryIndexes resposne : '.var_export($response, true)."\n", __METHOD__);
 		return $response;
 	}
 
@@ -298,14 +298,14 @@ class Client extends Component {
 		$url = $this->prepareUrl('mapReduce');
 		$request = new Request($url);
 		
-		\Yii::trace('QueryMapReduce request : @POST '.$url."\n", __CLASS__);
-		\Yii::trace('QueryMapReduce body : '.var_export($mapReduce, true)."\n", __CLASS__);
+		\Yii::info('QueryMapReduce request : @POST '.$url."\n", __METHOD__);
+		\Yii::info('QueryMapReduce body : '.var_export($mapReduce, true)."\n", __METHOD__);
 		$request->setMethod('POST');
 		$additionalHeaders['Content-Type'] = 'application/json';
 		$request->setHeaders($additionalHeaders);
 		$request->setBody($mapReduce);
 		$response = $request->execute();
-		\Yii::trace('QueryMapReduce response : '.var_export($response, true)."\n", __CLASS__);
+		\Yii::info('QueryMapReduce response : '.var_export($response, true)."\n", __METHOD__);
 		return $response;
 	}
 
@@ -328,13 +328,13 @@ class Client extends Component {
 			'{key}' => $objectKey,
 			'linkParams' => $links));
 		$request = new Request($url);
-		\Yii::trace('QueryLink request : @GET '.$url."\n", __CLASS__);
+		\Yii::info('QueryLink request : @GET '.$url."\n", __METHOD__);
 		$request->setMethod('GET');
 		$additionalHeaders['Content-Type'] = 'multipart/mixed';
 		$request->setHeaders($additionalHeaders);
 		
 		$response = $request->execute();
-		\Yii::trace('QueryLink response : '.var_export($response, true)."\n", __CLASS__);
+		\Yii::info('QueryLink response : '.var_export($response, true)."\n", __METHOD__);
 		return $response;
 	}
 
