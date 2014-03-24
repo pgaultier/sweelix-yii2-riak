@@ -305,6 +305,8 @@ abstract class QueryBuilder extends Object {
 			'mode' => $query->mode,
 			'bucket' => $query->bucket,
 			'key' => $query->key,
+			'queryLinks' => $this->buildQueryLinks($query),
+			'queryIndex' => $this->buildQueryIndex($query),
 			'data' => $this->buildBody($query),
 			'headers' => $this->buildHeaders($query),
 			'queryParams' => $this->buildQueryParams($query),
@@ -313,11 +315,60 @@ abstract class QueryBuilder extends Object {
 	}
 
 	/**
-	 * This function the body of the query
+	 * Build the queryLinks
 	 * 
 	 * @param Query $query The query to build
 	 * 
-	 * @return string|null
+	 * @return array|null If no links is setted, return null,
+	 *                    Else, returns the builded array for 'queryLinks' commandData.
+	 * @since  XXX
+	 */	
+	private function buildQueryLinks(Query $query) {
+		$ret = null;
+		if (isset($query->getLinks())) {
+			$ret = array();
+			foreach ($query->getLinks() as $link) {
+				$ret[]['bucket'] = $link[0];
+				$ret[]['tag'] = $link[1];
+				$ret[]['keep'] = $link[2];
+			}
+		}
+		return $ret;
+	}
+
+	/**
+	 * Build the queryIndex
+	 * 
+	 * @param Query $query The query to build
+	 * 
+	 * @return null|array If no searchIndex is settted, return null.
+	 *                    Else returns the built array for 'queryIndex' commandData.
+	 * @since  XXX
+	 */
+	private function buildQueryIndex(Query $query) {
+		$ret = null;
+		$index = $query->getIndex();
+		if (isset($index)) {
+			if (isset($index['endValue'])) {
+				$ret = array(
+					$index['indexName'] => array(
+						$index['value'],
+						$index['endValue']
+					)
+				);
+			} else {
+				$ret = array($index['indexName'] => $index['value']);
+			}
+		}
+		return $ret;
+	}
+	
+	/**
+	 * Build the body of the query
+	 * 
+	 * @param Query $query The query to build
+	 * 
+	 * @return string|null 
 	 * @since  XXX
 	 */
 	protected function buildBody(Query $query) {

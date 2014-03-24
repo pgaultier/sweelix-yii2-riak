@@ -179,7 +179,7 @@ class Query extends Component {
 	 */
 	public function all($db = null) {
 		$command = $this->createCommand($db);
-		return $command->queryAll($this);
+		return $command->queryAll();
 	}
 
 	/**
@@ -194,7 +194,7 @@ class Query extends Component {
 	 */
 	public function one($db = null) {
 		$command = $this->createCommand($db);
-		return $command->queryOne($this);
+		return $command->queryOne();
 	}
 	
 	/**
@@ -347,7 +347,7 @@ class Query extends Component {
 	 * 
 	 * <code>
 	 * 		$query->select()->fromBucket('user')->withKey('userTest')->linked('user', 'friend', '1')->all();
-	 * 		//search all user who are friend with userTest.
+	 * 		//search all user who are friend with userTest in the bucket 'user'
 	 * 		//will call the url : /buckets/user/keys/userTest/user,friend,1
 	 * </code>
 	 *
