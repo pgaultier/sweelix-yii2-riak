@@ -67,7 +67,7 @@ class ActiveQuery extends Query {
 		static $i = 0;
 		$command = $this->createCommand($db);
 		$class = $this->queryClass;
-		$data = $command->queryOne($this);
+		$data = $command->queryOne();
 		$row = $data->current();
 
 		$model = $class::create($row);
@@ -89,7 +89,7 @@ class ActiveQuery extends Query {
 
 		$class = $this->queryClass;
 
-		$data = $command->queryAll($this);
+		$data = $command->queryAll();
 		foreach ($data as $row) {
 			$models[] = $class::create($row);
 		}
