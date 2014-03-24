@@ -17,7 +17,6 @@ namespace sweelix\yii2\nosql;
 
 use yii\base\Component;
 use sweelix\yii2\nosql\DataReader;
-use Basho\Riak\Exception;
 use sweelix\yii2\nosql\riak\IndexType;
 use sweelix\curl\Response;
 
@@ -60,6 +59,16 @@ abstract class Command extends Component {
 	 *   'mode'        => 'select' | 'insert' | 'update' | 'delete',
 	 *   'bucket'      => bucket Name,
 	 *   'key'         => The object key
+	 *   'queryIndex' => array(
+	 *   	'indexName'=> 'indexValue' OR 'indexName' => array('indexValueStart', 'indexValueEnd'),
+	 *   ),
+	 *   'queryLinks' => array(
+	 *	   		array(
+	 *				'bucket' => 'BucketLinkName' OR '_',
+	 *				'tag' => 'TagToSearch' OR '_',
+	 *				'keep' => 1 OR 0 OR '_',
+	 *   		),
+	 *   ),
 	 *   'headers'     => array(
 	 *      	'headerKey1' => 'headerValue1',
 	 *      	'headerKey2' => 'headerValue2',
@@ -129,16 +138,6 @@ abstract class Command extends Component {
 		return $this->query;
 	}
 	
-	/**
-	 * Set query
-	 *
-	 * @param Query $query the query
-	 *
-	 * @return void
-	 * @since  XXX
-	 */
-//	abstract public function setQuery($query);
-
 	/**
 	 * Creates an INSERT command.
 	 * For example:
@@ -390,7 +389,7 @@ abstract class Command extends Component {
 				break;
 			case 'update':
 				if (isset($this->headers['X-Riak-Vclock']) === false) {
-					throw new Exception('VClock is needed to update an object.');
+					throw new \Exception('VClock is needed to update an object.');
 				} else {
 					$queryParams = $this->queryParams;
 					if (isset($queryParams['returnbody']) === false) {
@@ -437,7 +436,7 @@ abstract class Command extends Component {
 	 * An empty array is returned if the query results in nothing.
 	 * @since XXX
 	 */
-	abstract public function queryAll($query);
+	abstract public function queryAll();
 
 	/**
 	 * Executes the query statement and returns the first row of the result.
@@ -449,7 +448,7 @@ abstract class Command extends Component {
 	 * results in nothing.
 	 * @since XXX
 	 */
-	abstract public function queryOne($query);
+	abstract public function queryOne();
 
 	/**
 	 * Set the bucket to use.
@@ -508,10 +507,10 @@ abstract class Command extends Component {
 	 */
 	public function setMode($mode) {
 		$mode = strtolower($mode);
-		if (in_array($mode, $this->allowedMode)) {
+		if (in_array($mode, self::$allowedMode)) {
 			$this->commandData['mode'] = $mode;
 		} else {
-			throw new Exception('Found unknown mode for command: ' . $mode);
+			throw new \Exception('Found unknown mode for command: ' . $mode);
 		}
 	}
 	
