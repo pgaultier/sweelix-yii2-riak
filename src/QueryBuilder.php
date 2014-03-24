@@ -325,7 +325,8 @@ abstract class QueryBuilder extends Object {
 	 */	
 	private function buildQueryLinks(Query $query) {
 		$ret = null;
-		if (isset($query->getLinks())) {
+		$links = $query->getLinks();
+		if (isset($links)) {
 			$ret = array();
 			foreach ($query->getLinks() as $link) {
 				$ret[]['bucket'] = $link[0];
