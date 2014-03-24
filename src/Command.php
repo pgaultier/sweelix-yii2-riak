@@ -164,7 +164,7 @@ abstract class Command extends Component {
 	 * Creates an UPDATE command.
 	 * For example:
 	 * ~~~
-	 * $connection->createCommand()->update($bucket, $objectKey)->execute();
+	 * $connection->createCommand()->update($bucket, $objectKey, 'toto')->execute();
 	 * ~~~
 	 * The method will properly $data to be updated with $objectKey.
 	 * Note that the created command is not executed until [[execute()]] is called.
@@ -190,7 +190,7 @@ abstract class Command extends Component {
 	 * The method will properly $data to be updated with $objectKey.
 	 * Note that the created command is not executed until [[execute()]] is called.
 	 *
-	 * @param strin        $bucket    The bucket of object to delete.
+	 * @param string       $bucket    The bucket of object to delete.
 	 * @param string|array $objectKey The key of object.
 	 * 
 	 * @return Command the command object itself

@@ -34,162 +34,200 @@ use sweelix\yii2\nosql\tests\TestCase;
  * @category  controllers
  * @package   application.redlix.controllers
  */
-class CommandTest extends TestCase {
-	const BUCKET_NAME = 'user';
-	const OBJECT_KEY = 'user';
+class CommandTest extends TestCase { 
+	private $command;
+	
+	private $bucketName = 'riakBucketTest';
+	private $objectName = 'riakObjectTest';
+	private $objectData = array(
+		'objectDataKey' => 'objectDataValue',
+	);
 	
 	protected function setUp() {
 		parent::setUp();
 		$this->mockApplication(require(__DIR__.'/../../data/web.php'));
+		$this->command = \Yii::$app->riak->createCommand();
 	} 
+
 	
-	/**
-	 * This function test the insert of objects.
-	 */
+	public function testInit() {
+		$this->assertInstanceOf('sweelix\yii2\nosql\Command', $this->command);
+		$this->assertInstanceOf('sweelix\yii2\nosql\riak\Command', $this->command);
+		
+		$this->assertInstanceOf('sweelix\yii2\nosql\Connection', $this->command->noSqlDb);
+		$this->assertInstanceOf('sweelix\yii2\nosql\riak\Connection', $this->command->noSqlDb);
+		
+		$this->assertEmpty($this->command->getCommandData());	
+	}
+	
 	public function testInsert() {
-/*		echo PHP_EOL.'TEST INSERT BEGIN'.PHP_EOL;
-		$command = Yii::$app->nosql->createCommand();
-		
-		$this->assertInstanceOf('sweelix\yii2\nosql\Command', $command);
-		$this->assertInstanceOf('sweelix\yii2\nosql\riak\Command', $command);
-		
-		$command instanceof Command;
-		
-		//CREATING USER 0 (Basic insert)
-		$response = $command->insert(self::BUCKET_NAME, self::OBJECT_KEY.'0', array(
-				'firstname' => 'Christophe',
-				'lastname' => 'Latour',
-				'email' => 'clatour@ibitux.com',
-		))->execute();
-		
-		$this->assertInstanceOf('sweelix\yii2\nosql\DataReader', $response);
-		
-		$object = $response->current();
-		
-		$this->checkDataReaderObject($object);
-		
-		$this->assertEquals(200, $object['.status']);
-		$this->assertEquals('Christophe', $object['data']['firstname']);
-		$this->assertEquals('Latour', $object['data']['lastname']);
-		$this->assertEquals('clatour@ibitux.com', $object['data']['email']);		
-		echo 'insert '.self::OBJECT_KEY.'0 : OK'.PHP_EOL;
-	
-		
-		//Creating user (With index)
-		for ($i = 1 ; $i < 10 ; $i++) {
-			$key = self::OBJECT_KEY.$i;
-			$response = $command->insert(self::BUCKET_NAME, $key, array(
-					'firstname' => $key,
-					'lastname' => 'noneed',
-					'email' => 'userTest'.$i.'@ibitux.com',
-			))->addIndex('age', $i + 20, IndexType::TYPE_INTEGER)->execute();
-			
-			//TEST CLASS
-			$this->assertInstanceOf('sweelix\yii2\nosql\DataReader', $response);
-			$object = $response->current();
-				
-			//TEST ALL KEYS ARE THERE
-			$this->checkDataReaderObject($object);
+		$response = $this->command
+		->insert($this->bucketName, $this->objectName, $this->objectData)
+		->execute();
+		$this->checkResponseIntegrity($response);
 
-			$this->assertArrayHasKey('age', $object[DataReader::INDEX_KEY]);
-			
-			$this->assertCount(2, $object[DataReader::INDEX_KEY]['age']);
-			$this->assertEquals($i + 20, $object[DataReader::INDEX_KEY]['age'][0]);
-			
-			echo 'insert '.$key.' with indexes : OK'.PHP_EOL;
-		}
 
-		//Creating user With Link and Index
-		for ($i = 10 ; $i < 20 ; $i++) {
-			$key = self::OBJECT_KEY.$i;
-			$response = $command->insert(self::BUCKET_NAME, $key, array(
-				'firstname' => $key,
-				'lastname' => 'noneed',
-				'email' => 'userTest'.$i.'@ibitux.com',
-			))->addIndex('ville', 'Paris'.$i)
-			->addLink('user', 'user'.$i - 1, 'prev')
-			->addLink('user', 'user'.$i + 1, 'next')
-			->execute();
-
-			//TEST CLASS
-			$this->assertInstanceOf('sweelix\yii2\nosql\DataReader', $response);
-			$object = $response->current();
-			
-			$this->checkDataReaderObject($object); 
-			
-			$this->assertArrayHasKey('ville', $object[DataReader::INDEX_KEY]);
-			$this->assertCount(2, $object[DataReader::INDEX_KEY]['ville']);
-			$this->assertEquals('Paris'.$i, $object[DataReader::INDEX_KEY]['ville'][0]);
-			$this->assertCount(3, $object[DataReader::LINK_KEY]);
-			echo 'insert '.$key.' with links : OK'.PHP_EOL;
-		}
-
-		//Creating with Metadata
-		for ($i = 20 ; $i < 30 ; $i++) {
-			$key = self::OBJECT_KEY.$i;
-			$response = $command->insert(self::BUCKET_NAME, $key, array(
-				'firstname' => $key,
-				'lastname' => 'noneed',
-				'email' => 'userTest'.$i.'@ibitux.com',	
-			))->addMetaData('metatest', 'meta')
-			->execute();
-			
-			$this->assertInstanceOf('sweelix\yii2\nosql\DataReader', $response);
-			$object = $response->current();
-			
-			$this->checkDataReaderObject($object);
-			
-			$this->assertEquals(200, $object['.status']);
-			$this->assertEquals($key, $object['data']['firstname']);
-			$this->assertEquals('noneed', $object['data']['lastname']);
-			$this->assertEquals('userTest'.$i.'@ibitux.com', $object['data']['email']);
-			$this->assertArrayHasKey('metatest', $object[DataReader::META_KEY]);
-			$this->assertEquals('meta', $object[DataReader::META_KEY]['metatest']);
-
-			echo 'insert '.$key.' with metadata : OK'.PHP_EOL;
-		}
-		echo PHP_EOL.'TEST INSERT END'.PHP_EOL;*/
+		$this->resetCommand();
+		$this->command->setMode('insert');
+		$this->command->setBucket($this->bucketName);
+		$this->command->setKey($this->objectName.'WithSetters');
+		$this->command->setData($this->objectData);
+		$response = $this->command->execute();
+		$this->checkResponseIntegrity($response);
+		
+		$this->resetCommand();
+		
+		$commandData = array(
+			'mode' => 'insert',
+			'bucket' => $this->bucketName,
+			'key' => $this->objectName.'WithCommandData',
+			'data' => $this->objectData
+		);
+		$response = $this->command->setCommandData($commandData)->execute();
+		
+		$this->checkResponseIntegrity($response);
+		
+		$this->resetCommand();
+		
 	}
 	
+	public function testInsertWithMeta() {
+		$response = $this->command
+		->insert($this->bucketName, $this->objectName.'WithMeta', $this->objectData)
+		->addMetaData('metaTestKey', 'metaTestValue')
+		->execute();
+		$this->checkResponseIntegrity($response);
+		
+		$this->resetCommand();
+		
+		$this->command->setMode('insert');
+		$this->command->setBucket($this->bucketName);
+		$this->command->setKey($this->objectName.'WithMetaSetters');
+		$this->command->setData($this->objectData);
+		$this->command->setHeaders(array(
+			'X-Riak-metaTestKeySetter' => 'metaTestValue'
+		));
+		$response = $this->command->execute();
+		$this->checkResponseIntegrity($response);
+	}
+	
+	public function testInsertWithIndexes() {
+		$response = $this->command->insert($this->bucketName, $this->objectName.'WithIndexBin', $this->objectData)
+		->addIndex('indexTestKeyBin', 'indexTestValueBin')
+		->execute();
+		
+		$this->checkResponseIntegrity($response);
+		
+		$response = $this->command->insert($this->bucketName, $this->objectName.'WithIndexInt', $this->objectData)
+		->addIndex('indexTestKeyInt', 123, IndexType::TYPE_INTEGER)
+		->execute();
+		$this->checkResponseIntegrity($response);
+	}
+	
+	public function testInsertWithLinks() {
+		$response = $this->command->insert($this->bucketName, $this->objectName.'WithLink', $this->objectData)
+		->addLink($this->bucketName, $this->objectName, 'link')
+		->addLink($this->bucketName, $this->objectName.'WithIndexBin', 'link')
+		->addLink($this->bucketName, $this->objectName.'WithIndexInt', 'anotherLink')
+		->execute();
+		$this->checkResponseIntegrity($response);
+	}
+	
+	public function testWithQueryParams() {
+		//INSERT WITH HELPERS
+		$response = $this->command->insert($this->bucketName, $this->objectName.'WithQueryParams', $this->objectData)
+		->addQueryParameter('return_body', true)
+		->execute();
+		
+		$this->checkResponseIntegrity($response);
+		$this->checkObjectIntegrity($response->current());
+		
+		$this->resetCommand();
+		
+		$queryParams = array(
+			'return_body' => true,
+		);
+		
+		//INSERT WITH SETTER
+		$this->command->setMode('insert');
+		$this->command->setBucket($this->bucketName);
+		$this->command->setKey($this->objectName.'QueryParamsSetter');
+		$this->command->setData($this->objectData);
+		$this->command->setQueryParams($queryParams);
+		$this->command->execute();
+		$this->checkResponseIntegrity($response);
+//		$this->checkObjectIntegrity($response->current());
+		
+		$this->resetCommand();
+		
+		//INSERT WITH COMMAND DATA
+		$commandData = array(
+			'mode' => 'insert',
+			'bucket' => $this->bucketName,
+			'key' => $this->objectName.'WithQueryParamsCommandData',
+			'queryParams' => $queryParams
+		);
+		$response = $this->command->setCommandData($commandData)->execute();
+		$this->checkResponseIntegrity($response);
+		var_dump($response);
+//		$this->checkObjectIntegrity($response->current());
+	}
+	
+	public function testFailInsert() {
+		try {
+			$this->command->setMode('Inexistant mode');
+			$this->assertFalse(false);
+		} catch (\Exception $e) {
+			$this->assertTrue(true);
+		}
+		
+		
+	}
 
+	public function alterBucket() {
+		
+	}
+	
+	public function testSelect() {
+		$response = $this->command->setCommandData(array(
+			'mode' => 'select',
+			'bucket' => $this->bucketName,
+			'key' => $this->objectName,
+		))->queryOne();
+		
+		$this->checkResponseIntegrity($response);
+		$this->checkObjectIntegrity($response->current());
+	}
+	
+	
+	public function testUpdate() {
+		
+	}
+	
 	public function testDelete() {
-/*		echo PHP_EOL.'TEST DELETE BEGIN'.PHP_EOL;
-		$command = Yii::$app->nosql->createCommand();
-
-		$this->assertInstanceOf('sweelix\yii2\nosql\riak\Command', $command, 'Type error');
-
-		$command instanceof Command;
-
-
-		for ($i = 0 ; $i < 30; $i++) {
-			echo 'Delete user '.$i.'...';
-			$response = $command->delete('user', 'user'.$i)->execute();
-
-			$this->assertInstanceOf('sweelix\yii2\nosql\DataReader', $response);
-			$object = $response->current();
-			
-			$this->checkDataReaderObject($object);
-			
-			$this->assertEquals(204, $object[DataReader::RESPONSESTATUS_KEY]);
-			
-			
-			echo ' Done.'.PHP_EOL;
+		$suffixes = array(
+			'',
+			'WithSetters',
+			'WithCommandData',
+			'WithIndexBin',
+			'WithIndexInt',
+			'WithMeta',
+			'WithMetaSetters',
+			'WithLink',
+			'WithQueryCommandData',
+			'WithQueryParams',
+			'WithQueryParamsCommandData',
+			'WithQueryParamsSetter'
+		);
+		
+		foreach ($suffixes as $suffix) {
+			$response = $this->command->delete($this->bucketName, $this->objectName.$suffix)->execute();
+			$this->checkResponseIntegrity($response);
 		}
-		
-		$response = $command->delete('user', 'user0')->execute();
-		
-		$this->assertInstanceOf('sweelix\yii2\nosql\DataReader', $response);
-		$object = $response->current();
-		
-		$this->checkDataReaderObject($object);
-		$this->assertEquals(404, $object[DataReader::RESPONSESTATUS_KEY]);
+	} 
 
-		echo PHP_EOL.'TEST DELETE END'.PHP_EOL;*/
-		
-	}
-	
-	private function checkDataReaderObject($object) {
-		/*$this->assertArrayHasKey(DataReader::RESPONSESTATUS_KEY, $object);
+	private function checkObjectIntegrity($object, $exceptedStatusCode = 200) {
+		$this->assertArrayHasKey(DataReader::RESPONSESTATUS_KEY, $object);
 		$this->assertArrayHasKey(DataReader::HEADERS_KEY, $object);
 		$this->assertArrayHasKey(DataReader::DATA_KEY, $object);
 		$this->assertArrayHasKey(DataReader::SIBLINGS_KEY, $object);
@@ -197,6 +235,15 @@ class CommandTest extends TestCase {
 		$this->assertArrayHasKey(DataReader::VCLOCK_KEY, $object);
 		$this->assertArrayHasKey(DataReader::META_KEY, $object);
 		$this->assertArrayHasKey(DataReader::LINK_KEY, $object);
-		$this->assertArrayHasKey(DataReader::INDEX_KEY, $object);*/
+		$this->assertArrayHasKey(DataReader::INDEX_KEY, $object);
+		
+		$this->assertEquals($exceptedStatusCode, $object[DataReader::RESPONSESTATUS_KEY]);
+	}
+	
+	private function checkResponseIntegrity($response, $exceptedStatus = 200) {
+		$this->assertInstanceOf('sweelix\yii2\nosql\DataReader', $response);
+	}
+	private function resetCommand() {
+		$this->command = \Yii::$app->riak->createCommand();
 	}
 }
