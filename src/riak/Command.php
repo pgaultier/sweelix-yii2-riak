@@ -5,13 +5,13 @@
  *
  * PHP version 5.3+
  *
- * @author    Dzung Nguyen <dungnh@ilcuians.com>
+ * @author    Christophe Latour <clatour@ibitux.com>
  * @copyright 2010-2013 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   XXX
  * @link      http://www.sweelix.net
  * @category  nosql
- * @package   sweelix.nosql.riak
+ * @package   sweelix.yii2.nosql.riak
  */
 
 namespace sweelix\yii2\nosql\riak;
@@ -23,18 +23,19 @@ use sweelix\yii2\nosql\DataReader;
 /**
  * Class Command
  *
- * Represents a SQL statement to be executed against a database.
+ * Represents a Riak statement to be executed against database.
  *
- * @author    Dzung Nguyen <dungnh@ilcuians.com>
+ * @author    Christophe Latour <clatour@ibitux.com>
  * @copyright 2010-2013 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   XXX
  * @link      http://www.sweelix.net
  * @category  nosql
- * @package   sweelix.nosql.riak
+ * @package   sweelix.yii2.nosql.riak
  * @since     XXX
  */
 class Command extends BaseCommand {
+	
 	/**
 	 * Executes the query statement and returns ALL rows at once. 
 	 * The Query object to checked the indexes, mapReduce, link 
@@ -47,7 +48,7 @@ class Command extends BaseCommand {
 	 * @throws Exception execution failed
 	 * @since XXX
 	 */
-	public function queryAll($query) {
+	public function queryAll() {
 		$this->noSqlDb->open();
 		$dataReturn = array();
 		// queryIndexes
@@ -97,7 +98,7 @@ class Command extends BaseCommand {
 	 * @throws Exception execution failed
 	 * @since XXX
 	 */
-	public function queryOne($query) {
+	public function queryOne() {
 		$this->noSqlDb->open();
 		$dataReturn = array();
 		// queryIndexes
@@ -119,7 +120,7 @@ class Command extends BaseCommand {
 			$response = $this->noSqlDb->client->queryLinks($this->bucket, $this->key, $query->links);
 		} else {
 			$response = $this->noSqlDb->client->getObject($this->bucket, $this->key, $this->queryParams, $this->headers);
-		}
+		} 
 		return new DataReader($response);
 	}
 
