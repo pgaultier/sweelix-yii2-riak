@@ -347,7 +347,7 @@ abstract class QueryBuilder extends Object {
 	private function buildQueryIndex(Query $query) {
 		$ret = null;
 		$index = $query->getIndex();
-		if (isset($index)) {
+		if (!empty($index)) {
 			if (isset($index['endValue'])) {
 				$ret = array(
 					$index['indexName'] => array(
