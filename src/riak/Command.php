@@ -72,8 +72,9 @@ class Command extends BaseCommand {
 			return $dataReader;
 				
 		}
-		if (!empty($query->links) && $this->mode === 'selectWithLink') {
-			$response = $this->noSqlDb->client->queryLinks($this->bucket, $this->key, $query->links);
+		if (isset($this->queryLinks) && $this->mode === 'selectWithLink') {
+			$response = $this->noSqlDb->client->queryLinks($this->bucket, $this->key, $this->queryLinks);
+			return new DataReader($response);
 		}
 		// queryMapReduce or queryLink
 		if (!empty($query->mapReduce) && $this->mode === 'selectWithMapReduce') {
@@ -85,7 +86,7 @@ class Command extends BaseCommand {
 			}
 			return $dataReader;
 		}
-		return new DataReader($response);
+		return new DataReader();
 	}
 
 	/**
