@@ -328,10 +328,8 @@ abstract class QueryBuilder extends Object {
 		$links = $query->getLinks();
 		if (isset($links)) {
 			$ret = array();
-			foreach ($query->getLinks() as $link) {
-				$ret[]['bucket'] = $link[0];
-				$ret[]['tag'] = $link[1];
-				$ret[]['keep'] = $link[2];
+			foreach ($links as $link) {
+				$ret[] = array($links[0].','.$link[1].','.$links[2]);
 			}
 		}
 		return $ret;

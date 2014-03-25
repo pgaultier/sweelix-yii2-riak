@@ -28,7 +28,7 @@ $config = array(
 			'class' => 'sweelix\yii2\nosql\riak\Connection',
 			'dsn' => 'nosql:dsn=http://192.168.1.123:8098'
 		),
-			
+
 		'riakcs' => array(
 			'class' => 'sweelix\yii2\nosql\riakcs\Connection',
 			'proxy' => '192.168.1.123:8080',

@@ -52,19 +52,22 @@ class Command extends BaseCommand {
 		$this->noSqlDb->open();
 		$dataReturn = array();
 		// queryIndexes
-		if (!empty($query->index) && $this->mode === 'selectWithIndex') {				
+		if (!empty($this->commandData['queryIndex']) && $this->mode === 'selectWithIndex') {
 			$response = $this->noSqlDb->client->queryIndexes(
-					$this->bucket,
-					$query->index['indexName'],
-					$query->index['value'],
-					$query->index['endValue'],
+					$this->bucket, //BucketName 
+					$this->queryIndexName, //IndexName
+					$this->queryIndexValue, //Value
+					$this->queryIndexEndValue,
 					$this->queryParams);
-			$body = $response->getBody();
-			$body = $response->getData();
 			$dataReader = new DataReader();
-			foreach ($body['keys'] as $key) {
-				$response = $this->noSqlDb->client->getObject($this->bucket, $key);
-				$dataReader->addObject($response);
+			$body = $response->getData();
+			if ($response->getStatus() == 200) {
+				foreach ($body['keys'] as $key) {
+					$response = $this->noSqlDb->client->getObject($this->bucket, $key);
+					$dataReader->addObject($response);
+				}
+			} else {
+				$dataReader = new DataReader($response);
 			}
 			return $dataReader;
 				
@@ -102,13 +105,14 @@ class Command extends BaseCommand {
 		$this->noSqlDb->open();
 		$dataReturn = array();
 		// queryIndexes
-		if (!empty($query->index) && $this->mode === 'selectWithIndex') {
+		if (!empty($this->commandData['queryIndex']) && $this->mode === 'selectWithIndex') {
 			$response = $this->noSqlDb->client->queryIndexes(
-					$query->bucket, //BucketName 
-					$query->index['indexName'], //IndexName
-					$query->index['value'], //Value
-					(isset($query->index['endValue']) === true ? $query->index['endValue'] : null)); //endValue if setted or null
-			$dataReader = new DataReader();
+					$this->bucket, //BucketName 
+					$this->queryIndexName, //IndexName
+					$this->queryIndexValue, //Value
+					$this->queryIndexEndValue,
+					$this->queryParams);
+					$dataReader = new DataReader();
 			$body = $response->getData();
 			foreach ($body['keys'] as $key) {
 				$response = $this->noSqlDb->client->getObject($this->bucket, $key);
@@ -116,8 +120,8 @@ class Command extends BaseCommand {
 				break;
 			}
 			return $dataReader;
-		} else if (!empty($query->links) && $this->mode == 'selectWithLink') {
-			$response = $this->noSqlDb->client->queryLinks($this->bucket, $this->key, $query->links);
+		} else if (!empty($this->queryLinks) && $this->mode == 'selectWithLink') {
+			$response = $this->noSqlDb->client->queryLinks($this->bucket, $this->key, $this->queryLinks);
 		} else {
 			$response = $this->noSqlDb->client->getObject($this->bucket, $this->key, $this->queryParams, $this->headers);
 		} 
