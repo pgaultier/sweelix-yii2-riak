@@ -329,7 +329,7 @@ abstract class QueryBuilder extends Object {
 		if (isset($links)) {
 			$ret = array();
 			foreach ($links as $link) {
-				$ret[] = array($links[0].','.$link[1].','.$links[2]);
+				$ret[] = $link;
 			}
 		}
 		return $ret;
