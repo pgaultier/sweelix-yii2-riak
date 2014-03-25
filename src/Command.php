@@ -133,7 +133,7 @@ abstract class Command extends Component {
 	 * @since XXX
 	 */
 	public function getQuery() {
-		return $this->query;
+		return $this->_query;
 	}
 	
 	/**
@@ -376,7 +376,7 @@ abstract class Command extends Component {
 								$this->queryParams);
 				break;
 			case 'selectWithLink' :
-				$response = $this->noSqlDb->client->queryLinks($this->bucket, $this->key, $this->query->links);
+				$response = $this->noSqlDb->client->queryLinks($this->bucket, $this->key, $this->queryLinks);
 				break;
 			case 'insert':
 				$queryParams = $this->queryParams;
@@ -641,6 +641,14 @@ abstract class Command extends Component {
 			} else {
 				$ret = null;
 			}
+		}
+		return $ret;
+	}
+	
+	public function getQueryLinks() {
+		$ret = null;
+		if (!empty($this->commandData['queryLinks'])) {
+			$ret = $this->commandData['queryLinks'];
 		}
 		return $ret;
 	}
