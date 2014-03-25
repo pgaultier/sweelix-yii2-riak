@@ -47,8 +47,8 @@ class CommandTest extends TestCase {
 		parent::setUp();
 		$this->mockApplication(require(__DIR__.'/../../data/web.php'));
 		$this->command = \Yii::$app->riak->createCommand();
-	} 
-
+	}
+	
 	
 	public function testInit() {
 		$this->assertInstanceOf('sweelix\yii2\nosql\Command', $this->command);
@@ -60,11 +60,15 @@ class CommandTest extends TestCase {
 		$this->assertEmpty($this->command->getCommandData());	
 	}
 	
+	/**
+	 * Basic insert
+	 */
 	public function testInsert() {
 		$response = $this->command
 		->insert($this->bucketName, $this->objectName, $this->objectData)
 		->execute();
 		$this->checkResponseIntegrity($response);
+		$this->checkObjectIntegrity($response->current());
 
 
 		$this->resetCommand();
@@ -74,6 +78,7 @@ class CommandTest extends TestCase {
 		$this->command->setData($this->objectData);
 		$response = $this->command->execute();
 		$this->checkResponseIntegrity($response);
+		$this->checkObjectIntegrity($response->current());
 		
 		$this->resetCommand();
 		
@@ -86,6 +91,7 @@ class CommandTest extends TestCase {
 		$response = $this->command->setCommandData($commandData)->execute();
 		
 		$this->checkResponseIntegrity($response);
+		$this->checkObjectIntegrity($response->current());
 		
 		$this->resetCommand();
 		
@@ -97,6 +103,7 @@ class CommandTest extends TestCase {
 		->addMetaData('metaTestKey', 'metaTestValue')
 		->execute();
 		$this->checkResponseIntegrity($response);
+		$this->checkObjectIntegrity($response->current());
 		
 		$this->resetCommand();
 		
@@ -109,21 +116,35 @@ class CommandTest extends TestCase {
 		));
 		$response = $this->command->execute();
 		$this->checkResponseIntegrity($response);
+		$this->checkObjectIntegrity($response->current());
 	}
-	
+
+	/**
+	 * Insert object With index.
+	 */
 	public function testInsertWithIndexes() {
 		$response = $this->command->insert($this->bucketName, $this->objectName.'WithIndexBin', $this->objectData)
 		->addIndex('indexTestKeyBin', 'indexTestValueBin')
 		->execute();
-		
 		$this->checkResponseIntegrity($response);
+		$this->checkObjectIntegrity($response->current());
 		
 		$response = $this->command->insert($this->bucketName, $this->objectName.'WithIndexInt', $this->objectData)
 		->addIndex('indexTestKeyInt', 123, IndexType::TYPE_INTEGER)
 		->execute();
 		$this->checkResponseIntegrity($response);
+		$this->checkObjectIntegrity($response->current());
+		
+		$response = $this->command->insert($this->bucketName, $this->objectName.'WithIndexInt2', $this->objectData)
+		->addIndex('indexTestKeyInt', 124, IndexType::TYPE_INTEGER)
+		->execute();
+		$this->checkResponseIntegrity($response);
+		$this->checkObjectIntegrity($response->current());
 	}
 	
+	/**
+	 * Insert Object With links
+	 */
 	public function testInsertWithLinks() {
 		$response = $this->command->insert($this->bucketName, $this->objectName.'WithLink', $this->objectData)
 		->addLink($this->bucketName, $this->objectName, 'link')
@@ -133,6 +154,9 @@ class CommandTest extends TestCase {
 		$this->checkResponseIntegrity($response);
 	}
 	
+	/**
+	 * Insert Object With Query Params
+	 */
 	public function testWithQueryParams() {
 		//INSERT WITH HELPERS
 		$response = $this->command->insert($this->bucketName, $this->objectName.'WithQueryParams', $this->objectData)
@@ -156,7 +180,7 @@ class CommandTest extends TestCase {
 		$this->command->setQueryParams($queryParams);
 		$this->command->execute();
 		$this->checkResponseIntegrity($response);
-//		$this->checkObjectIntegrity($response->current());
+		$this->checkObjectIntegrity($response->current());
 		
 		$this->resetCommand();
 		
@@ -169,19 +193,15 @@ class CommandTest extends TestCase {
 		);
 		$response = $this->command->setCommandData($commandData)->execute();
 		$this->checkResponseIntegrity($response);
-		var_dump($response);
-//		$this->checkObjectIntegrity($response->current());
+		$this->checkObjectIntegrity($response->current());
 	}
 	
+	/**
+	 * Test some fails
+	 */
 	public function testFailInsert() {
-		try {
-			$this->command->setMode('Inexistant mode');
-			$this->assertFalse(false);
-		} catch (\Exception $e) {
-			$this->assertTrue(true);
-		}
-		
-		
+		$this->setExpectedException('\Exception');
+		$this->command->setMode('Inexistant mode');
 	}
 
 	public function alterBucket() {
@@ -189,6 +209,7 @@ class CommandTest extends TestCase {
 	}
 	
 	public function testSelect() {
+		//SELECT BY KEY
 		$response = $this->command->setCommandData(array(
 			'mode' => 'select',
 			'bucket' => $this->bucketName,
@@ -197,6 +218,31 @@ class CommandTest extends TestCase {
 		
 		$this->checkResponseIntegrity($response);
 		$this->checkObjectIntegrity($response->current());
+		
+		$this->resetCommand();
+		//SELECT BY INDEX
+		$response = $this->command->setCommandData(array(
+			'mode' => 'selectWithIndex',
+			'bucket' => $this->bucketName,
+			'queryIndex' => array(
+				'indexTestKeyBin_bin' => 'indexTestValueBin',
+			)
+		))->queryOne();
+		$this->checkResponseIntegrity($response);
+		$this->checkObjectIntegrity($response->current());
+		$this->assertEquals(1, $response->count());
+		
+		//SELECT ALL BY INDEX
+		$response = $this->command->setCommandData(array(
+			'mode' => 'selectWithIndex',
+			'bucket' => $this->bucketName,
+			'queryIndex' => array(
+				'indexTestKeyInt_int' => array(120, 200)
+			)
+		))->queryAll();
+		$this->checkResponseIntegrity($response);
+		$this->checkObjectIntegrity($response->current());
+		$this->assertEquals(2, $response->count());
 	}
 	
 	
@@ -211,9 +257,11 @@ class CommandTest extends TestCase {
 			'WithCommandData',
 			'WithIndexBin',
 			'WithIndexInt',
+			'WithIndexInt2',
 			'WithMeta',
 			'WithMetaSetters',
 			'WithLink',
+			'QueryParamsSetter',
 			'WithQueryCommandData',
 			'WithQueryParams',
 			'WithQueryParamsCommandData',
@@ -224,7 +272,7 @@ class CommandTest extends TestCase {
 			$response = $this->command->delete($this->bucketName, $this->objectName.$suffix)->execute();
 			$this->checkResponseIntegrity($response);
 		}
-	} 
+	}
 
 	private function checkObjectIntegrity($object, $exceptedStatusCode = 200) {
 		$this->assertArrayHasKey(DataReader::RESPONSESTATUS_KEY, $object);

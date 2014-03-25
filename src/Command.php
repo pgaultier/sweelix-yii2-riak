@@ -64,9 +64,7 @@ abstract class Command extends Component {
 	 *   ),
 	 *   'queryLinks' => array(
 	 *	   		array(
-	 *				'bucket' => 'BucketLinkName' OR '_',
-	 *				'tag' => 'TagToSearch' OR '_',
-	 *				'keep' => 1 OR 0 OR '_',
+	 *				'bucket,tag,keep'
 	 *   		),
 	 *   ),
 	 *   'headers'     => array(
@@ -600,6 +598,54 @@ abstract class Command extends Component {
 	}
 
 	/**
+	 * Returns the name of the index to search.
+	 * 
+	 * @return null|string
+	 * @since  XXX
+	 */
+	public function getQueryIndexName() {
+		return isset($this->commandData['queryIndex']) === true ? 
+			   $this->key($this->commandData['queryIndex']) : null;
+	}
+	
+	/**
+	 * Return the (start) value of the index to search
+	 * 
+	 * @return null|string
+	 * @since  XXX
+	 */
+	public function getQueryIndexValue() {
+		$ret = null;
+		if (isset($this->queryIndexName) === true) {
+			if (is_array($this->commandData['queryIndex'][$this->queryIndexName]) === true) {
+				$ret = $this->commandData['queryIndex'][$this->queryIndexName][0];
+			} else {
+				$ret = $this->commandData['queryIndex'][$this->queryIndexName];
+			}
+		}
+		return $ret;
+	}
+	
+	/**
+	 * Return the (end) value of the index to search
+	 * 
+	 * @return null|string
+	 * @since  XXX
+	 */
+	public function getQueryIndexEndValue() {
+		$ret = null;
+		if (isset($this->queryIndexValue) === true) {
+			if (is_array($this->commandData['queryIndex'][$this->queryIndexName]) &&
+				count($this->commandData['queryIndex'][$this->queryIndexName]) == 2) {
+				$ret = $this->commandData['queryIndex'][$this->queryIndexName][1];
+			} else {
+				$ret = null;
+			}
+		}
+		return $ret;
+	}
+	
+	/**
 	 * Returns the first key of an array.
 	 * 
 	 * @param array $array The array
@@ -623,6 +669,6 @@ abstract class Command extends Component {
 	private function value($array) {
 		$values = array_values($array);
 		return array_shift($values);
-	}
+	}	
 }
 
