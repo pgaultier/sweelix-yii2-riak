@@ -43,9 +43,8 @@ class Command extends BaseCommand {
 	 *
 	 * @param Query $query is query object with prepared param's query
 	 * 
-	 * @return array all rows of the query result. Each array element is an array representing a row of data.
-	 * An empty array is returned if the query results in nothing.
-	 * @throws Exception execution failed
+	 * @return array|false all rows of the query result. Each array element is an array representing a row of data.
+	 * false if no request has been executed.
 	 * @since XXX
 	 */
 	public function queryAll() {
@@ -77,7 +76,7 @@ class Command extends BaseCommand {
 			return new DataReader($response);
 		}
 		// queryMapReduce or queryLink
-		if (!empty($query->mapReduce) && $this->mode === 'selectWithMapReduce') {
+		if (!empty($this->data) && $this->mode === 'selectWithMapReduce') {
 			$response = $this->noSqlDb->client->queryMapReduce($this->data);
 			$dataReader = new DataReader();
 			$data = $response->getData();
@@ -86,7 +85,7 @@ class Command extends BaseCommand {
 			}
 			return $dataReader;
 		}
-		return new DataReader();
+		return false;
 	}
 
 	/**
