@@ -371,8 +371,9 @@ abstract class Command extends Component {
 				$response = $this->noSqlDb->client->queryIndexes(
 								$this->bucket, 
 								$this->key,
-								$this->query->index['value'],
-								$this->query->index['endValue'],
+								$this->queryIndexName,
+								$this->queryIndexValue,
+								$this->queryIndexEndValue,
 								$this->queryParams);
 				break;
 			case 'selectWithLink' :
