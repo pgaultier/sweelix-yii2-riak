@@ -17,6 +17,7 @@ namespace sweelix\yii2\nosql;
 
 
 use sweelix\yii2\nosql\riak\phase\Map;
+use sweelix\yii2\nosql\riak\MapReduce;
 
 /**
  * Class ActiveQuery
@@ -53,6 +54,13 @@ class ActiveQuery extends Query {
 		parent::__construct($config);
 		$class = $this->modelClass;
 		$this->select()->fromBucket($class::bucketName());
+	}
+	
+	public function withMapReduce($inputs = null) {
+		parent::withMapReduce($inputs);
+		$class = $this->modelClass;
+		$this->_bucket = $class::bucketName();
+		return $this;
 	}
 	
 	/**
@@ -170,6 +178,9 @@ class ActiveQuery extends Query {
 			obj[".meta"] = meta;
 			return [obj];
 		}');
+		if ($this->_mapReduce == null) {
+			$this->_mapReduce = new MapReduce();
+		}
 		$this->_mapReduce->addPhase($map);
 		return $this;
 	}
