@@ -497,7 +497,7 @@ class ActiveRecord extends Model {
 		$query = static::createQuery();
 		
 		if (is_string($q) || is_int($q)) {
-			$ar = $query->withKey($q)->one();
+			$ar = $query->withKey($q)->one(static::getNosql());
 			if ($ar) {
 				$ar->key = $q;
 			}
@@ -588,7 +588,8 @@ class ActiveRecord extends Model {
 				
 		$ret = $command->execute();
 		$this->afterSave(true);
-		$this->_vclock = $ret[DataReader::VCLOCK_KEY];
+		$obj = $ret->current();
+		$this->_vclock = $obj[DataReader::VCLOCK_KEY];
 		$this->_oldAttributes = $this->_attributes;
 
 		return $ret->count();
@@ -642,7 +643,7 @@ class ActiveRecord extends Model {
 	 * @since  XXX
 	 */
 	private function createCommand($mode) {
-		$command = $this->getNosql()->createCommand();
+		$command = static::getNosql()->createCommand();
 		$data = array();
 		foreach ($this->attributes() as $name) {
 			$data[$name] = $this->$name;
@@ -1041,7 +1042,7 @@ class ActiveRecord extends Model {
 			if (empty($obj->_vtag) === false) {
 				$obj->_siblings = array();
 				foreach ($obj->_vtag as $vtag) {
-					$ar = $this->find()->withKey($this->key)->vtag($vtag)->one();
+					$ar = $this->find()->withKey($this->key)->vtag($vtag)->one(static::getNosql());
 					$ar->key = $this->key;
 					$obj->_siblings[] = $ar;
 				}
@@ -1107,7 +1108,7 @@ class ActiveRecord extends Model {
 			$value = parent::__get($name);
 			
 			if ($value instanceof ActiveRelation) {
-				$this->_related[$name] = ($value->multiple ? $value->all() : $value->one());
+				$this->_related[$name] = ($value->multiple ? $value->all(static::getNosql()) : $value->one(static::getNosql()));
 				return $this->_related[$name];
 			} else {
 				return $value;
