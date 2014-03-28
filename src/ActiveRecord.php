@@ -90,7 +90,7 @@ class ActiveRecord extends Model {
 	 * 
 	 * @var array which contains names of attributes.
 	 */
-	protected static $attributesName = array();
+	protected static $_attributesName = array();
 	
 	/**
 	 * <code>
@@ -105,7 +105,7 @@ class ActiveRecord extends Model {
 	 * 
 	 * @var array which contains names of indexes
 	 */
-	protected static $indexesName = array();
+	protected static $_indexesName = array();
 	
 	/**
 	 * <code>
@@ -117,7 +117,7 @@ class ActiveRecord extends Model {
 	 *
 	 * @var array which contains metadata name.
 	 */
-	protected static $metadataName = array();	
+	protected static $_metadataName = array();	
 
 	
 	/**
@@ -273,7 +273,7 @@ class ActiveRecord extends Model {
 	 */
 	public function attributes() {
 		$attributes = array();
-		foreach (static::$attributesName as $key => $value) {
+		foreach (static::$_attributesName as $key => $value) {
 			if (is_array($value)) {
 				$attributes[] = $key;
 			} else {
@@ -304,7 +304,7 @@ class ActiveRecord extends Model {
 	 */
 	public function autoIndexes() {
 		$autoIndexes = array();
-		foreach (static::$attributesName as $key => $value) {
+		foreach (static::$_attributesName as $key => $value) {
 			if (is_array($value) && isset($value['autoIndex']) === true) {
 				if ($value['autoIndex'] === IndexType::TYPE_BIN || $value['autoIndex'] === IndexType::TYPE_INT) {
 					$autoIndexes[$key] = $value['autoIndex'];
@@ -326,7 +326,7 @@ class ActiveRecord extends Model {
 	 */
 	public function indexes() {
 		$autoIndexes = $this->autoIndexes();
-		foreach (static::$indexesName as $key => $value) {
+		foreach (static::$_indexesName as $key => $value) {
 			if (is_string($key)) {
 				if ($value === IndexType::TYPE_BIN || $value == IndexType::TYPE_INTEGER) {
 					$autoIndexes[$key] = $value;
@@ -348,7 +348,7 @@ class ActiveRecord extends Model {
 	 * @since  XXX
 	 */
 	public function metadata() {
-		return static::$metadataName;
+		return static::$_metadataName;
 	}
 	
 	/**
@@ -796,7 +796,6 @@ class ActiveRecord extends Model {
 	 * @since  XXX
 	 */
 	public function link($name, ActiveRecord $model) {
-		/** @var $relation ActiveRelation */
 		$relation = $this->getRelation($name);
 		
 		$rawLink = '</buckets/'.$model->bucketName().'/keys/'.$model->key.'>; riaktag="'.$relation->riakTag.'"';
@@ -805,7 +804,7 @@ class ActiveRecord extends Model {
 				$this->_rawLinks[] = $rawLink;
 				if ($this->isNewRecord && $model->isNewRecord) {
 					throw new InvalidCallException('Unable to link models: both models must NOT be newly created.');
-				} else if (!$this->isNewRecord && $this->isNewRecord) {
+				} elseif (!$this->isNewRecord && $this->isNewRecord) {
 					if ($model->save() === false) {
 						throw new \Exception('An error has been occured, when trying to link model [['.$model->getBucketName().']]');
 					}
@@ -1136,9 +1135,9 @@ class ActiveRecord extends Model {
 			if (array_key_exists($name, $indexes)) {
 				$this->_indexes[$name] = $value;				
 			}
-		} else if (in_array($name, $this->metadata())) {
+		} elseif (in_array($name, $this->metadata())) {
 			$this->_meta[$name] = $value;
-		} else if (array_key_exists($name, $this->indexes())) {
+		} elseif (array_key_exists($name, $this->indexes())) {
 			$this->_indexes[$name] = $value;
 		} else {
 			parent::__set($name, $value);
