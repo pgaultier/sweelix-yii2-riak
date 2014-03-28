@@ -47,14 +47,28 @@ class ActiveRelation extends ActiveQuery {
 	 * @var sting $riakTag The tag associate with object.
 	 */
 	public $riakTag;
-	
+
+	/**
+	 * The constructor
+	 * 
+	 * @param array $config The config
+	 * 
+	 * @return void
+	 * @since  XXX
+	 */
 	public function __construct($config = array()) {
 		parent::__construct($config);
 		$model = $this->primaryModel;
 		
 		$this->withKey($this->modelClass->key)->linked($model::bucketName(), $this->riakTag, 1);
 	}
-	
+
+	/**
+	 * Returns the model to create.
+	 * 
+	 * @return string The model class to create.
+	 * @since  XXX
+	 */
 	protected function getQueryClass() {
 		return $this->primaryModel; 
 	}
