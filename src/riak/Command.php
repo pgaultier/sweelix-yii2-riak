@@ -120,7 +120,7 @@ class Command extends BaseCommand {
 				break;
 			}
 			return $dataReader;
-		} else if (!empty($this->queryLinks) && $this->mode == 'selectWithLink') {
+		} elseif (!empty($this->queryLinks) && $this->mode == 'selectWithLink') {
 			$response = $this->noSqlDb->client->queryLinks($this->bucket, $this->key, $this->queryLinks);
 		} else {
 			$response = $this->noSqlDb->client->getObject($this->bucket, $this->key, $this->queryParams, $this->headers);

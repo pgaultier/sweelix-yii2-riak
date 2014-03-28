@@ -409,7 +409,7 @@ abstract class Command extends Component {
 		}
 		if ($raw === false && $response instanceof Response) {
 			$result = new DataReader($response);
-		} else if ($raw === true && $response instanceof Response) {
+		} elseif ($raw === true && $response instanceof Response) {
 			$result = $response;
 		}
 		return $result;
@@ -429,8 +429,6 @@ abstract class Command extends Component {
 	/**
 	 * Executes the query statement and returns ALL rows at once.
 	 *
-	 * @param Query $query The query to execute.
-	 *
 	 * @return array all rows of the query result. Each array element is an array representing a row of data.
 	 * An empty array is returned if the query results in nothing.
 	 * @since XXX
@@ -440,8 +438,6 @@ abstract class Command extends Component {
 	/**
 	 * Executes the query statement and returns the first row of the result.
 	 * This method is best used when only the first row of result is needed for a query.
-	 *
-	 * @param Query $query The query to exec.
 	 *
 	 * @return array|boolean the first row (in terms of an array) of the query result. False is returned if the query
 	 * results in nothing.
@@ -606,7 +602,7 @@ abstract class Command extends Component {
 	 */
 	public function getQueryIndexName() {
 		return isset($this->commandData['queryIndex']) === true ? 
-			   $this->key($this->commandData['queryIndex']) : null;
+					$this->key($this->commandData['queryIndex']) : null;
 	}
 	
 	/**
@@ -646,6 +642,12 @@ abstract class Command extends Component {
 		return $ret;
 	}
 	
+	/**
+	 * Returns the query links
+	 * 
+	 * @return array
+	 * @since  XXX
+	 */
 	public function getQueryLinks() {
 		$ret = null;
 		if (!empty($this->commandData['queryLinks'])) {

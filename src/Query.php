@@ -253,17 +253,17 @@ class Query extends Component {
 		$this->_mapReduce = new MapReduce();
 		if (is_string($inputs)) {
 			$this->_mapReduce->addInput($inputs);
-		} else if (is_array($inputs)) {
+		} elseif (is_array($inputs)) {
 			foreach ($inputs as $input) {
 				if (count($input) === 1) {
 					$this->_mapReduce->addInput($input[0]);
-				} else if (count($input) === 2) {
+				} elseif (count($input) === 2) {
 					$this->_mapReduce->addInput($input[0], $input[1]);
 				} else {
 					$this->_mapReduce->addInput($input[0], $input[1], $input[2]);
 				}
 			}
-		} else if ($inputs === null) {
+		} elseif ($inputs === null) {
 			if ($this->_bucket) {
 				$this->_mapReduce->addInput($this->_bucket);
 			} else {
