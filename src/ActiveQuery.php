@@ -56,6 +56,26 @@ class ActiveQuery extends Query {
 		$this->select()->fromBucket($class::bucketName());
 	}
 	
+	/**
+	 * Set the map reduce mode.
+	 * (non-PHPdoc)
+	 * 
+	 * @param mixed $inputs string or array.
+	 *  - string : a bucket name
+	 *  - array : array(
+	 *  	array(
+	 *  		bucketName,
+	 *  		objectKey,
+	 *  		keydata
+	 *      ),
+	 *      //ETC...
+	 *  )
+	 * 
+	 * @see \sweelix\yii2\nosql\Query::withMapReduce()
+	 * 
+	 * @return ActiveQuery The object itself.
+	 * @since  XXX
+	 */
 	public function withMapReduce($inputs = null) {
 		parent::withMapReduce($inputs);
 		$class = $this->modelClass;
