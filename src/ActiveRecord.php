@@ -69,7 +69,7 @@ class ActiveRecord extends Model {
 	/**
 	 * @var string|int The key of object.
 	 */
-	public $key;
+	public $key = null;
 
 	/**
 	 * @var string Object's vclock. Determine if the object is new.
@@ -119,6 +119,13 @@ class ActiveRecord extends Model {
 	 */
 	protected static $_metadataName = array();	
 
+	
+	/**
+	 * Is object key mandatory.
+	 * 
+	 * @var boolean
+	 */
+	protected static $_isKeyMendatory = true;
 	
 	/**
 	 * @var array old attribute values indexed by attribute names.
@@ -532,7 +539,7 @@ class ActiveRecord extends Model {
 	 */
 	public function save($runValidation = true, $attributes = null) {
 		$result = null;
-		if (isset($this->key) === true) {
+		if ( (static::$_isKeyMendatory && empty($this->key) === false) || !static::$_isKeyMendatory) {
 			if ($this->isNewRecord) {
 				$result = $this->insert($runValidation, $attributes);
 			} else {
