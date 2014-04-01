@@ -125,7 +125,7 @@ class ActiveRecord extends Model {
 	 * 
 	 * @var boolean
 	 */
-	protected static $_isKeyMendatory = true;
+	protected static $_isKeyMandatory = true;
 	
 	/**
 	 * @var array old attribute values indexed by attribute names.
@@ -535,7 +535,7 @@ class ActiveRecord extends Model {
 	 */
 	public function save($runValidation = true, $attributes = null) {
 		$result = null;
-		if ( (static::$_isKeyMendatory && empty($this->key) === false) || !static::$_isKeyMendatory) {
+		if ( (static::$_isKeyMandatory && empty($this->key) === false) || !static::$_isKeyMandatory) {
 			if ($this->isNewRecord) {
 				$result = $this->insert($runValidation, $attributes);
 			} else {
@@ -593,7 +593,7 @@ class ActiveRecord extends Model {
 		$this->afterSave(true);
 		$obj = $ret->current();
 		$this->_oldAttributes = $this->_attributes;
-		if (!static::$_isKeyMendatory) {
+		if (!static::$_isKeyMandatory) {
 			$this->key = self::getKeyFromLocation($obj);
 		}
 		$this->_vclock = $obj[DataReader::VCLOCK_KEY];
