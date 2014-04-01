@@ -112,20 +112,20 @@ class Command extends BaseCommand {
 					$this->queryIndexValue, //Value
 					$this->queryIndexEndValue,
 					$this->queryParams);
-					$dataReader = new DataReader();
+			$dataReader = new DataReader();
 			$body = $response->getData();
 			foreach ($body['keys'] as $key) {
 				$response = $this->noSqlDb->client->getObject($this->bucket, $key);
 				$dataReader->addObject($response, $key);
-				break;
+				return $dataReader->current();
 			}
-			return $dataReader;
+			return null;
 		} elseif (!empty($this->queryLinks) && $this->mode == 'selectWithLink') {
 			$response = $this->noSqlDb->client->queryLinks($this->bucket, $this->key, $this->queryLinks);
 		} else {
 			$response = $this->noSqlDb->client->getObject($this->bucket, $this->key, $this->queryParams, $this->headers);
 		} 
-		return new DataReader($response);
+		return null;
 	}
 
 	/**
