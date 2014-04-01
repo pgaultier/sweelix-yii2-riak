@@ -99,7 +99,7 @@ class ActiveQuery extends Query {
 		$data = $command->queryOne();
 		
 		if (isset($data)) {
-			$model = $class::create($row);
+			$model = $class::create($data);
 		}
 		return $model;
 	}
