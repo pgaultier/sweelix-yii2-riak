@@ -93,13 +93,14 @@ class ActiveQuery extends Query {
 	 */
 	public function one($db = null) {
 		static $i = 0;
+		$model = null;
 		$command = $this->createCommand($db);
 		$class = $this->queryClass;
 		$data = $command->queryOne();
-		$row = $data->current();
-
-		$model = $class::create($row);
 		
+		if (isset($data)) {
+			$model = $class::create($row);
+		}
 		return $model;
 	}
 
