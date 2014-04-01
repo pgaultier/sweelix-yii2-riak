@@ -379,11 +379,7 @@ class ActiveRecord extends Model {
 			if (isset($row[DataReader::OBJECT_KEY])) {
 				$record->key = $row[DataReader::OBJECT_KEY];
 			} else {
-				if (isset($row[DataReader::HEADERS_KEY]) === true && isset($row[DataReader::HEADERS_KEY]['Location']) === true) {
-					if (preg_match('/\/buckets\/\w+\/keys\/(\w+)/', $row[DataReader::HEADERS_KEY]['Location'], $matches) > 0) {
-						$record->key = $matches[1];
-					}
-				}
+				$record->key = self::getKeyFromLocation($row);
 			}
 			
 			$attributes = $record->attributes(); //ATTRIBUTES NAME
@@ -596,8 +592,11 @@ class ActiveRecord extends Model {
 		$ret = $command->execute();
 		$this->afterSave(true);
 		$obj = $ret->current();
-		$this->_vclock = $obj[DataReader::VCLOCK_KEY];
 		$this->_oldAttributes = $this->_attributes;
+		if (!static::$_isKeyMendatory) {
+			$this->key = self::getKeyFromLocation($obj);
+		}
+		$this->_vclock = $obj[DataReader::VCLOCK_KEY];
 
 		return $ret->count();
 	}
@@ -627,6 +626,7 @@ class ActiveRecord extends Model {
 		$this->afterSave(false);
 		$affected = $ret->count();
 		$this->_oldAttributes = $this->_attributes;
+
 		if ($affected === 1) {
 			$obj = $ret->current();
 			$this->_attributes = $obj[DataReader::DATA_KEY];
@@ -1081,7 +1081,24 @@ class ActiveRecord extends Model {
 	public function hasAttribute($name) {
 		return in_array($name, $this->attributes());
 	}
-		
+
+	/**
+	 * Return the object key using his header (Location)
+	 * @param array $obj
+	 *
+	 * @return null|string The object key
+	 * @since  XXX
+	 */
+	private static function getKeyFromLocation($obj) {
+		$key = null;
+		if (isset($obj[DataReader::HEADERS_KEY]) === true && isset($obj[DataReader::HEADERS_KEY]['Location']) === true) {
+			if (preg_match('/\/buckets\/\w+\/keys\/(\w+)/', $obj[DataReader::HEADERS_KEY]['Location'], $matches) > 0) {
+				$key = $matches[1];
+			}
+		}
+		return $key;
+	}
+
 	/**
 	 * Checks if $name is an attribute, an index, a metadata, or a link.
 	 * If not it will call parent::__get.
