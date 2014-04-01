@@ -63,7 +63,7 @@ class Command extends BaseCommand {
 			if ($response->getStatus() == 200) {
 				foreach ($body['keys'] as $key) {
 					$response = $this->noSqlDb->client->getObject($this->bucket, $key);
-					$dataReader->addObject($response);
+					$dataReader->addObject($response, $key);
 				}
 			} else {
 				$dataReader = new DataReader($response);
