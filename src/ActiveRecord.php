@@ -5,7 +5,7 @@
  *
  * PHP version 5.3+
  *
- * @author    Philippe Gaultier <pgaultier@sweelix.net>
+ * @author    Christophe Latour <clatour@ibitux.com>
  * @copyright 2010-2013 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   XXX
@@ -28,6 +28,7 @@ use yii\base\InvalidCallException;
 use yii\base\InvalidParamException;
 use yii\base\UnknownMethodException;
 use yii\base\NotSupportedException;
+use sweelix\yii2\nosql\riakcs\RiakException;
 
 /**
  * Class ActiveRecord
@@ -35,7 +36,7 @@ use yii\base\NotSupportedException;
  * This class handle all the records and mimic classic
  * sql ActiveRecord management
  *
- * @author    Philippe Gaultier <pgaultier@sweelix.net>
+ * @author    Christophe Latour <clatour@ibitux.com>
  * @copyright 2010-2013 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   XXX
@@ -90,7 +91,7 @@ class ActiveRecord extends Model {
 	 * 
 	 * @var array which contains names of attributes.
 	 */
-	protected static $_attributesName = array();
+	protected static $attributesName = array();
 	
 	/**
 	 * <code>
@@ -105,7 +106,7 @@ class ActiveRecord extends Model {
 	 * 
 	 * @var array which contains names of indexes
 	 */
-	protected static $_indexesName = array();
+	protected static $indexesName = array();
 	
 	/**
 	 * <code>
@@ -117,7 +118,7 @@ class ActiveRecord extends Model {
 	 *
 	 * @var array which contains metadata name.
 	 */
-	protected static $_metadataName = array();	
+	protected static $metadataName = array();	
 
 	
 	/**
@@ -125,7 +126,7 @@ class ActiveRecord extends Model {
 	 * 
 	 * @var boolean
 	 */
-	protected static $_isKeyMandatory = true;
+	protected static $isKeyMandatory = true;
 	
 	/**
 	 * @var array old attribute values indexed by attribute names.
@@ -280,7 +281,7 @@ class ActiveRecord extends Model {
 	 */
 	public function attributes() {
 		$attributes = array();
-		foreach (static::$_attributesName as $key => $value) {
+		foreach (static::$attributesName as $key => $value) {
 			if (is_array($value)) {
 				$attributes[] = $key;
 			} else {
@@ -311,7 +312,7 @@ class ActiveRecord extends Model {
 	 */
 	public function autoIndexes() {
 		$autoIndexes = array();
-		foreach (static::$_attributesName as $key => $value) {
+		foreach (static::$attributesName as $key => $value) {
 			if (is_array($value) && isset($value['autoIndex']) === true) {
 				if ($value['autoIndex'] === IndexType::TYPE_BIN || $value['autoIndex'] === IndexType::TYPE_INT) {
 					$autoIndexes[$key] = $value['autoIndex'];
@@ -333,7 +334,7 @@ class ActiveRecord extends Model {
 	 */
 	public function indexes() {
 		$autoIndexes = $this->autoIndexes();
-		foreach (static::$_indexesName as $key => $value) {
+		foreach (static::$indexesName as $key => $value) {
 			if (is_string($key)) {
 				if ($value === IndexType::TYPE_BIN || $value == IndexType::TYPE_INTEGER) {
 					$autoIndexes[$key] = $value;
@@ -355,7 +356,7 @@ class ActiveRecord extends Model {
 	 * @since  XXX
 	 */
 	public function metadata() {
-		return static::$_metadataName;
+		return static::$metadataName;
 	}
 	
 	/**
@@ -518,6 +519,56 @@ class ActiveRecord extends Model {
 		}
 		return $query;
 	}	
+	
+
+	/**
+	 * Creates the [[ActiveQuery]] for query from index.
+	 * 
+	 * ~~
+	 * User::findByIndex('userEmail', 'clatour@ibitux.com')->one();
+	 * User::findByIndex('userAge', 0, 18)->all(); //Will return users 0 to 18 years old.
+	 * ~~
+	 *
+	 * @param string     $indexName     The indexname to search.
+	 * @param string|int $indexValue    The value of the index to search.
+	 * @param string|int $indexEndValue The endValue to search.
+	 * 
+	 * @return ActiveQuery
+	 * @since  XXX
+	 */
+	public static function findByIndex($indexName, $indexValue, $indexEndValue = null) {
+		$query = static::createQuery();
+		$indexType = self::indexType($indexName);
+
+		if ($indexType !== null) {
+			return $query->withIndex($indexName, $indexValue, $indexEndValue, $indexType);
+		} else {
+			throw new RiakException($indexName.' is not an index.', 400);
+		}
+	}
+	
+	/**
+	 * Returns the type of an index.
+	 * 
+	 * @param string $indexName The indexname
+	 * 
+	 * @return null|IndexType
+	 * @since  XXX
+	 */
+	private static function indexType($indexName) {
+		$indexType = null;
+		if (in_array($indexName, static::$indexesName)) {
+			$indexType = IndexType::TYPE_BIN;
+		} else if (array_key_exists($indexName, static::$indexesName)) {
+			$indexType = static::$indexesName[$indexName];
+		} else if (array_key_exists($indexName, static::$attributesName)) {
+			$tmp = static::$attributesName[$indexName];
+			if (is_array($tmp) && array_key_exists('autoIndex', $tmp)) {
+				$indexType = $tmp['autoIndex'];
+			}
+		}
+		return $indexType;
+	} 
 		
 	/**
 	 * save current record
@@ -535,7 +586,7 @@ class ActiveRecord extends Model {
 	 */
 	public function save($runValidation = true, $attributes = null) {
 		$result = null;
-		if ( (static::$_isKeyMandatory && empty($this->key) === false) || !static::$_isKeyMandatory) {
+		if ( (static::$isKeyMandatory && empty($this->key) === false) || !static::$isKeyMandatory) {
 			if ($this->isNewRecord) {
 				$result = $this->insert($runValidation, $attributes);
 			} else {
@@ -593,7 +644,7 @@ class ActiveRecord extends Model {
 		$this->afterSave(true);
 		$obj = $ret->current();
 		$this->_oldAttributes = $this->_attributes;
-		if (!static::$_isKeyMandatory) {
+		if (!static::$isKeyMandatory) {
 			$this->key = self::getKeyFromLocation($obj);
 		}
 		$this->_vclock = $obj[DataReader::VCLOCK_KEY];
