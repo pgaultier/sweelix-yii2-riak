@@ -98,6 +98,9 @@ class ActiveQuery extends Query {
 		$class = $this->queryClass;
 		$data = $command->queryOne();
 		
+		
+		\Yii::info(var_export($data, true), __METHOD__);
+		
 		if (isset($data)) {
 			$model = $class::create($data);
 		}

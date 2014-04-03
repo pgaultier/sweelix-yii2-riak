@@ -103,7 +103,6 @@ class Command extends BaseCommand {
 	 */
 	public function queryOne() {
 		$this->noSqlDb->open();
-		$dataReturn = array();
 		// queryIndexes
 		if (!empty($this->commandData['queryIndex']) && $this->mode === 'selectWithIndex') {
 			$response = $this->noSqlDb->client->queryIndexes(
@@ -122,8 +121,12 @@ class Command extends BaseCommand {
 			return null;
 		} elseif (!empty($this->queryLinks) && $this->mode == 'selectWithLink') {
 			$response = $this->noSqlDb->client->queryLinks($this->bucket, $this->key, $this->queryLinks);
+			$dataReader = new DataReader($response);
+			return $dataReader->current();
 		} else {
 			$response = $this->noSqlDb->client->getObject($this->bucket, $this->key, $this->queryParams, $this->headers);
+			$dataReader = new DataReader($response);
+			return $dataReader->current();
 		} 
 		return null;
 	}
