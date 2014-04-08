@@ -16,7 +16,7 @@
 
 namespace sweelix\yii2\nosql;
 
-use yii\base\Model; 
+use yii\base\Model;
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
 use sweelix\yii2\nosql\riak\IndexType;
@@ -76,7 +76,7 @@ class ActiveRecord extends Model {
 	 * @var string Object's vclock. Determine if the object is new.
 	 */
 	private $_vclock;
-	
+
 	/**
 	 * <code>
 	 * array(
@@ -88,11 +88,11 @@ class ActiveRecord extends Model {
 	 *   //etc...
 	 * );
 	 * </code>
-	 * 
+	 *
 	 * @var array which contains names of attributes.
 	 */
 	protected static $attributesName = array();
-	
+
 	/**
 	 * <code>
 	 * array(
@@ -101,13 +101,13 @@ class ActiveRecord extends Model {
 	 *    'index3' => IndexType::TYPE_BIN,
 	 * );
 	 * </code>
-	 * 
+	 *
 	 * By default, if the type of indexes isn't specified, it will be tretead as binary.
-	 * 
+	 *
 	 * @var array which contains names of indexes
 	 */
 	protected static $indexesName = array();
-	
+
 	/**
 	 * <code>
 	 * array(
@@ -118,21 +118,21 @@ class ActiveRecord extends Model {
 	 *
 	 * @var array which contains metadata name.
 	 */
-	protected static $metadataName = array();	
+	protected static $metadataName = array();
 
-	
+
 	/**
 	 * Is object key mandatory.
-	 * 
+	 *
 	 * @var boolean
 	 */
 	protected static $isKeyMandatory = true;
-	
+
 	/**
 	 * @var array old attribute values indexed by attribute names.
 	 */
 	private $_oldAttributes;
-	
+
 	/**
 	 * @var array which contains pair key (attribute name) value (attribute's value).
 	 */
@@ -144,7 +144,7 @@ class ActiveRecord extends Model {
 	private $_meta = array();
 
 	/**
-	 * @var array indexes's object indexed by indexes names 
+	 * @var array indexes's object indexed by indexes names
 	 */
 	private $_indexes = array();
 
@@ -161,11 +161,11 @@ class ActiveRecord extends Model {
 	/**
 	 * @var array object's raw links.
 	 */
-	private $_rawLinks;
-	
+	private $_rawLinks = array();
+
 	/**
 	 * vtag of siblings.
-	 * 
+	 *
 	 * @var array
 	 */
 	private $_vtag;
@@ -175,7 +175,7 @@ class ActiveRecord extends Model {
 	 * The default implementation will trigger an [[EVENT_AFTER_FIND]] event.
 	 * When overriding this method, make sure you call the parent implementation to ensure the
 	 * event is triggered.
-	 * 
+	 *
 	 * @return void
 	 * @since  XXX
 	 */
@@ -188,7 +188,7 @@ class ActiveRecord extends Model {
 	 * The default implementation raises the [[EVENT_BEFORE_DELETE]] event.
 	 * When overriding this method, make sure you call the parent implementation to ensure the
 	 * event is triggered.
-	 * 
+	 *
 	 * @return boolean whether the record should be deleted. Defaults to true.
 	 * @since  XXX
 	 */
@@ -202,7 +202,7 @@ class ActiveRecord extends Model {
 	 * The default implementation raises the [[EVENT_AFTER_DELETE]] event.
 	 * You may override this method to do post processing after the record is deleted.
 	 * Make sure you call the parent implementation so that the event is raised properly.
-	 * 
+	 *
 	 * @return void
 	 * @since  XXX
 	 */
@@ -216,10 +216,10 @@ class ActiveRecord extends Model {
 	 * or an [[EVENT_BEFORE_UPDATE]] event if `$insert` is false.
 	 * When overriding this method, make sure you call the parent implementation to ensure the
 	 * event is triggered.
-	 * 
+	 *
 	 * @param boolean $insert whether this method called while inserting a record.
 	 * If false, it means the method is called while updating a record.
-	 * 
+	 *
 	 * @return boolean whether the insertion or updating should continue.
 	 * If false, the insertion or updating will be cancelled.
 	 * @since  XXX
@@ -235,22 +235,22 @@ class ActiveRecord extends Model {
 	 * or an [[EVENT_AFTER_UPDATE]] event if `$insert` is false.
 	 * When overriding this method, make sure you call the parent implementation so that
 	 * the event is triggered.
-	 * 
+	 *
 	 * @param boolean $insert whether this method called while inserting a record.
 	 * If false, it means the method is called while updating a record.
-	 * 
+	 *
 	 * @return void
 	 * @since  XXX
 	 */
 	public function afterSave($insert) {
-		$this->trigger(self::EVENT_AFTER_INSERT);	
+		$this->trigger(self::EVENT_AFTER_INSERT);
 	}
 
 	/**
 	 * Returns the database connection used by this model class.
 	 * By default, the "nosql" application component is used as the database connection.
 	 * You may override this method if you want to use a different database connection.
-	 * 
+	 *
 	 * @return Connection the database connection used by this model class.
 	 * @since  XXX
 	 */
@@ -263,17 +263,17 @@ class ActiveRecord extends Model {
 	 * You may have to override this method if bucketname is not named after this convention.
 	 * Convention : example with an [[ActiveRecord]] named 'User', the default bucket name will be :
 	 * "bck_user"
-	 * 
+	 *
 	 * @return string The bucket name of this [[ActiveRecord]]
 	 * @since  XXX
 	 */
 	public static function bucketName() {
 		return 'bck_'.Inflector::camel2id(StringHelper::basename(get_called_class(), '_'));
 	}
-	
+
 	/**
 	 * Return an array of [[ActiveRecord]] attributes name.
-	 * 
+	 *
 	 * @see \yii\base\Model::attributes()
 	 *
 	 * @return array An array of attributes names.
@@ -303,10 +303,10 @@ class ActiveRecord extends Model {
 	 *      'email' => array('autotIndex' => IndexType::TYPE_BIN) // same as above.
 	 *  );
 	 * </code>
-	 * 
+	 *
 	 * An autoIndexes is at the same time an attribute and an index.
 	 * When you modify the attribute, the index is upadated automatically.
-	 * 
+	 *
 	 * @return array of autoIndexes array('indexName' => 'indexTye', ...)
 	 * @since  XXX
 	 */
@@ -323,12 +323,12 @@ class ActiveRecord extends Model {
 		}
 		return $autoIndexes;
 	}
-	
+
 	/**
 	 * Returns an array of [[ActiveRecord]]'s indexes formatted as $key => $value (using static::$indexesName and autoIndexes).
 	 * Key represents the index name.
 	 * Value represents the index type (IndexType::TYPE_BIN || IndexType::TYPE_INT)
-	 * 
+	 *
 	 * @return array An array of indexes names.
 	 * @since  XXX
 	 */
@@ -346,19 +346,19 @@ class ActiveRecord extends Model {
 			}
 		}
 		return $autoIndexes;
-		
+
 	}
 
 	/**
 	 * Returns an array of metadata names declared in static::$metadataName.
-	 * 
+	 *
 	 * @return array An array of indexes names.
 	 * @since  XXX
 	 */
 	public function metadata() {
 		return static::$metadataName;
 	}
-	
+
 	/**
 	 * Called by ActiveQuery to populate the result into array
 	 * Creates an object using a row of data.
@@ -375,21 +375,21 @@ class ActiveRecord extends Model {
 		$record = null;
 		if ($row !== null && $row[DataReader::RESPONSESTATUS_KEY] !== 404) {
 			$record = static::instantiate();
-			
-			
+
+
 			if (isset($row[DataReader::OBJECT_KEY])) {
 				$record->key = $row[DataReader::OBJECT_KEY];
 			} else {
 				$record->key = self::getKeyFromLocation($row);
 			}
-			
+
 			$attributes = $record->attributes(); //ATTRIBUTES NAME
 			$indexes = $record->indexes(); //INDEXES NAME
 			$metadata = $record->metadata(); //META NAME
-			
+
 			$record->_vclock = $row[DataReader::VCLOCK_KEY];
-			
-			
+
+
 			//ASSIGN ATTRIBUTES
 			foreach ($row[DataReader::DATA_KEY] as $attributeName => $attributeValue) {
 				if (in_array($attributeName, $attributes)) {
@@ -418,12 +418,12 @@ class ActiveRecord extends Model {
 					}
 				}
 			}
-			
+
 			//ASSIGN SIBLINGS
 			if (isset($row[DataReader::SIBLINGS_KEY])) {
 				$record->_vtag = $row[DataReader::SIBLINGS_KEY];
 			}
-			
+
 
 			//ASSING LINKS
 			$record->_rawLinks = $row[DataReader::LINK_KEY];
@@ -436,19 +436,19 @@ class ActiveRecord extends Model {
 
 	/**
 	 * Return an object of child type.
-	 * 
+	 *
 	 * @return ActiveRecord
 	 * @since  XXX
 	 */
 	public static function instantiate() {
 		return new static;
 	}
-	
+
 	/**
 	 * Creates an [[ActiveQuery]] instance.
 	 * This method is called by [[one()]],[[all()]] and [[findByKey()]] to start a query.
 	 * You may override this method to return a customized query
-	 * 
+	 *
 	 * @return ActiveQuery the newly created [[ActiveQuery]] instance.
 	 * @since XXX
 	 */
@@ -472,7 +472,7 @@ class ActiveRecord extends Model {
 	 * <code>
 	 *  //SIMPLE GET with one key.
 	 * 	ActiveRecord::find('user1'); -> return a single [[ActiveRecord]] which represents the 'user1' or null if 'user1' not found.
-	 * 
+	 *
 	 *  //MULTIPLE GET.
 	 *  ActiveRecord::find(array('user1', 'user2', 'user3'));
 	 *  //Return an array of [[ActiveRecord]] which reprensents 'user1', 'user2', 'user3' (or empty array if all not found) :
@@ -481,17 +481,17 @@ class ActiveRecord extends Model {
 	 *  //  	'user2' => [[ActiveRecord]],
 	 *  //  	'user3' => [[ActiveRecord]], //Or null if not found
 	 * 	//	);
-	 * 
+	 *
 	 * //Returning an ActiveQuery
 	 * ActiveRecord::find(); -> return an [[ActiveQuery]].
-	 * 
+	 *
 	 * //Seems legit to do following actions :
 	 * ActiveRecord::find()->withKey('user1')->one();
 	 * ActiveRecord::find()->map(...)->reduce(...)->all();
 	 * </code>
 	 *
 	 * @see createQuery()
-	 * 
+	 *
 	 * @return ActiveQuery|ActiveRecord|ActiveRecord[]|null When `$q` is null, a new [[ActiveQuery]] instance
 	 * is returned; when `$q` is a scalar or an array, an ActiveRecord object matching it will be
 	 * returned (null will be returned if there is no matching).
@@ -499,7 +499,7 @@ class ActiveRecord extends Model {
 	 */
 	public static function find($q = null) {
 		$query = static::createQuery();
-		
+
 		if (is_string($q) || is_int($q)) {
 			$ar = $query->withKey($q)->one(static::getNosql());
 			if ($ar) {
@@ -513,17 +513,17 @@ class ActiveRecord extends Model {
 				if ($add) {
 					$add->key = $q;
 				}
-				$activeRecords[$key] = $add;  
+				$activeRecords[$key] = $add;
 			}
 			return $activeRecords;
 		}
 		return $query;
-	}	
-	
+	}
+
 
 	/**
 	 * Creates the [[ActiveQuery]] for query from index.
-	 * 
+	 *
 	 * ~~
 	 * User::findByIndex('userEmail', 'clatour@ibitux.com')->one();
 	 * User::findByIndex('userAge', 0, 18)->all(); //Will return users 0 to 18 years old.
@@ -532,7 +532,7 @@ class ActiveRecord extends Model {
 	 * @param string     $indexName     The indexname to search.
 	 * @param string|int $indexValue    The value of the index to search.
 	 * @param string|int $indexEndValue The endValue to search.
-	 * 
+	 *
 	 * @return ActiveQuery
 	 * @since  XXX
 	 */
@@ -546,12 +546,12 @@ class ActiveRecord extends Model {
 			throw new RiakException($indexName.' is not an index.', 400);
 		}
 	}
-	
+
 	/**
 	 * Returns the type of an index.
-	 * 
+	 *
 	 * @param string $indexName The indexname
-	 * 
+	 *
 	 * @return null|IndexType
 	 * @since  XXX
 	 */
@@ -568,11 +568,11 @@ class ActiveRecord extends Model {
 			}
 		}
 		return $indexType;
-	} 
-		
+	}
+
 	/**
 	 * save current record
-	 * 
+	 *
 	 * This method will call [[insert()]] when [[isNewRecord]] is true, or [[update()]]
 	 * when [[isNewRecord]] is false.
 	 *
@@ -580,7 +580,7 @@ class ActiveRecord extends Model {
 	 * If the validation fails, the record will not be saved to database.
 	 * @param array   $attributes    list of attributes that need to be saved. Defaults to null,
 	 * meaning all attributes that are loaded from DB will be saved.
-	 * 
+	 *
 	 * @return boolean whether the saving succeeds
 	 * @since  XXX
 	 */
@@ -600,32 +600,32 @@ class ActiveRecord extends Model {
 
 	/**
 	 * Resolve conflicts with the current [[ActiveRecord]].
-	 * 
+	 *
 	 * @return void
 	 * @since  XXX
 	 */
 	public function resolve() {
 		if (empty($this->_vclock)) {
 			$this->refresh();
-				
+
 			if (!empty($this->_vtag)) {
 				$this->_attributes = $this->_oldAttributes;
 			}
 		}
-		
+
 		if ($this->save() === 1) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * This function is called by [[ActiveRecord]]::save() if the [[ActiveRecord]] isNewRecord.
-	 * 
+	 *
 	 * @param string $runValidation wheter to run validation.
 	 * @param string $attributes    attribute's name to validate.
-	 * 
+	 *
 	 * @return boolean|int false if validation fail or an integer corresponding to the number of row affected (numbers of siblings).
 	 * @since  XXX
 	 */
@@ -636,10 +636,10 @@ class ActiveRecord extends Model {
 		if (!$this->beforeSave(true)) {
 			return false;
 		}
-			
-		
+
+
 		$command = $this->createCommand('insert');
-				
+
 		$ret = $command->execute();
 		$this->afterSave(true);
 		$obj = $ret->current();
@@ -651,13 +651,13 @@ class ActiveRecord extends Model {
 
 		return $ret->count();
 	}
-	
+
 	/**
 	 * Update a row into te associated bucketName and object key.
-	 * 
-	 * @param boolean $runValidation whether to run validation. 
+	 *
+	 * @param boolean $runValidation whether to run validation.
 	 * @param array   $attributes    attributes to validate.
-	 * 
+	 *
 	 * @return boolean|int false if validation fail or an integer corresponding to the number of row affected (numbers of siblings).
 	 * @since  XXX
 	 */
@@ -665,14 +665,14 @@ class ActiveRecord extends Model {
 		if ($runValidation && !$this->validate($attributes)) {
 			return false;
 		}
-		
+
 		if (!$this->beforeSave(false)) {
-			return false; 
+			return false;
 		}
-		
+
 		$command = $this->createCommand('update');
-		
-		
+
+
 		$ret = $command->execute();
 		$this->afterSave(false);
 		$affected = $ret->count();
@@ -688,15 +688,15 @@ class ActiveRecord extends Model {
 			$this->_vclock = null;
 			return $affected;
 		}
-		
+
 	}
 
 	/**
 	 * Return the command to 'insert' or 'update' the current ActiveRecord.
 	 * It builds data (attributes), indexes (autoIndexes + normal indexes), metadata and links
-	 * 
+	 *
 	 * @param string $mode 'insert' or 'update'.
-	 * 
+	 *
 	 * @return Command $command The command with Links, indexes, and metada attached.
 	 * @since  XXX
 	 */
@@ -706,16 +706,16 @@ class ActiveRecord extends Model {
 		foreach ($this->attributes() as $name) {
 			$data[$name] = $this->$name;
 		}
-		
+
 		$command instanceof Command;
-		
-		
+
+
 		if ($mode === 'insert') {
 			$command->insert($this->bucketName(), $this->key, $data);
 		} else {
 			$command->update($this->bucketName(), $this->key, $data)->vclock($this->_vclock);
 		}
-		
+
 		//Add MetaData.
 		foreach ($this->metadata() as $name) {
 			$value = $this->$name;
@@ -723,15 +723,15 @@ class ActiveRecord extends Model {
 				$command = $command->addMetaData($name, $value);
 			}
 		}
-		
+
 		//AddIndexes
 		foreach ($this->indexes() as $name => $type) {
-			$value = $this->$name;				
+			$value = $this->$name;
 			if (isset($value)) {
 				$command = $command->addIndex($name, $value, $type);
 			}
 		}
-		
+
 		if ($this->_rawLinks) {
 			foreach ($this->_rawLinks as $link) {
 				if (preg_match('/<\/buckets\/(\w+)\/keys\/(\w+)>; riaktag="(\w+)"/', $link, $match) > 0) {
@@ -742,7 +742,7 @@ class ActiveRecord extends Model {
 		}
 		return $command;
 	}
-	
+
 	/**
 	 * Deletes the table row corresponding to this active record.
 	 *
@@ -757,7 +757,7 @@ class ActiveRecord extends Model {
 	 * will be raised by the corresponding methods.
 	 *
 	 * @return boolean wheter [[ActiveRecord]] has been deleted.
-	 * @since XXX 
+	 * @since XXX
 	 */
 	public function delete() {
 		if ($this->key === null) {
@@ -774,9 +774,9 @@ class ActiveRecord extends Model {
 
 	/**
 	 * Returns the relation for the given $name
-	 * 
+	 *
 	 * @param string $name The relation name to get
-	 * 
+	 *
 	 * @return ActiveRelation
 	 * @since XXX
 	 */
@@ -803,7 +803,7 @@ class ActiveRecord extends Model {
 	 *
 	 * @param string $arClass the bucket name of the related record
 	 * @param array  $riakTag the defined link name.
-	 * 
+	 *
 	 * @return ActiveRelation the relation object (link object).
 	 * @since  XXX
 	 */
@@ -814,7 +814,7 @@ class ActiveRecord extends Model {
 			'primaryModel' => $this->getNamespacedClass($arClass),
 			'riakTag' => $riakTag,
 		));
-		
+
 	}
 
 	/**
@@ -824,7 +824,7 @@ class ActiveRecord extends Model {
 	 *
 	 * @param string $arClass the bucket name of the related record
 	 * @param array  $riakTag the defined link name.
-	 * 
+	 *
 	 * @return ActiveRelation the relation object.
 	 * @since  XXX
 	 */
@@ -849,13 +849,13 @@ class ActiveRecord extends Model {
 	 *
 	 * @param string       $name  the case sensitive name of the relationship
 	 * @param ActiveRecord $model the model to be linked with the current one.
-	 * 
+	 *
 	 * @return void
 	 * @since  XXX
 	 */
 	public function link($name, ActiveRecord $model) {
 		$relation = $this->getRelation($name);
-		
+
 		$rawLink = '</buckets/'.$model->bucketName().'/keys/'.$model->key.'>; riaktag="'.$relation->riakTag.'"';
 		if (!in_array($rawLink, $this->_rawLinks)) {
 			if ($relation->primaryModel !== null) {
@@ -891,28 +891,28 @@ class ActiveRecord extends Model {
 	}
 
 	/**
-	 * Unlink the relationship between current [[ActiveRecord]] and the given [[ActiveRecord]] $model 
+	 * Unlink the relationship between current [[ActiveRecord]] and the given [[ActiveRecord]] $model
 	 * for the named reltion $name
-	 * 
+	 *
 	 * @param string       $name  the case sensitive name of the relationship
 	 * @param ActiveRecord $model the model to be unlinked with the current one
-	 * 
+	 *
 	 * @return void
 	 * @since  XXX
 	 */
 	public function unlink($name, ActiveRecord $model) {
 		$relation = $this->getRelation($name);
-		
+
 		$link = '</buckets/'.$model->bucketName().'/keys/'.$model->key.'>; riaktag="'.$relation->riakTag.'"';
 		foreach ($this->_rawLinks as $i => $rawLink) {
 			if ($rawLink === $link) {
 				unset($this->_rawLinks[$i]);
 			}
 		}
-		
+
 		if (isset($this->_related[$name]) === true) {
 			if ($relation->multiple === true) {
-				foreach ($this->$name as $i => $obj) {					
+				foreach ($this->$name as $i => $obj) {
 					if ($model->equals($obj)) {
 						unset($this->_related[$name][$i]);
 					}
@@ -922,13 +922,13 @@ class ActiveRecord extends Model {
 			}
 		}
 	}
-	
+
 	/**
 	 * Updates one or several counter key->value for the current AR object.
 	 *
 	 * @param array $counters the counters to be updated (key name => increment value)
 	 * Use negative values if you want to decrement the counters.
-	 * 
+	 *
 	 * @return boolean whether the saving is successful
 	 * @since XXX
 	 */
@@ -939,9 +939,9 @@ class ActiveRecord extends Model {
 	/**
 	 * Returns a value indicating whether the given active record is the same as the current one.
 	 * The comparison is made by comparing the table names and the primary key values of the two active records.
-	 * 
+	 *
 	 * @param ActiveRecord $record record to compare to
-	 * 
+	 *
 	 * @return boolean whether the two active records refer to the same row in the same database table.
 	 */
 	public function equals($record) {
@@ -950,18 +950,18 @@ class ActiveRecord extends Model {
 
 	/**
 	 * Delete all records which his keys contained in $keys
-	 * 
+	 *
 	 * Example :
 	 * <code>
 	 * 	ActiveRecord::deleteAll(array(
 	 *    'user1',
 	 *    'user2',
 	 *    'user3',
-	 * )); -> will delete objects with key 'user1', 'user2' and 'user3' 
+	 * )); -> will delete objects with key 'user1', 'user2' and 'user3'
 	 * </code>
-	 * 
+	 *
 	 * @param array $keys array of object's key to delete.
-	 * 
+	 *
 	 * @return int Number of object affected.
 	 * @since  XXX
 	 */
@@ -981,18 +981,18 @@ class ActiveRecord extends Model {
 	/**
 	 * update all of record
 	 * It is remaining. This methods are not needed in first release
-	 * 
+	 *
 	 * @return void
 	 * @since  XXX
 	 */
 	public function updateAll() {
 		throw new NotSupportedException(__METHOD__ . ' is not supported.');
 	}
-	
+
 	/**
 	 * update all of selected counters
 	 * It is remaining. This methods are not needed in first release
-	 * 
+	 *
 	 * @return void
 	 * @since  XXX
 	 */
@@ -1006,9 +1006,9 @@ class ActiveRecord extends Model {
 	 * The object will be separated in two part.
 	 * The data before you save the object (_oldAttributes contains object data, _indexes contains indexes, _meta and _link same)
 	 * Then you have the siblings part. (_vtag contains _vtag of siblings).
-	 * You can get all siblings (as [[ActiveRecord]]) like doing this : 
+	 * You can get all siblings (as [[ActiveRecord]]) like doing this :
 	 * 	[[ActiveRecord]]->siblings; -> will return an array of siblings
-	 * 
+	 *
 	 * @return boolean wheter the resolve has been executed successfully.
 	 * @since  XXX
 	 */
@@ -1029,15 +1029,15 @@ class ActiveRecord extends Model {
 		$this->_vclock = $record->_vclock;
 		return true;
 	}
-	
+
 	/**
 	 * Changes the given class name into a namespaced one.
 	 * If the given class name is already namespaced, no change will be made.
 	 * Otherwise, the class name will be changed to use the same namespace as
 	 * the current AR class.
-	 * 
+	 *
 	 * @param string $class the class name to be namespaced
-	 * 
+	 *
 	 * @return string the namespaced class name
 	 * @since  XXX
 	 */
@@ -1051,21 +1051,21 @@ class ActiveRecord extends Model {
 	}
 
 	/**
-	 * Returns indexes of object. 
-	 * An array of pair key (name) - value. 
-	 * 
+	 * Returns indexes of object.
+	 * An array of pair key (name) - value.
+	 *
 	 * @return array indexes of object
 	 * @since  XXX
 	 */
 	public function getIndexes() {
 		return $this->_indexes;
 	}
-	
+
 	/**
 	 * Returns metadata of object.
 	 * An array of pair key (name) - value.
-	 * 
-	 * @return array metadata of object. 
+	 *
+	 * @return array metadata of object.
 	 * @since  XXX
 	 */
 	public function getMetadata() {
@@ -1076,19 +1076,19 @@ class ActiveRecord extends Model {
 	 * Returns the named attribute value.
 	 * If this record is the result of a query and the attribute is not loaded,
 	 * null will be returned.
-	 * 
+	 *
 	 * @param string $name the attribute name
-	 * 
+	 *
 	 * @return mixed the attribute value. Null if the attribute is not set or does not exist.
 	 * @since  XXX
 	 */
 	public function getAttribute($name) {
 		return isset($this->_attributes[$name]) ? $this->_attributes[$name] : null;
 	}
-	
+
 	/**
 	 * Returns an [[ActiveRecord]] array.
-	 * 
+	 *
 	 * @return array of [[ActiveRecord]]. Each row represent a version of the object.
 	 * @since  XXX
 	 */
@@ -1106,14 +1106,14 @@ class ActiveRecord extends Model {
 				$this->_siblings = $obj->_siblings;
 			} else {
 				$this->_siblings = array();
-			}			
+			}
 		}
 		return $this->_siblings;
 	}
-	
+
 	/**
 	 * Return whether is new record.
-	 * 
+	 *
 	 * @return boolean whether is a new record.
 	 * @since  XXX
 	 */
@@ -1123,9 +1123,9 @@ class ActiveRecord extends Model {
 
 	/**
 	 * Returns wheter attribute exists.
-	 * 
+	 *
 	 * @param unknown $name The attribute name to test.
-	 * 
+	 *
 	 * @return boolean
 	 * @since  XXX
 	 */
@@ -1153,11 +1153,11 @@ class ActiveRecord extends Model {
 	/**
 	 * Checks if $name is an attribute, an index, a metadata, or a link.
 	 * If not it will call parent::__get.
-	 * 
+	 *
 	 * @param string $name The property wanted to get.
-	 * 
+	 *
 	 * @see \yii\base\Component::__get()
-	 * 
+	 *
 	 * @return mixed The value of the property ($name)
 	 * @since  XXX
 	 */
@@ -1178,9 +1178,9 @@ class ActiveRecord extends Model {
 			if (isset($this->_related[$name]) || array_key_exists($name, $this->_related)) {
 				return $this->_related[$name];
 			}
-			
+
 			$value = parent::__get($name);
-			
+
 			if ($value instanceof ActiveRelation) {
 				$this->_related[$name] = ($value->multiple ? $value->all(static::getNosql()) : $value->one(static::getNosql()));
 				return $this->_related[$name];
@@ -1194,12 +1194,12 @@ class ActiveRecord extends Model {
 	 * Set the attribute.
 	 * Checks if it's an attribute, an index, a metadata.
 	 * If not it will call parent::__set().
-	 * 
+	 *
 	 * @param string $name  The attribute name to set.
 	 * @param mixed  $value The value to set.
-	 * 
+	 *
 	 * @see \yii\base\Component::__set()
-	 * 
+	 *
 	 * @return void
 	 * @since  XXX
 	 */
@@ -1208,7 +1208,7 @@ class ActiveRecord extends Model {
 			$this->_attributes[$name] = $value;
 			$indexes = $this->indexes();
 			if (array_key_exists($name, $indexes)) {
-				$this->_indexes[$name] = $value;				
+				$this->_indexes[$name] = $value;
 			}
 		} elseif (in_array($name, $this->metadata())) {
 			$this->_meta[$name] = $value;
@@ -1217,6 +1217,6 @@ class ActiveRecord extends Model {
 		} else {
 			parent::__set($name, $value);
 		}
-		
+
 	}
 }
