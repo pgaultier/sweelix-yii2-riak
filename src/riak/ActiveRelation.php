@@ -69,10 +69,8 @@ class ActiveRelation extends ActiveQuery
      */
     public function __construct($config = array())
     {
-        parent::__construct($config);
-        foreach ($config as $name => $value) {
-            $this->$name = $value;
-        }
+        parent::__construct(null, $config);
+
 
         $model = $this->primaryModel;
         $this

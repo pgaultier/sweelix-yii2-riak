@@ -25,6 +25,7 @@ use yii\db\ActiveRecord as BaseActiveRecord;
 use Exception;
 use InvalidArgumentException;
 use Yii;
+use yii\base\UnknownPropertyException;
 
 /**
  * Class ActiveRecord
@@ -202,6 +203,7 @@ abstract class ActiveRecordDynamic extends BaseActiveRecord implements ActiveRec
      */
     public static function findAllByIndex($indexName, $indexValue, $indexEndValue, $bucketName = null)
     {
+        $query = self::find($bucketName);
         $indexType = self::indexType($indexName);
 
         if ($indexType !== null) {
@@ -705,12 +707,27 @@ abstract class ActiveRecordDynamic extends BaseActiveRecord implements ActiveRec
     }
 
     /**
+     * Returns a value indicating whether the given active record is the same as the current one.
+     *
+     * @param ActiveRecordDynamic $record record to compare.
+     *
+     * @return boolean
+     * @since  XXX
+     */
+    public function equals($record)
+    {
+        return $this->vclock === $record->vclock;
+    }
+
+    /**
+     * This is the has-one relation.
+     * It is used to link with an ActiveRecordDynamic cause of his dynamoc bucketName.
      *
      * @param string $arClass    The model name linked
      * @param string $riakTag    The tag link
      * @param string $bucketName The bucket where the linked object is.
      *
-     * @return \sweelix\yii2\nosql\riak\ActiveRelation
+     * @return ActiveRelation
      * @since  XXX
      */
     public function hasOneInBucket($arClass, $riakTag, $bucketName)
@@ -724,6 +741,17 @@ abstract class ActiveRecordDynamic extends BaseActiveRecord implements ActiveRec
         ));
     }
 
+    /**
+     * This is the has-many relation.
+     * It is used to link with an ActiveRecordDynamic cause of his dynamoc bucketName.
+     *
+     * @param string $arClass    The class to link with.
+     * @param string $riakTag    The defined link name
+     * @param string $bucketName The bucketName where the relation is.
+     *
+     * @return ActiveRelation
+     * @since  XXX
+     */
     public function hasManyInBucket($arClass, $riakTag, $bucketName)
     {
         return new ActiveRelation(array(
@@ -751,7 +779,7 @@ abstract class ActiveRecordDynamic extends BaseActiveRecord implements ActiveRec
     public function hasOne($arClass, $riakTag)
     {
         $tmp = new $arClass();
-        if ($arClass instanceof ActiveRecord) {
+        if ($tmp instanceof ActiveRecord) {
             return new ActiveRelation(array(
                 'modelClass' => $this,
                 'multiple' => false,
@@ -956,8 +984,6 @@ abstract class ActiveRecordDynamic extends BaseActiveRecord implements ActiveRec
      *
      * @param string $name The property wanted to get.
      *
-     * @see \yii\base\Component::__get()
-     *
      * @return mixed The value of the property ($name)
      * @since  XXX
      */
@@ -1027,7 +1053,11 @@ abstract class ActiveRecordDynamic extends BaseActiveRecord implements ActiveRec
             $this->meta[$name] = $value;
         } elseif (array_key_exists($name, $this->indexes())) {
             $this->indexes[$name] = $value;
-        } else {
+        }
+
+        try {
+            parent::__set($name, $value);
+        } catch (UnknownPropertyException $e) {
             $this->virtualAttributes[$name] = $value;
         }
     }

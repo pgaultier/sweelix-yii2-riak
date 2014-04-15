@@ -36,7 +36,6 @@ class ActiveQuery extends Query
 {
 
     /**
-     *
      * @var string name of model(s) to return.
      */
     public $modelClass;
@@ -58,7 +57,10 @@ class ActiveQuery extends Query
     }
 
     /**
-     * TODO
+     * Returns the bucketName
+     *
+     * @return string
+     * @since  XXX
      */
     public function bucketName()
     {
@@ -112,7 +114,7 @@ class ActiveQuery extends Query
         static $i = 0;
         $model = null;
         $command = $this->createCommand($db);
-        $class = $this->modelClass;
+        $class = $this->getQueryClass();
         $data = $command->queryOne();
 
         \Yii::info(var_export($data, true), __METHOD__);
@@ -144,7 +146,7 @@ class ActiveQuery extends Query
         $command = $this->createCommand($db);
         $models = array();
 
-        $class = $this->modelClass;
+        $class = $this->getQueryClass();
 
         $data = $command->queryAll();
         foreach ($data as $row) {
@@ -235,5 +237,13 @@ class ActiveQuery extends Query
         }
         $this->mapReduce->addPhase($map);
         return $this;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getQueryClass()
+    {
+        return $this->modelClass;
     }
 }

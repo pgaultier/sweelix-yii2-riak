@@ -16,7 +16,6 @@ namespace sweelix\yii2\nosql\riak;
 
 use yii\base\InvalidCallException;
 use Yii;
-use yii\base\NotSupportedException;
 
 /**
  * Class ActiveRecord
@@ -46,7 +45,12 @@ abstract class ActiveRecord extends ActiveRecordDynamic implements ActiveRecordI
         if (empty($args)) {
             $ret = parent::find(static::bucketName());
         } else {
-            $ret = parent::find(static::bucketName(), $args[0]);
+            if (isset($args[0]) === true) {
+                $ret = parent::find(static::bucketName(), $args[0]);
+            } else {
+                $ret = parent::find(static::bucketName())->one();
+            }
+
         }
         return $ret;
     }
@@ -82,14 +86,4 @@ abstract class ActiveRecord extends ActiveRecordDynamic implements ActiveRecordI
     {
         return static::bucketName();
     }
-
-    /*public function hasMany($arClass, $riakTag)
-    {
-        return parent::hasManyInBucket($arClass, $riakTag, static::bucketName());
-    }
-
-    public function hasOne($arClass, $riakTag)
-    {
-        return parent::hasManyInBucket($arClass, $riakTag, static::bucketName());
-    }*/
 }
