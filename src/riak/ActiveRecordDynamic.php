@@ -98,7 +98,7 @@ abstract class ActiveRecordDynamic extends BaseActiveRecord implements ActiveRec
      *
      * @var array
      */
-    protected $rawLinks;
+    protected $rawLinks = [];
 
     /**
      * The object's attributes
