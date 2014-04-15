@@ -12,7 +12,6 @@
 * @category  nosql
 * @package   sweelix.nosql.riak.phase
 */
-
 namespace sweelix\yii2\nosql\riak\interfaces;
 
 /**
@@ -20,23 +19,23 @@ namespace sweelix\yii2\nosql\riak\interfaces;
  *
  * This class is an interface for mapReduce phase.
  *
- * @author    Christophe Latour <clatour@sweelix.net>
+ * @author Christophe Latour <clatour@sweelix.net>
  * @copyright 2010-2013 Sweelix
- * @license   http://www.sweelix.net/license license
- * @version   XXX
- * @link      http://www.sweelix.net
- * @category  nosql
- * @package   sweelix.nosql.riak.phase
- * @since     XXX
+ * @license http://www.sweelix.net/license license
+ * @version XXX
+ * @link http://www.sweelix.net
+ * @category nosql
+ * @package sweelix.nosql.riak.phase
+ * @since XXX
  */
+interface Phase
+{
 
-interface Phase {
-	
-	/**
-	 * This function build a setting array for Phase.
-	 * 
-	 * @return array setting array phase.
-	 * @since  XXX
-	 */
-	public function build();
+    /**
+     * This function build a setting array for Phase.
+     *
+     * @return array setting array phase.
+     * @since XXX
+     */
+    public function build();
 }

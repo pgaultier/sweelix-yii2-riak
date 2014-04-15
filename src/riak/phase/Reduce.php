@@ -12,7 +12,6 @@
  * @category  nosql
  * @package   sweelix.nosql.riak.phase
  */
-
 namespace sweelix\yii2\nosql\riak\phase;
 
 /**
@@ -20,18 +19,19 @@ namespace sweelix\yii2\nosql\riak\phase;
  *
  * This class encapsulate a reduce phase
  *
- * @author    Philippe Gaultier <pgaultier@sweelix.net>
+ * @author Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2013 Sweelix
- * @license   http://www.sweelix.net/license license
- * @version   XXX
- * @link      http://www.sweelix.net
- * @category  nosql
- * @package   sweelix.nosql.riak.phase
- * @since     XXX
+ * @license http://www.sweelix.net/license license
+ * @version XXX
+ * @link http://www.sweelix.net
+ * @category nosql
+ * @package sweelix.nosql.riak.phase
+ * @since XXX
  */
-class Reduce extends Phase {
-	/**
-	 * @var string phase type
-	 */
-	protected $_phase = 'reduce';
+class Reduce extends Phase
+{
+    /**
+     * @var string phase type
+     */
+    protected $phase = 'reduce';
 }
