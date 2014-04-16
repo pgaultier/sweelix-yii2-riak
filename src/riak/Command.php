@@ -828,10 +828,12 @@ class Command extends Component
             );
             $dataReader = new DataReader();
             $body = $response->getData();
-            foreach ($body['keys'] as $key) {
-                $response = $this->noSqlDb->client->getObject($this->bucket, $key);
-                $dataReader->addObject($response, $key);
-                return $dataReader->current();
+            if (isset($body['keys']) === true) {
+                foreach ($body['keys'] as $key) {
+                    $response = $this->noSqlDb->client->getObject($this->bucket, $key);
+                    $dataReader->addObject($response, $key);
+                    return $dataReader->current();
+                }
             }
             return null;
         } elseif (! empty($this->queryLinks) && $this->mode == 'selectWithLink') {
