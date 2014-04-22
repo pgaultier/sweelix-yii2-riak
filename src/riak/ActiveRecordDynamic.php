@@ -570,11 +570,14 @@ abstract class ActiveRecordDynamic extends BaseActiveRecord implements ActiveRec
             $record->vclock = $row[DataReader::VCLOCK_KEY];
 
             //ASSIGN ATTRIBUTES
-            foreach ($row[DataReader::DATA_KEY] as $attributeName => $attributeValue) {
-                if (in_array($attributeName, $attributes)) {
-                    $record->attributes[$attributeName] = $attributeValue;
-                } else {
-                    $record->virtualAttributes[$attributeName] = $attributeValue;
+            //FIX FIRST IF. $row[DATA_KEY] should be an empty array by default.
+            if (isset($row[DataReader::DATA_KEY]) === true && is_array($row[DataReader::DATA_KEY]) === true) {
+                foreach ($row[DataReader::DATA_KEY] as $attributeName => $attributeValue) {
+                    if (in_array($attributeName, $attributes)) {
+                        $record->attributes[$attributeName] = $attributeValue;
+                    } else {
+                        $record->virtualAttributes[$attributeName] = $attributeValue;
+                    }
                 }
             }
 
