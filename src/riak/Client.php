@@ -82,16 +82,11 @@ class Client extends Component
     /**
      * Create an object into the selected bucket
      *
-     * @param string $bucketName
-     *            name of the bucket
-     * @param string $objectKey
-     *            key of the object to create (will be created if key is null)
-     * @param mixed $content
-     *            content which will be json enconded
-     * @param array $additionalParameters
-     *            additional parameters to append to the query string
-     * @param array $additionalHeaders
-     *            additional headers (meta, link, ...)
+     * @param string $bucketName           name of the bucket
+     * @param string $objectKey            key of the object to create (will be created if key is null)
+     * @param mixed  $content              content which will be json enconded
+     * @param array  $additionalParameters additional parameters to append to the query string
+     * @param array  $additionalHeaders    additional headers (meta, link, ...)
      *
      * @return Response
      * @since XXX
@@ -134,16 +129,11 @@ class Client extends Component
     /**
      * Update counters for the counterKey ($counterKey) in the bucket ($bucketName).
      *
-     * @param string $bucketName
-     *            The bucket name.
-     * @param string $counterKey
-     *            The counter key to update.
-     * @param int $incrementalValue
-     *            The value to add to counter.
-     * @param array $additionalParameters
-     *            The additional get parameters
-     * @param array $headers
-     *            The headers
+     * @param string $bucketName           The bucket name.
+     * @param string $counterKey           The counter key to update.
+     * @param int    $incrementalValue     The value to add to counter.
+     * @param array  $additionalParameters The additional get parameters
+     * @param array  $headers              The headers
      *
      * @return Response The request response.
      * @since XXX
@@ -177,14 +167,10 @@ class Client extends Component
     /**
      * Get the counter ($counterKey) in the bucket ($bucket)
      *
-     * @param string $bucketName
-     *            The bucket name.
-     * @param string $counterKey
-     *            The counter to get.
-     * @param array $additionalParameters
-     *            The additionnal get parameters.
-     * @param array $headers
-     *            The additionnal request headers.
+     * @param string $bucketName           The bucket name.
+     * @param string $counterKey           The counter to get.
+     * @param array  $additionalParameters The additionnal get parameters.
+     * @param array  $headers              The additionnal request headers.
      *
      * @return Response The request response.
      * @since XXX
