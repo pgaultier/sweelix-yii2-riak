@@ -56,7 +56,6 @@ class Command extends Component
     public $noSqlDb;
 
     /**
-     *
      * @var array $commandData The settings array
      *      <code>
      *      array(
