@@ -56,7 +56,6 @@ class Command extends Component
     public $noSqlDb;
 
     /**
-     *
      * @var array $commandData The settings array
      *      <code>
      *      array(
@@ -792,10 +791,12 @@ class Command extends Component
             $response = $this->noSqlDb->client->queryMapReduce($this->data);
             $dataReader = new DataReader();
             $data = $response->getData();
-            foreach ($data as $i => $obj) {
-                $dataReader->addRawObject($obj);
+            if (isset($data)) {
+                foreach ($data as $i => $obj) {
+                    $dataReader->addRawObject($obj);
+                }
+                return $dataReader;
             }
-            return $dataReader;
         }
         return false;
     }

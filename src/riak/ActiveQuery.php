@@ -150,7 +150,12 @@ class ActiveQuery extends Query
 
         $data = $command->queryAll();
         foreach ($data as $row) {
-            $models[] = $class::create($row);
+            $model = $class::create($row);
+            if ($this->bucket !== null) {
+                $model->setBucketName($this->bucket);
+            }
+            $models[] = $model;
+
         }
         return $models;
     }
