@@ -63,47 +63,9 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
 
     private $bucketName;
 
-    private static $contextVars;
-
-    public static function getContextVars()
+    public static function findAll($condition = null)
     {
-        self::isDynamicRecord();
-        return self::$contextVars;
-    }
-
-    public function setContext(array $context)
-    {
-        foreach (self::getContextVars() as $contextVar) {
-            if (!array_key_exists($contextVar, $context)) {
-                throw new InvalidConfigException(
-                    get_called_class($this) . ' : Missing context variable { ' . $contextVar . '}'
-                );
-            }
-        }
-        $this->context = $context;
-    }
-
-    public static function isDynamicRecord()
-    {
-        if (self::$contextVars === null) {
-            $ret = true;
-            $pattern = '/{([^}]+)}/';
-            $res = preg_match_all($pattern, static::bucketName(), $matches);
-            if ($res >= 1) {
-                foreach ($matches[1] as $repKey) {
-                    self::$contextVars[] = $repKey;
-                }
-            } else {
-                self::$contextVars = [];
-            }
-        }
-        return !empty(self::$contextVars);
-    }
-
-    public static function findAll($condition = null, $context = null)
-    {
-        $query = static::find($context);
-        return $query->fromBucket(self::resolveBucketName($context))->withMapReduce()->genericMapping()->all(static::getDb());
+        return $query->fromBucket(static::bucketName())->withMapReduce()->genericMapping()->all(static::getDb());
     }
 
     public static function find($context = null)
@@ -163,7 +125,7 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
     /**
      * @inheritdoc
      */
-    public function attributes()
+/*    public function attributes()
     {
         $attributes = [];
         foreach (static::attributeNames() as $key => $value) {
@@ -174,7 +136,7 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
             }
         }
         return $attributes;
-    }
+    }*/
 
     /**
      * Returns an an array of autoIndex property
