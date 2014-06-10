@@ -42,11 +42,12 @@ class Command extends Component
         'selectWithMapReduce',
         'selectWithLink',
         'selectWithIndex',
+        'getCounter',
         'insert',
         'update',
+        'updateCounter',
         'delete',
-        'counters',
-        'props'
+        'updateBucketProps'
     );
 
     /**
@@ -403,9 +404,10 @@ class Command extends Component
                     $this->queryParams,
                     $this->headers
                 );
-                break;
+                return ResponseBuilder::buildGetResponse($response, $this->bucket, $this->key);
             case 'selectWithMapReduce':
                 $response = $this->noSqlDb->client->queryMapReduce($this->data);
+                //Return DataReader()
                 break;
             case 'selectWithIndex':
                 $response = $this->noSqlDb->client->queryIndexes(
@@ -416,6 +418,7 @@ class Command extends Component
                     $this->queryIndexEndValue,
                     $this->queryParams
                 );
+                //Return ObjectReader()
                 break;
             case 'selectWithLink':
                 $response = $this->noSqlDb->client->queryLinks(
@@ -423,6 +426,7 @@ class Command extends Component
                     $this->key,
                     $this->queryLinks
                 );
+                //Return ObjectReader()
                 break;
             case 'insert':
                 $queryParams = $this->queryParams;
@@ -436,6 +440,7 @@ class Command extends Component
                     $queryParams,
                     $this->headers
                 );
+                //Return true;
                 break;
             case 'update':
                 if (isset($this->headers['X-Riak-Vclock']) === false) {
@@ -453,6 +458,7 @@ class Command extends Component
                         $this->headers
                     );
                 }
+                //Return true
                 break;
             case 'delete':
                 $response = $this->noSqlDb->client->deleteObject(
@@ -461,8 +467,9 @@ class Command extends Component
                     $this->queryParams,
                     $this->headers
                 );
+                //Return true;
                 break;
-            case 'counters':
+            case 'updateCounter':
                 $response = $this->noSqlDb->client->updateCounters(
                     $this->bucket,
                     $this->key,
@@ -470,16 +477,19 @@ class Command extends Component
                     $this->queryParams,
                     $this->headers
                 );
+                //Return Counter
                 break;
             case 'props':
                 $response = $this->noSqlDb->client->alterBucket($this->bucket, $this->data);
+                //Return BucketProps
                 break;
         }
-        if ($raw === false && $response instanceof Response) {
+        return $result;
+/*        if ($raw === false && $response instanceof Response) {
             $result = new DataReader($response);
         } elseif ($raw === true && $response instanceof Response) {
             $result = $response;
-        }
+        }*/
         return $result;
     }
 
