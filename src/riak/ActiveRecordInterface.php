@@ -89,9 +89,4 @@ interface ActiveRecordInterface extends BaseActiveRecordInterface
      * @since  XXX
      */
     public static function metadataNames();
-
-    /**
-     * Return wheteher the ActiveRecord bucketName is dynamic or not
-     */
-    public static function isDynamicRecord();
 }
