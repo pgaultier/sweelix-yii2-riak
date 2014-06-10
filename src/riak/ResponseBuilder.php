@@ -38,9 +38,9 @@ class ResponseBuilder
         if ($response->getStatus() >= 400) {
             throw new RiakException($response->getData(), $response->getStatus());
         }
-        $response['bucket'] = $bucket;
-        $response['key'] = $key;
-        $response['vclock'] = $response->getHeaderField('X-Riak-Vclock');
+        $ret['bucket'] = $bucket;
+        $ret['key'] = $key;
+        $ret['vclock'] = $response->getHeaderField('X-Riak-Vclock');
 
         if ($response->getStatus() === 200) {
             $values['metadata'] = array(
@@ -51,9 +51,10 @@ class ResponseBuilder
                 'X-Riak-Last-Modified' => $response->getHeaderField('Last-Modified'),
                 'X-Riak-Meta' => self::buildMetadata($response->getHeaders())
             );
-            $values['data'] = $response->getRawData();
+            $ret['data'] = $response->getRawData();
+            $ret['values'] = $values;
         }
-        return $response;
+        return $ret;
     }
 
     public static function buildPutResponse()
