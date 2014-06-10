@@ -173,7 +173,7 @@ class QueryBuilder extends Object
      *            The incrementalValue to add to the counter.
      *
      * @return array The configurated setting array to execute the updateCounter command.
-     * @since XXX
+     * @since  XXX
      */
     public function updateCounter($bucketName, $counterKey, $incrementalValue)
     {
