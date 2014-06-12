@@ -132,32 +132,23 @@ class Client extends Component
      * @param string $bucketName           The bucket name.
      * @param string $counterKey           The counter key to update.
      * @param int    $incrementalValue     The value to add to counter.
-     * @param array  $additionalParameters The additional get parameters
-     * @param array  $headers              The headers
      *
      * @return Response The request response.
      * @since XXX
      */
-    public function updateCounters(
-        $bucketName,
-        $counterKey,
-        $incrementalValue,
-        $additionalParameters = array(),
-        $headers = array()
-    ) {
+    public function updateCounter($bucketName, $counterKey, $incrementalValue)
+    {
         $url = $this->prepareUrl('bucketCounters', array(
             '{bucket}' => $bucketName,
             '{key}' => $counterKey
         ));
         $request = new Request($url);
         \Yii::info('UpdateCounters request : @POST ' . $url . "\n", __METHOD__);
-        \Yii::info('UpdateCounters body : ' . var_export($incrementalValue) . "\n", __METHOD__);
+        \Yii::info('UpdateCounters body : ' . var_export($incrementalValue, true) . "\n", __METHOD__);
 
         $request->setMethod('POST');
         $headers['Content-Type'] = 'application/json';
-        $request->setHeaders($headers);
-        $request->setUrlParameters($additionalParameters);
-        $request->setBody(json_encode($incrementalValue));
+        $request->setBody("$incrementalValue");
 
         $response = $request->execute();
         \Yii::info('UpdateCounters response : @POST ' . $url . "\n", __METHOD__);
@@ -175,7 +166,7 @@ class Client extends Component
      * @return Response The request response.
      * @since XXX
      */
-    public function getCounters($bucketName, $counterKey, $additionalParameters = array(), $headers = array())
+    public function getCounter($bucketName, $counterKey)
     {
         $url = $this->prepareUrl('bucketCounters', array(
             '{bucket}' => $bucketName,
@@ -185,13 +176,10 @@ class Client extends Component
         \Yii::info('GetCounters request : @GET ' . $url . "\n", __METHOD__);
 
         $request->setMethod('GET');
-        $headers['Content-Type'] = 'application/json';
-        $request->setHeaders($headers);
-        $request->setUrlParameters($additionalParameters);
 
         $response = $request->execute();
         \Yii::info('GetCounters response : ' . var_export($response, true) . "\n", __METHOD__);
-        return $response();
+        return $response;
     }
 
     /**
@@ -212,13 +200,29 @@ class Client extends Component
         ));
         $request = new Request($url);
         \Yii::info('AlterBucket request : @PUT' . $url . "\n", __METHOD__);
-        \Yii::info('AlterBucket body : ' . var_export($properties) . "\n", __METHOD__);
+        \Yii::info('AlterBucket body : ' . var_export($properties, true) . "\n", __METHOD__);
 
         $request->setMethod('PUT');
         $request->setHeaders(array(
             'Content-Type' => 'application/json'
         ));
         $request->setBody(json_encode($properties));
+
+        $response = $request->execute();
+        \Yii::info('AlterBucket response : ' . var_export($response, true) . "\n", __METHOD__);
+
+        return $response;
+    }
+
+    public function getBucketProps($bucketName)
+    {
+        $url = $this->prepareUrl('bucketProperties', array(
+            '{bucket}' => $bucketName
+        ));
+
+        \Yii::info('AlterBucket request : @GET' . $url . "\n", __METHOD__);
+
+        $request = new Request($url);
 
         $response = $request->execute();
         \Yii::info('AlterBucket response : ' . var_export($response, true) . "\n", __METHOD__);
