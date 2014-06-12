@@ -12,13 +12,10 @@
  * @category  controllers
  * @package   application.redlix.controllers
  */
-
 namespace redlix\tests\unit\nosql\riak;
 
 use Yii;
-use sweelix\yii2\nosql\riak\Command;
 use sweelix\yii2\nosql\riak\IndexType;
-use sweelix\yii2\nosql\DataReader;
 use sweelix\yii2\nosql\tests\TestCase;
 
 /**
@@ -31,267 +28,374 @@ use sweelix\yii2\nosql\tests\TestCase;
  * @license   http://www.sweelix.net/license license
  * @version   XXX
  * @link      http://code.ibitux.net/redlix/
- * @category  controllers
- * @package   application.redlix.controllers
+ * @category  tests
+ * @package   application.test.unit.nosql.riak
  */
-class CommandTest extends TestCase { 
-	private $command;
-	
-	private $bucketName = 'riakBucketTest';
-	private $objectName = 'riakObjectTest';
-	private $objectData = array(
-		'objectDataKey' => 'objectDataValue',
-	);
-	
-	protected function setUp() {
-		parent::setUp();
-		$this->mockApplication(require(__DIR__.'/../../data/web.php'));
-		$this->command = \Yii::$app->riak->createCommand();
-	}
-	
-	
-	public function testInit() {
-		$this->assertInstanceOf('sweelix\yii2\nosql\Command', $this->command);
-		$this->assertInstanceOf('sweelix\yii2\nosql\riak\Command', $this->command);
-		
-		$this->assertInstanceOf('sweelix\yii2\nosql\Connection', $this->command->noSqlDb);
-		$this->assertInstanceOf('sweelix\yii2\nosql\riak\Connection', $this->command->noSqlDb);
-		
-		$this->assertEmpty($this->command->getCommandData());	
-	}
-	
-	/**
-	 * Basic insert
-	 */
-	public function testInsert() {
-		$response = $this->command
-		->insert($this->bucketName, $this->objectName, $this->objectData)
-		->execute();
-		$this->checkResponseIntegrity($response);
-		$this->checkObjectIntegrity($response->current());
+class CommandTest extends TestCase
+{
+
+    private $command;
+
+    private $bucketName = 'riakBucketTest';
+
+    private $objectName = 'riakObjectTest';
+
+    private $objectData = array(
+        'objectDataKey' => 'objectDataValue'
+    );
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->mockApplication(require (__DIR__ . '/../../data/web.php'));
+        $this->command = \Yii::$app->riak->createCommand();
+    }
+
+    public function testInit()
+    {
+        $this->assertInstanceOf('sweelix\yii2\nosql\riak\Command', $this->command);
+        $this->assertInstanceOf('sweelix\yii2\nosql\riak\Connection', $this->command->noSqlDb);
+        $this->assertEmpty($this->command->getCommandData());
+    }
+
+    /**
+     * Basic
+     * insert
+     */
+    public function testInsert()
+    {
+        $this->command->setMode('insert');
+        $this->command->setBucket($this->bucketName);
+        $this->command->setKey($this->objectName);
+        $this->command->setData($this->objectData);//->execute();
+        //OR
+        $response = $this->command->insert($this->bucketName, $this->objectName, $this->objectData)->execute();
+        $this->resetCommand();
 
 
-		$this->resetCommand();
-		$this->command->setMode('insert');
-		$this->command->setBucket($this->bucketName);
-		$this->command->setKey($this->objectName.'WithSetters');
-		$this->command->setData($this->objectData);
-		$response = $this->command->execute();
-		$this->checkResponseIntegrity($response);
-		$this->checkObjectIntegrity($response->current());
-		
-		$this->resetCommand();
-		
-		$commandData = array(
-			'mode' => 'insert',
-			'bucket' => $this->bucketName,
-			'key' => $this->objectName.'WithCommandData',
-			'data' => $this->objectData
-		);
-		$response = $this->command->setCommandData($commandData)->execute();
-		
-		$this->checkResponseIntegrity($response);
-		$this->checkObjectIntegrity($response->current());
-		
-		$this->resetCommand();
-		
-	}
-	
-	public function testInsertWithMeta() {
-		$response = $this->command
-		->insert($this->bucketName, $this->objectName.'WithMeta', $this->objectData)
-		->addMetaData('metaTestKey', 'metaTestValue')
-		->execute();
-		$this->checkResponseIntegrity($response);
-		$this->checkObjectIntegrity($response->current());
-		
-		$this->resetCommand();
-		
-		$this->command->setMode('insert');
-		$this->command->setBucket($this->bucketName);
-		$this->command->setKey($this->objectName.'WithMetaSetters');
-		$this->command->setData($this->objectData);
-		$this->command->setHeaders(array(
-			'X-Riak-metaTestKeySetter' => 'metaTestValue'
-		));
-		$response = $this->command->execute();
-		$this->checkResponseIntegrity($response);
-		$this->checkObjectIntegrity($response->current());
-	}
+        $this->checkResponseIntegrity($response);
+        $this->assertEquals($this->bucketName, $response['bucket']);
+        $this->assertEquals($this->objectName, $response['key']);
+        $this->assertNotEmpty($response['values']);
+        $object = $response['values'][0];
+        $this->checkObjectIntegrity($object);
+    }
 
-	/**
-	 * Insert object With index.
-	 */
-	public function testInsertWithIndexes() {
-		$response = $this->command->insert($this->bucketName, $this->objectName.'WithIndexBin', $this->objectData)
-		->addIndex('indexTestKeyBin', 'indexTestValueBin')
-		->execute();
-		$this->checkResponseIntegrity($response);
-		$this->checkObjectIntegrity($response->current());
-		
-		$response = $this->command->insert($this->bucketName, $this->objectName.'WithIndexInt', $this->objectData)
-		->addIndex('indexTestKeyInt', 123, IndexType::TYPE_INTEGER)
-		->execute();
-		$this->checkResponseIntegrity($response);
-		$this->checkObjectIntegrity($response->current());
-		
-		$response = $this->command->insert($this->bucketName, $this->objectName.'WithIndexInt2', $this->objectData)
-		->addIndex('indexTestKeyInt', 124, IndexType::TYPE_INTEGER)
-		->execute();
-		$this->checkResponseIntegrity($response);
-		$this->checkObjectIntegrity($response->current());
-	}
-	
-	/**
-	 * Insert Object With links
-	 */
-	public function testInsertWithLinks() {
-		$response = $this->command->insert($this->bucketName, $this->objectName.'WithLink', $this->objectData)
-		->addLink($this->bucketName, $this->objectName, 'link')
-		->addLink($this->bucketName, $this->objectName.'WithIndexBin', 'link')
-		->addLink($this->bucketName, $this->objectName.'WithIndexInt', 'anotherLink')
-		->execute();
-		$this->checkResponseIntegrity($response);
-	}
-	
-	/**
-	 * Insert Object With Query Params
-	 */
-	public function testWithQueryParams() {
-		//INSERT WITH HELPERS
-		$response = $this->command->insert($this->bucketName, $this->objectName.'WithQueryParams', $this->objectData)
-		->addQueryParameter('return_body', true)
-		->execute();
-		
-		$this->checkResponseIntegrity($response);
-		$this->checkObjectIntegrity($response->current());
-		
-		$this->resetCommand();
-		
-		$queryParams = array(
-			'return_body' => true,
-		);
-		
-		//INSERT WITH SETTER
-		$this->command->setMode('insert');
-		$this->command->setBucket($this->bucketName);
-		$this->command->setKey($this->objectName.'QueryParamsSetter');
-		$this->command->setData($this->objectData);
-		$this->command->setQueryParams($queryParams);
-		$this->command->execute();
-		$this->checkResponseIntegrity($response);
-		$this->checkObjectIntegrity($response->current());
-		
-		$this->resetCommand();
-		
-		//INSERT WITH COMMAND DATA
-		$commandData = array(
-			'mode' => 'insert',
-			'bucket' => $this->bucketName,
-			'key' => $this->objectName.'WithQueryParamsCommandData',
-			'queryParams' => $queryParams
-		);
-		$response = $this->command->setCommandData($commandData)->execute();
-		$this->checkResponseIntegrity($response);
-		$this->checkObjectIntegrity($response->current());
-	}
-	
-	/**
-	 * Test some fails
-	 */
-	public function testFailInsert() {
-		$this->setExpectedException('\Exception');
-		$this->command->setMode('Inexistant mode');
-	}
+    public function testInsertWithoutKey()
+    {
+        $response = $this->command->insert($this->bucketName, null, $this->objectData)->execute();
+        $this->checkResponseIntegrity($response);
+        $object = $response['values'][0];
+        $this->checkObjectIntegrity($object);
 
-	public function alterBucket() {
-		
-	}
-	
-	public function testSelect() {
-		//SELECT BY KEY
-		$response = $this->command->setCommandData(array(
-			'mode' => 'select',
-			'bucket' => $this->bucketName,
-			'key' => $this->objectName,
-		))->queryOne();
-		
-		$this->checkResponseIntegrity($response);
-		$this->checkObjectIntegrity($response->current());
-		
-		$this->resetCommand();
-		//SELECT BY INDEX
-		$response = $this->command->setCommandData(array(
-			'mode' => 'selectWithIndex',
-			'bucket' => $this->bucketName,
-			'queryIndex' => array(
-				'indexTestKeyBin_bin' => 'indexTestValueBin',
-			)
-		))->queryOne();
-		$this->checkResponseIntegrity($response);
-		$this->checkObjectIntegrity($response->current());
-		$this->assertEquals(1, $response->count());
-		
-		//SELECT ALL BY INDEX
-		$response = $this->command->setCommandData(array(
-			'mode' => 'selectWithIndex',
-			'bucket' => $this->bucketName,
-			'queryIndex' => array(
-				'indexTestKeyInt_int' => array(120, 200)
-			)
-		))->queryAll();
-		$this->checkResponseIntegrity($response);
-		$this->checkObjectIntegrity($response->current());
-		$this->assertEquals(2, $response->count());
-	}
-	
-	
-	public function testUpdate() {
-		
-	}
-	
-	public function testDelete() {
-		$suffixes = array(
-			'',
-			'WithSetters',
-			'WithCommandData',
-			'WithIndexBin',
-			'WithIndexInt',
-			'WithIndexInt2',
-			'WithMeta',
-			'WithMetaSetters',
-			'WithLink',
-			'QueryParamsSetter',
-			'WithQueryCommandData',
-			'WithQueryParams',
-			'WithQueryParamsCommandData',
-			'WithQueryParamsSetter'
-		);
-		
-		foreach ($suffixes as $suffix) {
-			$response = $this->command->delete($this->bucketName, $this->objectName.$suffix)->execute();
-			$this->checkResponseIntegrity($response);
-		}
-	}
+        $response = $this->command->delete($response['bucket'], $response['key'])->execute();
+        $this->assertTrue($response);
+    }
 
-	private function checkObjectIntegrity($object, $exceptedStatusCode = 200) {
-		$this->assertArrayHasKey(DataReader::RESPONSESTATUS_KEY, $object);
-		$this->assertArrayHasKey(DataReader::HEADERS_KEY, $object);
-		$this->assertArrayHasKey(DataReader::DATA_KEY, $object);
-		$this->assertArrayHasKey(DataReader::SIBLINGS_KEY, $object);
-		$this->assertArrayHasKey(DataReader::ETAG_KEY, $object);
-		$this->assertArrayHasKey(DataReader::VCLOCK_KEY, $object);
-		$this->assertArrayHasKey(DataReader::META_KEY, $object);
-		$this->assertArrayHasKey(DataReader::LINK_KEY, $object);
-		$this->assertArrayHasKey(DataReader::INDEX_KEY, $object);
-		
-		$this->assertEquals($exceptedStatusCode, $object[DataReader::RESPONSESTATUS_KEY]);
-	}
-	
-	private function checkResponseIntegrity($response, $exceptedStatus = 200) {
-		$this->assertInstanceOf('sweelix\yii2\nosql\DataReader', $response);
-	}
-	private function resetCommand() {
-		$this->command = \Yii::$app->riak->createCommand();
-	}
+    public function testInsertWithMetaAndLinksAndIndexes()
+    {
+        $response = $this->command->insert($this->bucketName, $this->objectName.'WithMeta', $this->objectData)
+        ->addMetadata('metaName', 'metaValue')
+        ->addLink($this->bucketName, $this->objectName, 'parent')
+        ->addIndex('indexNameBin', 'indexValue', IndexType::TYPE_BIN)
+        ->addIndex('indexNameInt', 20, IndexType::TYPE_INTEGER)
+        ->execute();
+
+
+        $this->checkResponseIntegrity($response);
+        $object = $response['values'][0];
+
+
+        $this->checkObjectIntegrity(
+            $object,
+            true,
+            ['Metaname' => 'metaValue'],
+            [
+                [$this->bucketName, $this->objectName, 'parent']
+            ],
+            [
+                'indexnameint_int' => 20,
+                'indexnamebin_bin' => 'indexValue'
+            ]
+        );
+
+
+        $metadata = $object['metadata'];
+
+        //CHECK COUNT INDEX, LINKS AND META
+        $this->assertCount(2, $metadata['index']);
+        $this->assertCount(1, $metadata['Links']);
+        $this->assertCount(1, $metadata['X-Riak-Meta']);
+
+        //CHECK THEIR VALUES
+        $this->assertArrayHasKey('indexnamebin_bin', $metadata['index']);
+        $this->assertEquals('indexValue', $metadata['index']['indexnamebin_bin']);
+        $this->assertArrayHasKey('indexnameint_int', $metadata['index']);
+        $this->assertEquals(20, $metadata['index']['indexnameint_int']);
+
+        $this->assertEquals($this->bucketName, $metadata['Links'][0][0]);
+        $this->assertEquals($this->objectName, $metadata['Links'][0][1]);
+        $this->assertEquals('parent', $metadata['Links'][0][2]);
+
+        $this->assertArrayHasKey('X-Riak-Meta-Metaname', $metadata['X-Riak-Meta']);
+        $this->assertEquals('metaValue', $metadata['X-Riak-Meta']['X-Riak-Meta-Metaname']);
+
+        $this->assertEquals('application/json', $metadata['content-type']);
+
+
+        //FAILURE
+        $this->resetCommand();
+        $this->setExpectedException('\sweelix\yii2\nosql\riak\RiakException');
+        $response = $this->command->insert($this->bucketName, $this->objectName.'Failure', $this->objectData)
+        ->addIndex('indexFailure', 'failure', IndexType::TYPE_INTEGER)
+        ->execute();
+        //FAILURE CAUSE TRYING TO ADD INDEX OF TYPE BIN WHEN EXPECTED INT
+    }
+
+    /**
+     * BASIC Select/Update
+     */
+    public function testSelectAndUpdate()
+    {
+        //SELECT
+        $this->command->setMode('select');
+        $this->command->setBucket($this->bucketName);
+        $this->command->setKey($this->objectName);
+        //OR
+        $this->command->setCommandData(array(
+            'mode' => 'select',
+            'bucket' => $this->bucketName,
+            'key' => $this->objectName
+        ));
+
+        $response = $this->command->execute();
+
+        $this->checkResponseIntegrity($response);
+        $object = $response['values'][0];
+        $this->checkObjectIntegrity($object);
+
+
+
+        $vclock = $response['vclock'];
+
+        $commandData = [
+            'mode' => 'update',
+            'bucket' => $this->bucketName,
+            'key' => $this->objectName,
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'X-Riak-Vclock' => $vclock
+            ],
+            'queryParams' => [
+                'returnbody' => 'true',
+                'w' => 1
+            ],
+            'data' => ['objectUpdated' => true]
+        ];
+
+        //UPDATE
+        $this->command->update($this->bucketName, $this->objectName, array('objectUpdated' => true));
+        $this->command->setHeaders([
+            'X-Riak-Vclock' => $vclock,
+            'Content-Type' => 'application/json'
+        ]);
+        $this->command->setQueryParams([
+            'returnbody' => 'true',
+            'w' => 1
+        ]);
+        $this->assertEquals($commandData, $this->command->commandData);
+
+        //OR
+        $this->resetCommand();
+        $this->command->update($this->bucketName, $this->objectName, array('objectUpdated' => true))
+        ->addQueryParameter('returnbody', 'true')
+        ->addQueryParameter('w', 1)
+        ->addHeaderField('X-Riak-Vclock', $vclock) //THOSE 2 LINES
+        ->vclock($vclock)                          //DO THE SAME THING
+        ->addHeaderField('Content-Type', 'application/json');
+        $this->assertEquals($commandData, $this->command->commandData);
+
+        //OR
+        $this->command->setCommandData(array(
+            'mode' => 'update',
+            'bucket' => $this->bucketName,
+            'key' => $this->objectName,
+            'headers' => [
+                'X-Riak-Meta-metaName' => 'metaValue',
+                'X-Riak-Vclock' => $vclock
+            ],
+            'queryParams' => [
+                'returnbody' => 'true'
+            ]
+        ));
+        $response = $this->command->execute();
+
+        $this->checkResponseIntegrity($response);
+        $object = $response['values'][0];
+        $this->checkObjectIntegrity($object);
+
+
+        //TRYING TO UPDATE OBJECT WHITOUT HIS VCLOCK WILL RAISE AN EXCEPTION
+        $this->setExpectedException('\sweelix\yii2\nosql\riak\RiakException');
+        $this->command->update($this->bucketName, $this->objectName, array('objectUpdated' => 'willFail'))
+        ->execute();
+    }
+
+    /**
+     * SELECT/UPDATE COUNTER
+     */
+    public function testUpdateCounter()
+    {
+        $response = $this->command->updateCounter($this->bucketName, 'counterTest', 10)->execute();
+        $this->assertTrue($response);
+
+        $response = $this->command->setCommandData([
+            'mode' => 'selectCounter',
+            'bucket' => $this->bucketName,
+            'key' => 'counterTest'
+        ])->execute();
+        $this->assertEquals(10, $response);
+
+        $response = $this->command->updateCounter($this->bucketName, 'counterTest', -10)->execute();
+        $this->assertTrue($response);
+
+        $response = $this->command->setCommandData([
+            'mode' => 'selectCounter',
+            'bucket' => $this->bucketName,
+            'key' => 'counterTest'
+        ])->execute();
+        $this->assertEquals(0, $response);
+    }
+
+    /**
+     * SELECT/MODIFY BUCKET PROPERTIES
+     */
+    public function testBucketProps()
+    {
+        $response = $this->command->alterBucket($this->bucketName, [
+            'allow_mult' => false
+        ])->execute();
+        $this->assertTrue($response);
+
+        $response = $this->command->setCommandData([
+            'mode' => 'selectBucketProps',
+            'bucket' => $this->bucketName
+        ])->execute();
+
+
+        $this->assertArrayHasKey('allow_mult', $response);
+        $this->assertArrayHasKey('basic_quorum', $response);
+        $this->assertArrayHasKey('big_vclock', $response);
+        $this->assertArrayHasKey('chash_keyfun', $response);
+        $this->assertArrayHasKey('dw', $response);
+        $this->assertArrayHasKey('last_write_wins', $response);
+        $this->assertArrayHasKey('linkfun', $response);
+        $this->assertArrayHasKey('n_val', $response);
+        $this->assertArrayHasKey('name', $response);
+        $this->assertArrayHasKey('notfound_ok', $response);
+        $this->assertArrayHasKey('old_vclock', $response);
+        $this->assertArrayHasKey('postcommit', $response);
+        $this->assertArrayHasKey('pr', $response);
+        $this->assertArrayHasKey('precommit', $response);
+        $this->assertArrayHasKey('pw', $response);
+        $this->assertArrayHasKey('r', $response);
+        $this->assertArrayHasKey('rw', $response);
+        $this->assertArrayHasKey('small_vclock', $response);
+        $this->assertArrayHasKey('w', $response);
+        $this->assertArrayHasKey('young_vclock', $response);
+
+        $this->assertFalse($response['allow_mult']);
+
+        $response = $this->command->alterBucket($this->bucketName, [
+            'allow_mult' => true
+        ])->execute();
+        $this->assertTrue($response);
+
+        $response = $this->command->setCommandData([
+            'mode' => 'selectBucketProps',
+            'bucket' => $this->bucketName
+        ])->execute();
+        $this->assertTrue($response['allow_mult']);
+
+    }
+
+    /**
+     * TEST SOME FAILS
+     */
+    public function testFails()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+        $this->command->setMode('UnknowMode');
+        $this->setExpectedException('\sweelix\yii2\nosql\riak\RiakException');
+        $this->command->setCommandData(['mode' => 'UnknowMode'])->execute();
+    }
+
+    /**
+     * DELETE
+     */
+    public function testDelete()
+    {
+        $response = $this->command->delete($this->bucketName, $this->objectName)->execute();
+        $this->assertTrue($response);
+        $response = $this->command->delete($this->bucketName, $this->objectName.'WithMeta')->execute();
+        $this->assertTrue($response);
+        //AVOID FAILED WHEN RELAUNCH SCRIPT
+        sleep(3);
+    }
+
+    private function checkObjectIntegrity(
+        $object,
+        $checkData = false,
+        $metaToCheck = array(),
+        $linkToCheck = array(),
+        $indexToCheck = array()
+    ) {
+        $this->assertArrayHasKey('metadata', $object);
+        $this->assertArrayHasKey('data', $object);
+
+        $metadata = $object['metadata'];
+
+        $this->assertArrayHasKey('Links', $metadata);
+        $this->assertArrayHasKey('X-Riak-Vtag', $metadata);
+        $this->assertArrayHasKey('content-type', $metadata);
+        $this->assertArrayHasKey('index', $metadata);
+        $this->assertArrayHasKey('X-Riak-Last-Modified', $metadata);
+        $this->assertArrayHasKey('X-Riak-Meta', $metadata);
+
+        if ($checkData) {
+            $this->assertCount(count($metaToCheck), $metadata['X-Riak-Meta']);
+            $this->assertCount(count($indexToCheck), $metadata['index']);
+            $this->assertCount(count($linkToCheck), $metadata['Links']);
+
+            foreach ($metaToCheck as $name => $value) {
+                $this->assertArrayHasKey('X-Riak-Meta-'.$name, $metadata['X-Riak-Meta']);
+                $this->assertEquals($value, $metadata['X-Riak-Meta']['X-Riak-Meta-'.$name]);
+            }
+
+            $this->assertEquals($linkToCheck, $metadata['Links']);
+
+            foreach ($indexToCheck as $name => $value) {
+                $this->assertArrayHasKey($name, $metadata['index']);
+                $this->assertEquals($value, $metadata['index'][$name]);
+            }
+        }
+
+    }
+
+    private function checkResponseIntegrity($response, $objectListCount = 1)
+    {
+        $this->assertArrayHasKey('bucket', $response);
+        $this->assertNotEmpty($response['bucket']);
+        $this->assertArrayHasKey('key', $response);
+        $this->assertNotEmpty($response['key']);
+        $this->assertArrayHasKey('vclock', $response);
+        $this->assertNotEmpty($response['vclock']);
+        $this->assertArrayHasKey('values', $response);
+        $this->assertCount($objectListCount, $response['values']);
+    }
+
+    private function resetCommand()
+    {
+        $this->command = \Yii::$app->riak->createCommand();
+    }
 }
