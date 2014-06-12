@@ -15,6 +15,7 @@
  */
 namespace sweelix\yii2\nosql\riak;
 
+use InvalidArgumentException;
 use sweelix\curl\Response;
 use sweelix\yii2\nosql\riak\DataReader;
 use sweelix\yii2\nosql\riak\Query;
@@ -42,12 +43,13 @@ class Command extends Component
         'selectWithMapReduce',
         'selectWithLink',
         'selectWithIndex',
-        'getCounter',
+        'selectBucketProps',
+        'selectCounter',
         'insert',
         'update',
+        'updateBucketProps',
         'updateCounter',
-        'delete',
-        'updateBucketProps'
+        'delete'
     );
 
     /**
@@ -407,7 +409,7 @@ class Command extends Component
                 return ResponseBuilder::buildGetResponse($response, $this->bucket, $this->key);
             case 'selectWithMapReduce':
                 $response = $this->noSqlDb->client->queryMapReduce($this->data);
-                //Return DataReader()
+                return ResponseBuilder::buildMapReduceResponse($response);//TODO
                 break;
             case 'selectWithIndex':
                 $response = $this->noSqlDb->client->queryIndexes(
@@ -418,7 +420,7 @@ class Command extends Component
                     $this->queryIndexEndValue,
                     $this->queryParams
                 );
-                //Return ObjectReader()
+                return ResponseBuilder::buildIndexResponse($response);
                 break;
             case 'selectWithLink':
                 $response = $this->noSqlDb->client->queryLinks(
@@ -426,7 +428,7 @@ class Command extends Component
                     $this->key,
                     $this->queryLinks
                 );
-                //Return ObjectReader()
+                return ResponseBuilder::buildLinkResponse($response, $this->bucket, $this->key);
                 break;
             case 'insert':
                 $queryParams = $this->queryParams;
@@ -440,11 +442,10 @@ class Command extends Component
                     $queryParams,
                     $this->headers
                 );
-                //Return true;
-                break;
+                return ResponseBuilder::buildPutResponse($response, $this->bucket, $this->key);
             case 'update':
                 if (isset($this->headers['X-Riak-Vclock']) === false) {
-                    throw new \Exception('VClock is needed to update an object.');
+                    throw new RiakException('VClock is needed to update an object.', 400);
                 } else {
                     $queryParams = $this->queryParams;
                     if (isset($queryParams['returnbody']) === false) {
@@ -458,8 +459,7 @@ class Command extends Component
                         $this->headers
                     );
                 }
-                //Return true
-                break;
+                return ResponseBuilder::buildPutResponse($response, $this->bucket, $this->key);
             case 'delete':
                 $response = $this->noSqlDb->client->deleteObject(
                     $this->bucket,
@@ -467,30 +467,32 @@ class Command extends Component
                     $this->queryParams,
                     $this->headers
                 );
-                //Return true;
+                return true;
                 break;
+            case 'selectCounter':
+                $response = $this->noSqlDb->client->getCounter(
+                    $this->bucket,
+                    $this->key
+                );
+                return ResponseBuilder::buildGetCounterResponse($response);
             case 'updateCounter':
-                $response = $this->noSqlDb->client->updateCounters(
+                $response = $this->noSqlDb->client->updateCounter(
                     $this->bucket,
                     $this->key,
-                    $this->data,
-                    $this->queryParams,
-                    $this->headers
+                    $this->data
                 );
-                //Return Counter
+                return ResponseBuilder::buildPutCounterResponse($response);
                 break;
-            case 'props':
+            case 'selectBucketProps':
+                $response = $this->noSqlDb->client->getBucketProps($this->bucket);
+                return ResponseBuilder::buildGetBucketPropResponse($response, $this->bucket);
+            case 'updateBucketProps':
                 $response = $this->noSqlDb->client->alterBucket($this->bucket, $this->data);
-                //Return BucketProps
+                return ResponseBuilder::buildPutBucketPropResponse($response);
                 break;
+            default:
+                throw new RiakException('Unknow mode setted.', 400);
         }
-        return $result;
-/*        if ($raw === false && $response instanceof Response) {
-            $result = new DataReader($response);
-        } elseif ($raw === true && $response instanceof Response) {
-            $result = $response;
-        }*/
-        return $result;
     }
 
 
@@ -562,7 +564,7 @@ class Command extends Component
         if (in_array($mode, self::$allowedMode)) {
             $this->commandData['mode'] = $mode;
         } else {
-            throw new \Exception('Found unknown mode for command: ' . $mode);
+            throw new InvalidArgumentException('Command : Unknow mode (' . $mode . ')', 400);
         }
     }
 
@@ -660,71 +662,6 @@ class Command extends Component
     }
 
     /**
-     * Returns the name of the index to search.
-     *
-     * @return null string
-     * @since XXX
-     */
-    public function getQueryIndexName()
-    {
-        return isset($this->commandData['queryIndex']) === true ? $this->key($this->commandData['queryIndex']) : null;
-    }
-
-    /**
-     * Return the (start) value of the index to search
-     *
-     * @return null string
-     * @since XXX
-     */
-    public function getQueryIndexValue()
-    {
-        $ret = null;
-        if (isset($this->queryIndexName) === true) {
-            if (is_array($this->commandData['queryIndex'][$this->queryIndexName]) === true) {
-                $ret = $this->commandData['queryIndex'][$this->queryIndexName][0];
-            } else {
-                $ret = $this->commandData['queryIndex'][$this->queryIndexName];
-            }
-        }
-        return $ret;
-    }
-
-    /**
-     * Return the (end) value of the index to search
-     *
-     * @return null string
-     * @since XXX
-     */
-    public function getQueryIndexEndValue()
-    {
-        $ret = null;
-        if (isset($this->queryIndexValue) === true) {
-            if (is_array($this->commandData['queryIndex'][$this->queryIndexName]) &&
-                        count($this->commandData['queryIndex'][$this->queryIndexName]) == 2) {
-                $ret = $this->commandData['queryIndex'][$this->queryIndexName][1];
-            } else {
-                $ret = null;
-            }
-        }
-        return $ret;
-    }
-
-    /**
-     * Returns the query links
-     *
-     * @return array
-     * @since XXX
-     */
-    public function getQueryLinks()
-    {
-        $ret = null;
-        if (! empty($this->commandData['queryLinks'])) {
-            $ret = $this->commandData['queryLinks'];
-        }
-        return $ret;
-    }
-
-    /**
      * Returns the first key of an array.
      *
      * @param array $array
@@ -769,9 +706,12 @@ class Command extends Component
      */
     public function queryAll()
     {
+        if ($this->mode !=='selectWithIndex' && $this->mode !== 'selectWithLink' && $this->mode !== 'selectWithIndex') {
+            throw new RiakException('QueryAll should be use only for Link Waling, MapReduce or Secondary Indexes', 500);
+        }
         $this->noSqlDb->open();
-        $dataReturn = array();
-        // queryIndexes
+        return $this->execute();
+/*        // queryIndexes
         if (! empty($this->commandData['queryIndex']) && $this->mode === 'selectWithIndex') {
             $response = $this->noSqlDb->client->queryIndexes(
                 $this->bucket,
@@ -808,7 +748,7 @@ class Command extends Component
                 return $dataReader;
             }
         }
-        return false;
+        return false;*/
     }
 
     /**
@@ -827,8 +767,21 @@ class Command extends Component
      */
     public function queryOne()
     {
+        if ($this->mode !=='selectWithIndex' && $this->mode !== 'selectWithLink' && $this->mode !== 'selectWithIndex') {
+            throw new RiakException('QueryAll should be use only for Link Waling, MapReduce or Secondary Indexes', 500);
+        }
         $this->noSqlDb->open();
-        // queryIndexes
+        $response = $this->execute();
+
+        if (isset($response['values'])) {
+            $response['values'] = array_shift($response['values']);
+        } else {
+            $response = array_shift($response);
+        }
+        return $response;
+
+
+/*        // queryIndexes
         if (! empty($this->commandData['queryIndex']) && $this->mode === 'selectWithIndex') {
             $response = $this->noSqlDb->client->queryIndexes(
                 $this->bucket,
@@ -861,7 +814,7 @@ class Command extends Component
             $dataReader = new DataReader($response);
             return $dataReader->current();
         }
-        return null;
+        return null;*/
     }
 
     /**
