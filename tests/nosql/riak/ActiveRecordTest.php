@@ -31,23 +31,26 @@ use sweelix\yii2\nosql\tests\TestCase;
  * @package   application.test.unit.nosql.riak
  * @since     XXX
  */
-class ActiveRecordTest extends TestCase {
-	const BUCKET_NAME = 'user';
-	const OBJECT_KEY = 'user';
-	
-	
-	protected function setUp() {
-		parent::setUp();
-		$this->mockApplication(require(__DIR__.'/../../data/web.php'));
-	}
-	
-	protected function tearDown() {
-		parent::tearDown();
-	}
-	
-	public function testTest() {
-		
-	}
-	
-	
+class ActiveRecordTest extends TestCase
+{
+
+    const BUCKET_NAME = 'user';
+
+    const OBJECT_KEY = 'user';
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->mockApplication(require (__DIR__ . '/../../data/web.php'));
+    }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+    }
+
+    public function testTest ()
+    {
+
+    }
 }
