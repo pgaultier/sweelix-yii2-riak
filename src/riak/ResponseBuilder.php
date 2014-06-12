@@ -42,28 +42,135 @@ class ResponseBuilder
         $ret['key'] = $key;
         $ret['vclock'] = $response->getHeaderField('X-Riak-Vclock');
 
-        if ($response->getStatus() === 200) {
-            $values['metadata'] = array(
-                'Links' => self::buildLinks($response->getHeaderField('Link')),
-                'X-Riak-Vtag' => $response->getHeaderField('Etag'),
-                'content-type' => $response->getHeaderField('Content-Type'),
-                'index' => self::buildIndexes($response->getHeaders()),
-                'X-Riak-Last-Modified' => $response->getHeaderField('Last-Modified'),
-                'X-Riak-Meta' => self::buildMetadata($response->getHeaders())
-            );
-            $ret['data'] = $response->getRawData();
-            $ret['values'] = $values;
+        if ($response->getStatus() === 200 || $response->getStatus() === 204 || $response->getIsMultipart() === false) {
+            $ret['values'][] = self::buildValues($response);
+        } else {
+            foreach ($response->extractMultipartDataAsResponse() as $multiResponse) {
+                $ret['values'][] = self::buildValues($multiResponse);
+            }
         }
         return $ret;
     }
 
-    public static function buildPutResponse()
+    public static function buildPutResponse(Response $response, $bucket = null, $key = null)
     {
+        if ($response->getStatus() >= 400) {
+            throw new RiakException($response->getRawData(), $response->getStatus());
+        }
+        $ret = array();
+        if ($bucket && $key) {
+            $ret['bucket'] = $bucket;
+            $ret['key'] = $key;
+        }
+        $ret['vclock'] = $response->getHeaderField('X-Riak-Vclock');
+
+        switch ($response->getStatus()) {
+            case 200:
+                if (!$bucket && !$key) {
+                    self::resolveBucketAndKey($response, $ret);
+                }
+                $ret['values'][] = self::buildValues($response);
+                break;
+            case 201:
+                self::resolveBucketAndKey($response->getHeaderField('Location'), $ret);
+                $ret['values'][] = self::buildValues($response);
+                break;
+            case 300:
+                foreach ($response->extractMultipartDataAsResponse() as $multiResponse) {
+                    $ret['values'][] = self::buildValues($multiResponse);
+                }
+                break;
+            default:
+                throw new RiakException('Unknow status code', 500);
+                break;
+        }
+        return $ret;
     }
 
-    public static function buildBucketPropResponse()
+    public static function buildGetBucketPropResponse(Response $response)
     {
+        $ret = $response->getData();
+        return $ret['props'];
+    }
 
+    public static function buildPutBucketPropResponse(Response $response)
+    {
+        if ($response->getStatus() === 400) {
+            throw new RiakException('Submitted JSON is invalid', 400);
+        }
+        if ($response->getStatus() === 415) {
+            throw new RiakException('Submitted JSON is invalid', 415);
+        }
+
+        return true;
+    }
+
+    public static function buildPutCounterResponse(Response $response)
+    {
+        if ($response->getStatus() === 204) {
+            return true;
+        } else {
+            throw new RiakException('Counters require bucket property \'allow_mult=true\'');
+        }
+    }
+
+    public static function buildGetCounterResponse(Response $response)
+    {
+        if ($response->getStatus() === 200) {
+            return intval($response->getRawData());
+        } else {
+            throw new RiakException('Counters require bucket property \'allow_mult=true\'');
+        }
+    }
+
+    public static function buildIndexResponse(Response $response)
+    {
+        if ($response->getStatus() === 400) {
+            throw new RiakException('Index name or index value is invalid.');
+        }
+        if ($response->getStatus() === 500) {
+            throw new RiakException('Internal Server Error.', 500);
+        }
+        if ($response->getStatus() === 503) {
+            throw new RiakException('Service Unavailable.', 503);
+        }
+
+        $ret = $response->getData();
+        return $ret['keys'];
+    }
+
+    public static function buildLinkResponse(Response $response, $bucket, $key)
+    {
+        if ($response->getStatus() === 400) {
+            throw new RiakException('The query is invalid.', 400);
+        }
+        if ($response->getStatus() === 404) {
+            throw new RiakException('The origin object not found.', 404);
+        }
+
+        $ret = array();
+        //If we arrive there, response is mutlipart (200 OK)
+
+        $ret['bucket'] = $bucket;
+        $ret['key'] = $key;
+        foreach ($response->extractMultipartDataAsResponse() as $resp) {
+            $ret['values'] = self::buildValues($resp);
+        }
+        return $ret;
+    }
+
+    private static function buildValues(Response $response)
+    {
+        $values['metadata'] = array(
+            'Links' => self::buildLinks($response->getHeaderField('Link')),
+            'X-Riak-Vtag' => $response->getHeaderField('Etag'),
+            'content-type' => $response->getHeaderField('Content-Type'),
+            'index' => self::buildIndexes($response->getHeaders()),
+            'X-Riak-Last-Modified' => $response->getHeaderField('Last-Modified'),
+            'X-Riak-Meta' => self::buildMetadata($response->getHeaders())
+        );
+        $values['data'] = $response->getRawData();
+        return $values;
     }
 
     private static function buildLinks($rawLinks)
@@ -85,7 +192,7 @@ class ResponseBuilder
 
     private static function buildIndexes(array $headers)
     {
-        $ret = null;
+        $ret = array();
         foreach ($headers as $name => $value) {
             if (preg_match('/^X-Riak-index-(?<indexName>[^*$]+)$/i', $name, $matches) > 0) {
                 $ret[$matches['indexName']] = $value;
@@ -96,12 +203,22 @@ class ResponseBuilder
 
     private static function buildMetadata(array $headers)
     {
-        $ret = null;
+        $ret = array();
         foreach ($headers as $name => $value) {
             if (preg_match('/^X-Riak-Meta-(?<metaName>[^*$]+)$/i', $name, $matches) > 0) {
-                $ret[$matches['metaName']] = $value;
+                $ret['X-Riak-Meta-'.$matches['metaName']] = $value;
             }
         }
         return $ret;
+    }
+
+    private static function resolveBucketAndKey($locationHeader, &$ret)
+    {
+        if (preg_match('/\/buckets\/(?<bucket>[^\/]+)\/keys\/(?<key>[^*$]+)$/', $locationHeader, $matches) > 0) {
+            $ret['bucket'] = $matches['bucket'];
+            $ret['key'] = $matches['key'];
+        } else {
+            throw new RiakException(500, 'Cant\'t resolve bucketName/objectKey');
+        }
     }
 }
