@@ -178,7 +178,7 @@ class QueryBuilder extends Object
     public function updateCounter($bucketName, $counterKey, $incrementalValue)
     {
         return array(
-            'mode' => 'counters',
+            'mode' => 'updateCounter',
             'bucket' => $bucketName,
             'key' => $counterKey,
             'data' => $incrementalValue
@@ -220,7 +220,7 @@ class QueryBuilder extends Object
     public function alterBucket($bucketName, $props)
     {
         return array(
-            'mode' => 'props',
+            'mode' => 'updateBucketProps',
             'bucket' => $bucketName,
             'data' => array(
                 'props' => $props
