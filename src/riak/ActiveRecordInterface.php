@@ -31,14 +31,6 @@ use yii\db\ActiveRecordInterface as BaseActiveRecordInterface;
 interface ActiveRecordInterface extends BaseActiveRecordInterface
 {
     /**
-     * Returns the bucketName of the activeRecord
-     *
-     * @return string
-     * @since  XXX
-     */
-    public function getBucketName();
-
-    /**
      * Returns the list of all metadata names of the record.
      *
      * ~~
@@ -61,7 +53,7 @@ interface ActiveRecordInterface extends BaseActiveRecordInterface
      * @return boolean whether metadata exist
      * @since  XXX
      */
-    public function hasMetadatum($name);
+    public function hasMetadata($name);
 
     /**
      * Returns the value of the current activeRecord metadata name ($name)
@@ -75,6 +67,7 @@ interface ActiveRecordInterface extends BaseActiveRecordInterface
 
     /**
      * Set the activeRecord's metadatum named $name with the value $value
+     * If $value is null, Sets the metadata values in a massive way.
      *
      * @param string $name  The metadata name to set
      * @param mixed  $value The value to set
@@ -82,7 +75,7 @@ interface ActiveRecordInterface extends BaseActiveRecordInterface
      * @return void
      * @since  XXX
      */
-    public function setMetadata($name, $value);
+    public function setMetadata($name, $value = null);
 
     /**
      * Return the avtiveRecord's indexes as an array
@@ -107,7 +100,7 @@ interface ActiveRecordInterface extends BaseActiveRecordInterface
      * @return boolean
      * @since  XXX
      */
-    public function hasIndex($name);
+    public function hasIndex(&$name);
 
     /**
      * Returns the value of the current activeRecord index name ($name)
@@ -129,6 +122,16 @@ interface ActiveRecordInterface extends BaseActiveRecordInterface
      * @since  XXX
      */
     public function setIndex($name, $value);
+
+    /**
+     * Sets the indexes values in a massive way.
+     *
+     * @param array $values Values as $name => $value to set.
+     *
+     * @return void
+     * @since  XXX
+     */
+    public function setIndexes($values);
 
     /**
      * Returns whether key is mandatory.
@@ -153,6 +156,14 @@ interface ActiveRecordInterface extends BaseActiveRecordInterface
      * @since  XXX
      */
     public static function indexNames();
+
+    /**
+     * Returns the bucketName of the ActiveRecord.
+     *
+     * @return string
+     * @since  XXX
+     */
+    public static function bucketName();
 
     /**
      * Define the metadata of the active record

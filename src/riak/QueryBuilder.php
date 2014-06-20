@@ -48,7 +48,6 @@ class QueryBuilder extends Object
     public $key;
 
     /**
-     *
      * @var array data of bucket
      */
     public $data;
@@ -467,74 +466,6 @@ class QueryBuilder extends Object
             'Accept' => $query->accept,
             'If-None-Match' => $query->etag
         );
-    }
-
-    /**
-     * Build additional meta header of object (set the header of request with Metadata)
-     *
-     * @param Query $query
-     *            is the query object
-     *
-     * @return none
-     * @since XXX
-     */
-    protected function buildMetadata($query)
-    {
-        foreach ($query->metadata as $key => $value) {
-            $query->headers['X-Riak-Meta-' . $key] = $value;
-        }
-    }
-
-    /**
-     * Build indexes header of object.
-     *
-     * @param Query $query
-     *            is the query object
-     *
-     * @return none
-     * @since XXX
-     */
-    protected function buildIndex($query)
-    {
-        foreach ($query->indexes as $key => $value) {
-            $query->headers['X-Riak-Index-' . $key] = $value;
-        }
-    }
-
-    /**
-     * Build link relate of object
-     *
-     * @param Query $query
-     *            is the query object
-     *
-     * @return none
-     * @since XXX
-     */
-    protected function buildLink($query)
-    {
-        $query->headers['Link'] = implode(',', $query->links);
-    }
-
-    /**
-     * Build additional parameters of object
-     *
-     * @param Query $query
-     *            is the query object
-     *
-     * @return none
-     * @since XXX
-     */
-    protected function buildAdditionalParameters($query)
-    {
-        if ($query->w !== null) {
-            $query->additionalParameters['w'] = $query->w;
-        }
-        if ($query->dw !== null) {
-            $query->additionalParameters['dw'] = $query->dw;
-        }
-        if ($query->w !== null) {
-            $query->additionalParameters['pw'] = $query->pw;
-        }
     }
 
     /**

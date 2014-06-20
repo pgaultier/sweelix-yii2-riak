@@ -23,14 +23,14 @@ use yii\base\Component;
  *
  * The class is handle request & response to DB (noSql) server
  *
- * @author Christophe Latour <clatour@ibitux.com>
+ * @author    Christophe Latour <clatour@ibitux.com>
  * @copyright 2010-2013 Sweelix
- * @license http://www.sweelix.net/license license
- * @version XXX
- * @link http://www.sweelix.net
- * @category nosql
- * @package sweelix.nosql
- * @since XXX
+ * @license   http://www.sweelix.net/license license
+ * @version   XXX
+ * @link      http://www.sweelix.net
+ * @category  nosql
+ * @package   sweelix.nosql
+ * @since     XXX
  */
 class Client extends Component
 {
@@ -401,6 +401,8 @@ class Client extends Component
         $request->setHeaders($additionalHeaders);
 
         $response = $request->execute();
+        $responses = $response->extractMultipartDataAsResponse();
+
         \Yii::info('QueryLink response : ' . var_export($response, true) . "\n", __METHOD__);
         return $response;
     }

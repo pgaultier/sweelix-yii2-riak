@@ -74,8 +74,8 @@ class ActiveRelation extends ActiveQuery
 
         $model = $this->primaryModel;
         $this
-        ->fromBucket($this->modelClass->getBucket())
-        ->withKey($this->modelClass->key)
+        ->fromBucket($this->primaryModel->getBucket())
+        ->withKey($this->primaryModel->key)
         ->linked($this->bucketName, $this->riakTag, 1);
     }
 

@@ -322,13 +322,18 @@ class CommandTest extends TestCase
     /**
      * TEST SOME FAILS
      */
-    public function testFails()
+    public function testFail()
     {
         $this->setExpectedException('InvalidArgumentException');
         $this->command->setMode('UnknowMode');
+    }
+
+    public function testFail1()
+    {
         $this->setExpectedException('\sweelix\yii2\nosql\riak\RiakException');
         $this->command->setCommandData(['mode' => 'UnknowMode'])->execute();
     }
+
 
     /**
      * DELETE
@@ -393,6 +398,7 @@ class CommandTest extends TestCase
         $this->assertArrayHasKey('values', $response);
         $this->assertCount($objectListCount, $response['values']);
     }
+
 
     private function resetCommand()
     {

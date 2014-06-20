@@ -139,6 +139,20 @@ class ResponseBuilder
         return $ret['keys'];
     }
 
+    public static function buildMapReduceResponse(Response $response)
+    {
+        if ($response->getStatus() === 400) {
+            throw new RiakException('Bad request. Invalid Job Submitted', 400);
+        } elseif ($response->getStatus() === 500) {
+            var_dump($response);
+            throw new RiakException('Internal Server Error.', 500);
+        } elseif ($response->getStatus() === 503) {
+            throw new RiakException('Service Unavailable.', 503);
+        }
+
+        return $response->getData();
+    }
+
     public static function buildLinkResponse(Response $response, $bucket, $key)
     {
         if ($response->getStatus() === 400) {
@@ -151,10 +165,16 @@ class ResponseBuilder
         $ret = array();
         //If we arrive there, response is mutlipart (200 OK)
 
-        $ret['bucket'] = $bucket;
-        $ret['key'] = $key;
-        foreach ($response->extractMultipartDataAsResponse() as $resp) {
-            $ret['values'] = self::buildValues($resp);
+        $responses = $response->extractMultipartDataAsResponse();
+        if (empty($responses) === false) {
+
+            foreach ($responses as $resp) {
+                $obj = [];
+                self::resolveBucketAndKey($resp->getHeaderField('Location'), $obj);
+                $obj['vclock'] = $resp->getHeaderField('X-Riak-Vclock');
+                $obj['values'][] = self::buildValues($resp);
+                $ret[] = $obj;
+            }
         }
         return $ret;
     }
@@ -179,15 +199,43 @@ class ResponseBuilder
         $links = explode(', ', $rawLinks);
 
         foreach ($links as $link) {
-            if (preg_match(
-                '/^<\/buckets\/(?<bucket>[^\/]+)\/keys\/(?<key>[^>]+)>; riaktag="(?<tag>[^"]+)"$/',
-                $link,
-                $matches
-            ) > 0) {
-                $ret[] = array($matches['bucket'], $matches['key'], $matches['tag']);
+            $link = static::buildLink($link);
+            if ($link !== null) {
+                $ret[] = $link;
             }
         }
         return $ret;
+    }
+
+    /**
+     * Returns an array
+     * [
+     *     'bucket' => 'nameOfBucketLink',
+     *     'key' => 'linkedKey',
+     *     'tag' => 'riakTag'
+     * ]
+     *
+     * @param string $rawLink
+     *
+     * @return array
+     * @since  XXX
+     */
+    public static function buildLink($rawLink)
+    {
+        $ret = null;
+        if (preg_match(
+            '/^<\/buckets\/(?<bucket>[^\/]+)\/keys\/(?<key>[^>]+)>; riaktag="(?<tag>[^"]+)"$/',
+            $rawLink,
+            $matches
+        ) > 0) {
+            $ret = [urldecode($matches['bucket']), urldecode($matches['key']), urldecode($matches['tag'])];
+        }
+        return $ret;
+    }
+
+    public static function getLinkTemplate()
+    {
+        return '</buckets/{bucketName}/keys/{key}>; riaktag="{tag}"';
     }
 
     private static function buildIndexes(array $headers)
@@ -215,8 +263,8 @@ class ResponseBuilder
     private static function resolveBucketAndKey($locationHeader, &$ret)
     {
         if (preg_match('/\/buckets\/(?<bucket>[^\/]+)\/keys\/(?<key>[^*$]+)$/', $locationHeader, $matches) > 0) {
-            $ret['bucket'] = $matches['bucket'];
-            $ret['key'] = $matches['key'];
+            $ret['bucket'] = urldecode($matches['bucket']);
+            $ret['key'] = urldecode($matches['key']);
         } else {
             throw new RiakException(500, 'Cant\'t resolve bucketName/objectKey');
         }
