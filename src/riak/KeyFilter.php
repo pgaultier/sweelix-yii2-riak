@@ -89,13 +89,16 @@ class KeyFilter
     {
         if (in_array($name, ['or', 'and', 'not']) === true) {
             $element = array_pop($this->keyFilters);
+            if (in_array($element[0], ['or', 'and', 'not']) && count($element) !== 3) {
+                throw new InvalidCallException('You can\'t chain those method (and(), or(), not())');
+            }
             $this->add([$name, [$element]]);
         } elseif ($name === 'between') {
             list($min, $max) = $arguments;
             $q = ['between', $min, $max, false];
-/*            if (count($arguments) == 3) {
+            if (count($arguments) == 3) {
                 $q[] = false;
-            }*/
+            }
             $this->add($q);
         } elseif ($name === 'setMember') {
             $this->add(array_merge(['set_member'], $arguments[0]));
@@ -114,15 +117,11 @@ class KeyFilter
     private function add($element)
     {
         if (count($this->keyFilters) > 0) {
-            $end = $this->keyFilters[count($this->keyFilters) - 1];
-            if ($end[0] === 'or' || $end[0] === 'and' || $end[0] === 'not') {
-                if ($element[0] == 'or' || $element[0] === 'and' || $element === 'not') {
-                    throw new InvalidCallException('You can\'t chain those method (add(), orr(), not())');
-                } else {
-                    $el = array_pop($this->keyFilters);
-                    $el[] = [$element];
-                    $this->keyFilters[] = $el;
-                }
+            $lastElem = $this->keyFilters[count($this->keyFilters) - 1];
+            if (in_array($lastElem[0], ['or', 'and', 'not'])) {
+                $el = array_pop($this->keyFilters);
+                $el[] = [$element];
+                $this->keyFilters[] = $el;
             } else {
                 $this->keyFilters[] = $element;
             }
@@ -144,6 +143,7 @@ class KeyFilter
 
     public function reset()
     {
+        $this->bucketName = null;
         $this->keyFilters = [];
     }
 }
