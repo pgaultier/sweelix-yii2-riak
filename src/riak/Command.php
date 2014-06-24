@@ -26,14 +26,14 @@ use yii\base\Component;
  *
  * Represents a Riak statement to be executed against database.
  *
- * @author Christophe Latour <clatour@ibitux.com>
+ * @author    Christophe Latour <clatour@ibitux.com>
  * @copyright 2010-2013 Sweelix
- * @license http://www.sweelix.net/license license
- * @version XXX
- * @link http://www.sweelix.net
- * @category nosql
- * @package sweelix.yii2.nosql.riak
- * @since XXX
+ * @license   http://www.sweelix.net/license license
+ * @version   XXX
+ * @link      http://www.sweelix.net
+ * @category  nosql
+ * @package   sweelix.yii2.nosql.riak
+ * @since     XXX
  */
 class Command extends Component
 {
