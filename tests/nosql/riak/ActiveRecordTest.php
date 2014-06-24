@@ -247,16 +247,23 @@ class ActiveRecordTest extends TestCase
 
         $keyFilter->reset();
 
-        $keyFilter->tokenize('|', 2)->between(23, 27);
-        $users = User::findByKeyFilter($keyFilter);
-        var_dump($users);
-
-
-
-        $keyFilter->tokenize('|', 2)->between(23, 27);
+        $keyFilter->tokenize('|', 2)->between("23", "27");
         $users = User::findByKeyFilter($keyFilter);
 
-        //$this->assertCount(2, $users)
+        $this->assertCount(1, $users);
+
+        $keyFilter->reset();
+        $keyFilter->tokenize('|', 2)->between("23", "27", true);
+        $users = User::findByKeyFilter($keyFilter);
+
+        $this->assertCount(3, $users);
+
+
+        $keyFilter->reset();
+        $keyFilter->tokenize('|', 1)->setMember(['clatour@ibitux.com', 'cmarois@ibitux.com']);
+        $users = User::findByKeyFilter($keyFilter);
+
+        $this->assertCount(2, $users);
     }
 
     public function testFindByIndex()
@@ -482,6 +489,32 @@ class ActiveRecordTest extends TestCase
 
         $this->setExpectedException('yii\base\InvalidParamException');
         $user->link('superFriends', $user2);
+    }
+
+    public function testFail13()
+    {
+        $keyFilter = new KeyFilter();
+
+        $this->setExpectedException('yii\base\InvalidCallException');
+        $keyFilter->equals('test')->and()->or()->between('28', '27', true);
+    }
+
+    public function testFail14()
+    {
+        $keyFilter = new KeyFilter();
+
+        $this->setExpectedException('yii\base\InvalidCallException');
+        $keyFilter->invalidCall();
+
+    }
+
+    public function testFail15()
+    {
+        $keyFilter = new KeyFilter();
+
+        $keyFilter->equals('clatour@ibitux.com');
+        $this->setExpectedException('yii\base\InvalidConfigException');
+        $keyFilter->build();
     }
 
     public function testDelete()
