@@ -80,6 +80,10 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
      */
     private $related = [];
 
+    /**
+     * @var unknown
+     */
+    private $siblings = [];
 
     public static function find($context = null)
     {
@@ -97,7 +101,7 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
     public static function findOne($key)
     {
         $query = static::find();
-        return $query->withKey($key)->one(static::getDb());
+        return $query->withKey($key)->accept('application/json , multipart/mixed')->one(static::getDb());
     }
 
     /**
@@ -203,8 +207,17 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
         if (! static::isKeyMandatory()) {
             $this->key = $ret['key'];
         }
-        $this->vclock = $ret['vclock'];
-        return count($ret['values']);
+//        $this->vclock = $ret['vclock'];
+        self::populateRiakRecord($ret, $this);
+        $ret = count($ret['values']);
+
+        if ($ret > 1 && static::resolverClassName() !== null) {
+            $resolver = Yii::createObject([ 'class' => static::resolverClassName() ]);
+
+            $recordToSave = $resolver->resolve($this->siblings);
+            $ret = $recordToSave->update();
+        }
+        return $ret;
     }
 
     /**
@@ -511,12 +524,12 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
 
             if (count($row['values']) === 1) {
                 $object = $row['values'][0];
-/*                if ($object['metadata']['content-type'] !== 'application/json') {
+                if ($object['metadata']['content-type'] !== 'application/json') {
                     throw new Exception(
                         'Response content-type should be "application/json". Current content-type : "' .
                         $object['metadata']['content-type'] . "."
                     );
-                }*/
+                }
                 $attributes = json_decode($object['data'], true);
                 $indexes = $object['metadata']['index'];
                 foreach ($indexes as $name => $value) {
@@ -533,9 +546,6 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
                 $links = $object['metadata']['Links'];
 
                 foreach ($links as $link) {
-                    $link[0] = urldecode($link[0]);
-                    $link[1] = urldecode($link[1]);
-                    $link[2] = urldecode($link[2]);
                     $record->rawLinks[] = str_replace(
                         ['{bucketName}', '{key}', '{tag}'],
                         [$link[0], $link[1], $link[2]],
@@ -546,7 +556,14 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
                 $record->setIndexes($indexes);
                 $record->setMetadata($metadata);
             } else { //SIBLINGS
-
+                //TODO : BUILD AR OR PASS RAW RESPONSE ?
+                $data = $row['values'];
+                $row['values'] = [];
+                foreach ($data as $datum) {
+                    $row['values'][0] = $datum;
+                    $sibling = static::instantiate($row);
+                    $record->siblings[] = self::populateRiakRecord($row, $sibling);
+                }
             }
         }
         return $record;
@@ -560,6 +577,7 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
     public function hasMany($class, $link)
     {
         $query = self::find()->withKey($this->key);
+//        $query->setMode('selectWithLink');
         $query->multiple = true;
         $query->link = $link;
         $query->linked($class::bucketName(), $link);
@@ -872,5 +890,10 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
                 }
             }
         }
+    }
+
+    public function getSiblings()
+    {
+        return $this->siblings;
     }
 }
