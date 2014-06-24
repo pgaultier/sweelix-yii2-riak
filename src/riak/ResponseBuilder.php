@@ -67,7 +67,7 @@ class ResponseBuilder
         switch ($response->getStatus()) {
             case 200:
                 if (!$bucket && !$key) {
-                    self::resolveBucketAndKey($response, $ret);
+                    self::resolveBucketAndKey($response->getHeaderField('Location'), $ret);
                 }
                 $ret['values'][] = self::buildValues($response);
                 break;
@@ -144,7 +144,6 @@ class ResponseBuilder
         if ($response->getStatus() === 400) {
             throw new RiakException('Bad request. Invalid Job Submitted', 400);
         } elseif ($response->getStatus() === 500) {
-            var_dump($response);
             throw new RiakException('Internal Server Error.', 500);
         } elseif ($response->getStatus() === 503) {
             throw new RiakException('Service Unavailable.', 503);
