@@ -14,13 +14,13 @@
  */
 namespace sweelix\yii2\nosql\riak;
 
+use Exception;
+use InvalidArgumentException;
 use yii\base\InvalidCallException;
-use yii\base\InvalidParamException;
 use yii\base\InvalidConfigException;
+use yii\base\InvalidParamException;
 use yii\base\NotSupportedException;
 use yii\db\BaseActiveRecord as BaseActiveRecordYii;
-use InvalidArgumentException;
-use Exception;
 use Yii;
 use yii\base\UnknownMethodException;
 
@@ -681,7 +681,11 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
             $method = new \ReflectionMethod($this, $getter);
             $realName = lcfirst(substr($method->getName(), 3));
             if ($realName !== $name) {
-                throw new InvalidParamException('Relation names are case sensitive. ' . get_class($this) . " has a relation named \"$realName\" instead of \"$name\".");
+                throw new InvalidParamException(
+                    'Relation names are case sensitive. '
+                    . get_class($this) .
+                    " has a relation named \"$realName\" instead of \"$name\"."
+                );
             }
         }
 
@@ -895,5 +899,10 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
     public function getSiblings()
     {
         return $this->siblings;
+    }
+
+    public function getDb()
+    {
+        return Yii::$app->riak;
     }
 }
