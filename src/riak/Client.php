@@ -329,9 +329,6 @@ class Client extends Component
         \Yii::info('QueryIndexes request : @GET ' . $url . "\n", __METHOD__);
         $request->setMethod('GET');
         $request->setUrlParameters($additionalParameters);
-        // $additionalHeaders['Accept'] = 'multipart/mixed';
-        // $additionalHeaders['Content-Type'] = 'application/json';
-        // $request->setHeaders($additionalHeaders);
         $response = $request->execute();
         \Yii::info('QueryIndexes resposne : ' . var_export($response, true) . "\n", __METHOD__);
         return $response;
