@@ -901,7 +901,7 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
         return $this->siblings;
     }
 
-    public function getDb()
+    public static function getDb()
     {
         return Yii::$app->riak;
     }
