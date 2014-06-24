@@ -16,9 +16,11 @@ namespace sweelix\yii2\nosql\riak;
 
 use sweelix\yii2\nosql\riak\phase\Link;
 use sweelix\yii2\nosql\riak\phase\Phase;
+use sweelix\yii2\nosql\riak\KeyFilter;
 use yii\base\Component;
 use yii\log\Logger;
 use Exception;
+use sweelix\yii2\nosql\riak\phase\Map;
 
 /**
  * Class MapReduce
@@ -119,6 +121,12 @@ class MapReduce extends Component
         return $this;
     }
 
+    public function setKeyFilterInput(KeyFilter $keyFilter)
+    {
+        $this->inputs = $keyFilter->build();
+        return $this;
+    }
+
     /**
      * This function allows to add phase (Phase, Link, Reduce or Map) to the current mapReduce
      * It will execute the different phases in function of the order that user added phase
@@ -135,6 +143,19 @@ class MapReduce extends Component
             $this->phases[] = $phase;
         }
         return $this;
+    }
+
+    /**
+     * Add a basic map to MapReduce
+     *
+     * @return \sweelix\yii2\nosql\riak\MapReduce
+     */
+    public function addBasicMap()
+    {
+        $basicMap = new Map();
+        $basicMap->setLanguage('javascript');
+        $basicMap->setRawFunction('function(riakObject) { return [riakObject]; }');
+        return $this->addPhase($basicMap);
     }
 
     /**

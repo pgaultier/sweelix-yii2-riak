@@ -18,10 +18,11 @@ use yii\base\InvalidCallException;
 use yii\base\InvalidParamException;
 use yii\base\InvalidConfigException;
 use yii\base\NotSupportedException;
-use yii\db\ActiveRecord as BaseActiveRecordYii;
+use yii\db\BaseActiveRecord as BaseActiveRecordYii;
 use InvalidArgumentException;
 use Exception;
 use Yii;
+use yii\base\UnknownMethodException;
 
 /**
  * Class ActiveRecord
@@ -37,198 +38,114 @@ use Yii;
  * @category  nosql
  * @package   sweelix.nosql.riak
  * @since     XXX
+ *
+ * @property  boolean $isNewRecord
+ * @property  array $metadata
+ * @property  array $indexes
  */
 abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordInterface
 {
     /**
-     * The object key
-     *
-     * @var string|int
+     * @var string|int the object key
      */
     public $key = null;
 
+    /**
+     * @var string the object vclock
+     */
     private $vclock;
 
+    /**
+     * @var array
+     */
     private $indexes = [];
 
+    /**
+     * @var array
+     */
     private $meta = [];
 
+    /**
+     * @var array
+     */
     private $rawLinks = [];
 
+    /**
+     * @var array
+     */
     private $virtualAttributes = [];
 
+    /**
+     * @var array
+     */
     private $related = [];
 
-    private $context = [];
-
-    private $bucketName;
-
-    private static $contextVars;
-
-    public static function getContextVars()
-    {
-        self::isDynamicRecord();
-        return self::$contextVars;
-    }
-
-    public function setContext(array $context)
-    {
-        foreach (self::getContextVars() as $contextVar) {
-            if (!array_key_exists($contextVar, $context)) {
-                throw new InvalidConfigException(
-                    get_called_class($this) . ' : Missing context variable { ' . $contextVar . '}'
-                );
-            }
-        }
-        $this->context = $context;
-    }
-
-    public static function isDynamicRecord()
-    {
-        if (self::$contextVars === null) {
-            $ret = true;
-            $pattern = '/{([^}]+)}/';
-            $res = preg_match_all($pattern, static::bucketName(), $matches);
-            if ($res >= 1) {
-                foreach ($matches[1] as $repKey) {
-                    self::$contextVars[] = $repKey;
-                }
-            } else {
-                self::$contextVars = [];
-            }
-        }
-        return !empty(self::$contextVars);
-    }
-
-    public static function findAll($condition = null, $context = null)
-    {
-        $query = static::find($context);
-        return $query->fromBucket(self::resolveBucketName($context))->withMapReduce()->genericMapping()->all(static::getDb());
-    }
+    /**
+     * @var unknown
+     */
+    private $siblings = [];
 
     public static function find($context = null)
     {
-        if (static::isDynamicRecord()) {
-            if ($context !== null) {
-                return static::createQuery(get_called_class())->fromBucket(self::resolveBucketName($context));
-            } else {
-                throw new InvalidArgumentException(__METHOD__ . ' : expect context.');
-            }
-
-        } else {
-            if ($context !== null) {
-                Yii::warning('Context is not expected here.');
-            }
-            return static::createQuery(get_called_class());
-        }
-
+        return static::createQuery(get_called_class())->fromBucket(static::bucketName());
     }
 
+    /**
+     * Retunrs the object with the key $key as an ActiveRecord
+     *
+     * @param string|int $key
+     *
+     * @return ActiveRecord
+     * @since  XXX
+     */
     public static function findOne($key)
     {
         $query = static::find();
-        return $query->withKey($key)->one();
+        return $query->withKey($key)->accept('application/json , multipart/mixed')->one(static::getDb());
     }
 
     /**
      * @inheritdoc
      */
-    public static function findOneByIndex($indexName, $indexValue, $endValue = null)
+    public static function findByIndex($indexName, $indexValue, $endValue = null, $getFullObject = true)
     {
         $query = static::find();
         $indexType = self::indexType($indexName);
+        $ret = [];
 
         if ($indexType === null) {
             throw new InvalidArgumentException($indexName.' is not and index.', 400);
         } else {
-            return $query->withIndex($indexName, $indexValue, $endValue)->one(static::getDb());
-        }
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function findAllByIndex($indexName, $indexValue, $indexEndValue)
-    {
-        $query = static::find();
-        $indexType = self::indexType($indexName);
-
-        if ($indexType === null) {
-            throw new InvalidArgumentException($indexName.' is not and index.', 400);
-        } else {
-            return $query->withIndex($indexName, $indexValue, $indexEndValue, $indexType)->all(static::getDb());
-        }
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributes()
-    {
-        $attributes = [];
-        foreach (static::attributeNames() as $key => $value) {
-            if (is_int($key)) {
-                $attributes[] = $value;
-            } else {
-                $attributes[] = $key;
-            }
-        }
-        return $attributes;
-    }
-
-    /**
-     * Returns an an array of autoIndex property
-     *
-     * @return array
-     * @since  XXX
-     */
-    public function autoIndexes()
-    {
-        $autoIndexes = array();
-        foreach (static::attributeNames() as $key => $value) {
-            if (is_array($value) && isset($value['autoIndex']) === true) {
-                if ($value['autoIndex'] === IndexType::TYPE_BIN || $value['autoIndex'] === IndexType::TYPE_INT) {
-                    $autoIndexes[$key] = $value['autoIndex'];
-                } else {
-                    $autoIndexes[$key] = IndexType::TYPE_BIN;
+            $ret = $query->withIndex($indexName, $indexValue, $endValue, $indexType)->all(static::getDb());
+            if ($getFullObject) {
+                if (empty($ret) === false) {
+                    $mapReduce = new MapReduce();
+                    foreach ($ret as $key) {
+                        $mapReduce->addInput(static::bucketName(), $key);
+                    }
+                    $mapReduce->addBasicMap();
+                    $query = static::find();
+                    $ret = $query->withMapReduce($mapReduce)->all(static::getDb());
                 }
             }
         }
-        return $autoIndexes;
+        return $ret;
     }
 
-    /**
-     * Returns all object's index name
-     *
-     * @return array
-     * @since  XXX
-     */
-    public function indexes()
+    public static function findByKeyFilter(KeyFilter $keyFilter)
     {
-        $indexes = $this->autoIndexes();
-        foreach (static::indexNames() as $key => $value) {
-            if (is_string($key)) {
-                if ($value === IndexType::TYPE_BIN || $value == IndexType::TYPE_INTEGER) {
-                    $indexes[$key] = $value;
-                } else {
-                    $indexes[$key] = IndexType::TYPE_BIN;
-                }
-            } else {
-                $indexes[$value] = IndexType::TYPE_BIN;
-            }
-        }
-        return $indexes;
+        $q = self::find();
+        $keyFilter->bucketName = static::bucketName();
+
+        $mapReduce = new MapReduce();
+        $mapReduce->setKeyFilterInput($keyFilter)->addBasicMap();
+        return $q->withMapReduce($mapReduce)->all(static::getDb());
     }
 
-    /**
-     * Returns all object's metadata names
-     *
-     * @return array
-     * @since  XXX
-     */
-    public function metadata()
+    public static function findByMapReduce($mapReduce)
     {
-        return static::metadataNames();
+        $q = self::find();
+        return $q->withMapReduce($mapReduce)->all(static::getDb());
     }
 
     /**
@@ -284,17 +201,23 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
         }
 
         $command = $this->createCommand('insert');
-
         $ret = $command->execute();
         $this->afterSave(true);
-        $obj = $ret->current();
         $this->oldAttributes = $this->attributes;
         if (! static::isKeyMandatory()) {
-            $this->key = self::getKeyFromLocation($obj);
+            $this->key = $ret['key'];
         }
-        $this->vclock = $obj[DataReader::VCLOCK_KEY];
+//        $this->vclock = $ret['vclock'];
+        self::populateRiakRecord($ret, $this);
+        $ret = count($ret['values']);
 
-        return $ret->count();
+        if ($ret > 1 && static::resolverClassName() !== null) {
+            $resolver = Yii::createObject([ 'class' => static::resolverClassName() ]);
+
+            $recordToSave = $resolver->resolve($this->siblings);
+            $ret = $recordToSave->update();
+        }
+        return $ret;
     }
 
     /**
@@ -321,21 +244,19 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
 
         $command = $this->createCommand('update');
 
-        $ret = $command->execute();
-        $this->afterSave(false);
-        $affected = $ret->count();
-        $this->oldAttributes = $this->attributes;
+        try {
+            $row = $command->execute();
+            $this->afterSave(false);
+            $this->oldAttributes = $this->attributes;
 
-        if ($affected === 1) {
-            $obj = $ret->current();
-            $this->attributes = $obj[DataReader::DATA_KEY];
-            $this->vtag = $obj[DataReader::SIBLINGS_KEY];
-            $this->vclock = $obj[DataReader::VCLOCK_KEY];
-            return 1;
-        } else {
-            $this->vclock = null;
-            return $affected;
+            self::populateRiakRecord($row, $this);
+            return count($row['values']);
+        } catch (RiakException $e) {
+            Yii::error('Update record (' . $this->key . ') from bucket ' . static::bucketName() . 'failed');
+            return false;
         }
+
+
     }
 
     /**
@@ -357,15 +278,15 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
 
         $command instanceof Command;
 
-        if ($this->getBucketName() !== null) {
+        if (static::bucketName() !== null) {
             if ($mode === 'insert') {
-                $command->insert($this->getBucketName(), $this->key, $data);
+                $command->insert(static::bucketName(), $this->key, $data);
             } else {
-                $command->update($this->getBucketName(), $this->key, $data)
+                $command->update(static::bucketName(), $this->key, $data)
                 ->vclock($this->vclock);
             }
         } else {
-            throw new InvalidConfigException('You should set the bucketName before saving', 500, null);
+            throw new InvalidConfigException(get_class($this) . '::bucketName() can\'t return null.', 500, null);
         }
 
         //METADATA
@@ -387,9 +308,11 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
 
         //LINKS
         if ($this->rawLinks) {
+
             foreach ($this->rawLinks as $link) {
-                if (preg_match('/<\/buckets\/(\w+)\/keys\/(\w+)>; riaktag="(\w+)"/', $link, $match) > 0) {
-                    list ($all, $bucket, $key, $tag) = $match;
+                $link = ResponseBuilder::buildLink($link);
+                if ($link !== null) {
+                    list($bucket, $key, $tag) = $link;
                     $command->addLink($bucket, $key, $tag);
                 }
             }
@@ -417,17 +340,12 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
     {
         $ret = false;
         if ($this->isNewRecord) {
-            throw new Exception('Cannot delete ' . get_class($this) . ' wihtout key.');
+            throw new InvalidCallException('Cannot delete ' . get_class($this) . ' wihtout key.');
         }
         if ($this->beforeDelete()) {
             $command = static::getDb()->createCommand();
 
-            $response = $command->delete($this->getBucketName(), $this->key)->execute();
-
-            $row = $response->current();
-            if ($row[DataReader::RESPONSESTATUS_KEY] === 204) {
-                $ret = true;
-            }
+            $ret = $command->delete(static::bucketName(), $this->key)->execute();
 
             $this->oldAttributes = null;
             $this->vclock = null;
@@ -443,7 +361,6 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
      * to be the corresponding primary key value(s) in the other model.
      * The model with the foreign key will be saved into database without performing validation.
      *
-     *
      * Note that this method requires that the primary key value is not null.
      *
      * @param string       $name  the case sensitive name of the relationship
@@ -455,20 +372,17 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
     public function link($name, $model, $extraColumns = [])
     {
         $relation = $this->getRelation($name);
+        $rawLink = str_replace(
+            ['{bucketName}', '{key}', '{tag}'],
+            [$model::bucketName(), $model->key, $relation->link],
+            ResponseBuilder::getLinkTemplate()
+        );
 
-        $rawLink = '</buckets/'.$model->getBucketName().'/keys/'.$model->key.'>; riaktag="'.$relation->riakTag.'"';
         if (!in_array($rawLink, $this->rawLinks)) {
             if ($relation->primaryModel !== null) {
                 $this->rawLinks[] = $rawLink;
-                if ($this->isNewRecord && $model->isNewRecord) {
-                    throw new InvalidCallException('Unable to link models: both models must NOT be newly created.');
-                } elseif (!$this->isNewRecord && $this->isNewRecord) {
-                    if ($model->save() === false) {
-                        throw new Exception(
-                            'An error has been occured, when trying to link model [['.$model->getBucketName().']]'
-                        );
-                    }
-                    $model->refresh();
+                if ($this->isNewRecord || $model->isNewRecord) {
+                    throw new InvalidCallException('Unable to link models: both models should not be new records.');
                 }
                 if ($relation->multiple) {
                     $add = true;
@@ -479,6 +393,10 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
                                 break;
                             }
                         }
+                        if ($add) {
+                            $this->related[$name][] = $model;
+                        }
+                    } else {
                         $this->related[$name][] = $model;
                     }
                 } else {
@@ -506,7 +424,12 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
     {
         $relation = $this->getRelation($name);
 
-        $link = '</buckets/'.$model->getBucketName().'/keys/'.$model->key.'>; riaktag="'.$relation->riakTag.'"';
+        $link = str_replace(
+            ['{bucketName}', '{key}', '{tag}'],
+            [$model::bucketName(), $model->key, $relation->link],
+            ResponseBuilder::getLinkTemplate()
+        );
+
         foreach ($this->rawLinks as $i => $rawLink) {
             if ($rawLink === $link) {
                 unset($this->rawLinks[$i]);
@@ -521,7 +444,7 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
                     }
                 }
             } else {
-                $this->related[$name] = null;
+                unset($this->related[$name]);
             }
         }
     }
@@ -542,21 +465,7 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
     public function refresh()
     {
         $this->oldAttributes = $this->attributes;
-        $record = $this->find($this->key);
-        if ($record === false) {
-            return false;
-        }
-        if (!empty($record->vtag)) {
-            $this->attributes = $record->attributes;
-        } else {
-            $this->attributes = $record->attributes;
-            $this->indexes = $record->indexes;
-            $this->meta = $record->meta;
-            $this->virtualAttributes = $record->virtualAttributes;
-        }
-        $this->vtag = $record->vtag;
-        $this->vclock = $record->vclock;
-        return true;
+        $this->findOne($this->key);
     }
 
     /**
@@ -585,163 +494,293 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
         return $indexType;
     }
 
-
     /**
     * Called by ActiveQuery to populate the result into array
     * Creates an object using a row of data.
     * This method is called internally to populate the query results
     * into Model. It is not meant to be used to create new records.
     *
-    * @param DataReader $row The formatted response ([[DataReader]]) of the query.
+    * @param array $row The formatted response of response query.
     *
     * @return ActiveRecord the newly created active record.
     * @since  XXX
     */
-    public static function create($row)
+    public static function populateRiakRecord($row, &$record = null)
     {
         \Yii::trace('Creating object with row : '.var_export($row, true)."\n", __CLASS__);
-        $record = null;
-        if ($row !== null && $row[DataReader::RESPONSESTATUS_KEY] !== 404) {
-            $record = static::instantiate($row);
+        //$record = null;
+        if (is_array($row)) {
+            if ($record === null) {
+                $record = static::instantiate($row);
+            }
+            $record->meta = [];
+            $record->attributes = [];
+            $record->rawLinks = [];
+            $record->related = [];
+            $record->indexes = [];
 
-            if (isset($row[DataReader::OBJECT_KEY])) {
-                $record->key = $row[DataReader::OBJECT_KEY];
-            } else {
-                if (isset($row[DataReader::HEADERS_KEY]) === true && isset($row[DataReader::HEADERS_KEY]['Location']) === true) {
-                    if (preg_match('/\/buckets\/\w+\/keys\/(\w+)/', $row[DataReader::HEADERS_KEY]['Location'], $matches) > 0) {
-                        $record->key = $matches[1];
-                    }
+            $record->vclock = $row['vclock'];
+            $record->key = $row['key'];
+
+            if (count($row['values']) === 1) {
+                $object = $row['values'][0];
+                if ($object['metadata']['content-type'] !== 'application/json') {
+                    throw new Exception(
+                        'Response content-type should be "application/json". Current content-type : "' .
+                        $object['metadata']['content-type'] . "."
+                    );
+                }
+                $attributes = json_decode($object['data'], true);
+                $indexes = $object['metadata']['index'];
+                foreach ($indexes as $name => $value) {
+                    unset($indexes[$name]);
+                    $name = substr($name, 0, strlen($name) - 4);
+                    $indexes[$name] = $value;
+                }
+                $metadata = $object['metadata']['X-Riak-Meta'];
+                foreach ($metadata as $name => $value) {
+                    unset($metadata[$name]);
+                    $name = str_replace('X-Riak-Meta-', '', $name);
+                    $metadata[$name] = $value;
+                }
+                $links = $object['metadata']['Links'];
+
+                foreach ($links as $link) {
+                    $record->rawLinks[] = str_replace(
+                        ['{bucketName}', '{key}', '{tag}'],
+                        [$link[0], $link[1], $link[2]],
+                        ResponseBuilder::getLinkTemplate()
+                    );
+                }
+                $record->setAttributes($attributes);
+                $record->setIndexes($indexes);
+                $record->setMetadata($metadata);
+            } else { //SIBLINGS
+                //TODO : BUILD AR OR PASS RAW RESPONSE ?
+                $data = $row['values'];
+                $row['values'] = [];
+                foreach ($data as $datum) {
+                    $row['values'][0] = $datum;
+                    $sibling = static::instantiate($row);
+                    $record->siblings[] = self::populateRiakRecord($row, $sibling);
                 }
             }
-            $attributes = $record->attributes(); //ATTRIBUTES NAME
-            $indexes = $record->indexes(); //INDEXES NAME
-            $metadata = $record->metadata(); //META NAME
-
-            $record->vclock = $row[DataReader::VCLOCK_KEY];
-
-            //ASSIGN ATTRIBUTES
-            foreach ($row[DataReader::DATA_KEY] as $attributeName => $attributeValue) {
-                if (in_array($attributeName, $attributes)) {
-                    $record->$attributeName = $attributeValue;
-                } else {
-                    \Yii::warning($attributeName.' is not declared in static property $attributesName');
-                }
-            }
-
-            //ASSIGN INDEXES
-            foreach ($row[DataReader::INDEX_KEY] as $indexName => $indexValue) {
-                foreach ($record->indexes() as $name => $type) {
-                    if (strtolower($indexName) === strtolower($name)) {
-                        $record->$name = $indexValue[0];
-                    } else {
-                        \Yii::warning($attributeName.' is not defined in static property $indexesName');
-                    }
-                }
-            }
-            //ASSIGN METADATA
-            foreach ($row[DataReader::META_KEY] as $metaName => $metaValue) {
-                foreach ($record->metadata() as $name) {
-                    if (strtolower($metaName) === strtolower($name)) {
-                        $record->$name = $metaValue;
-                    } else {
-                        \Yii::warning($metaName.' is undefined in the static property $metadataName');
-                    }
-                }
-            }
-
-            $record->rawLinks = $row[DataReader::LINK_KEY];
-
-            $record->afterFind();
         }
         return $record;
     }
 
 
     /**
-     * Return the object key using his header (Location)
-     *
-     * @param array $obj
-     *
-     * @return null string object key
-     * @since XXX
+     * (non-PHPdoc)
+     * @see \yii\db\BaseActiveRecord::hasMany()
      */
-    private static function getKeyFromLocation($obj)
+    public function hasMany($class, $link)
     {
-        $key = null;
-        if (isset($obj[DataReader::HEADERS_KEY]) === true &&
-            isset($obj[DataReader::HEADERS_KEY]['Location']) === true) {
-            if (preg_match('/\/buckets\/\w+\/keys\/(\w+)/', $obj[DataReader::HEADERS_KEY]['Location'], $matches) > 0) {
-                $key = $matches[1];
+        $query = self::find()->withKey($this->key);
+//        $query->setMode('selectWithLink');
+        $query->multiple = true;
+        $query->link = $link;
+        $query->linked($class::bucketName(), $link);
+        return $query;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \yii\db\BaseActiveRecord::hasOne()
+     */
+    public function hasOne($class, $link)
+    {
+        $query = self::find()->withKey($this->key);
+        $query->multiple = false;
+        $query->link = $link;
+        $query->linked($class::bucketName(), $link);
+        return $query;
+    }
+
+    public function equals($record)
+    {
+        if ($this->isNewRecord || $record->isNewRecord) {
+            return false;
+        }
+        return get_class($this) === get_class($record) && $this->vclock === $record->vclock;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \yii\db\BaseActiveRecord::getIsNewRecord()
+     */
+    public function getIsNewRecord()
+    {
+        return !isset($this->vclock);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function __get($name)
+    {
+        if (isset($this->indexes[$name]) || array_key_exists($name, $this->indexes)) {
+            return $this->indexes[$name];
+        } elseif ($this->hasIndex($name)) {
+            return null;
+        } elseif (isset($this->meta[$name]) || array_key_exists($name, $this->meta)) {
+            return $this->meta[$name];
+        } elseif ($this->hasMetadata($name)) {
+            return null;
+        } else {
+            $value = parent::__get($name);
+
+            if ($value instanceof  ActiveQuery) {
+                if ($value->multiple === true) {
+                    $this->related[$name] = $value->all(static::getDb());
+                } else {
+                    $this->related[$name] = $value->one(static::getDb());
+                }
+                return $this->related[$name];
+            } else {
+                return $value;
             }
         }
-        return $key;
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \sweelix\yii2\nosql\riak\ActiveRecordInterface::hasMetadatum()
+     * @inheritdoc
      */
-    public function hasMetadatum($name)
+    public function __set($name, $value)
     {
-        return isset($this->meta[$name]) || in_array($name, $this->metadata());
-    }
-
-    /**
-     * (non-PHPdoc)
-     * @see \sweelix\yii2\nosql\riak\ActiveRecordInterface::getMetadatum()
-     */
-    public function getMetadatum($name)
-    {
-        return isset($this->meta[$name]) ? $this->meta[$name] : null;
-    }
-
-    /**
-     * (non-PHPdoc)
-     * @see \sweelix\yii2\nosql\riak\ActiveRecordInterface::setMetadata()
-     */
-    public function setMetadata($name, $value)
-    {
-        if ($this->hasMetadatum($name)) {
-            $this->meta[$name];
+        if ($this->hasIndex($name)) {
+            $this->setIndex($name, $value);
+        } elseif ($this->hasMetadata($name)) {
+            $this->setMetadata($name, $value);
         } else {
-            throw new InvalidParamException(get_class($this).' has not metadata named '.$name.'.');
+            parent::__set($name, $value);
         }
     }
 
     /**
+     * Throw Exception not used.
+     *
      * (non-PHPdoc)
-     * @see \sweelix\yii2\nosql\riak\ActiveRecordInterface::getMetadata()
+     * @see \yii\db\BaseActiveRecord::getRelation()
      */
-    public function getMetadata()
+    public function getRelation($name, $throwException = true)
     {
-        return $this->meta;
+        $getter = 'get' . $name;
+        try {
+            // the relation could be defined in a behavior
+            $relation = $this->$getter();
+        } catch (UnknownMethodException $e) {
+            throw new InvalidParamException(get_class($this) . ' has no relation named "' . $name . '".', 0, $e);
+        }
+        if (!$relation instanceof ActiveQuery) {
+            throw new InvalidParamException(get_class($this) . ' has no relation named "' . $name . '".');
+        }
+
+        if (method_exists($this, $getter)) {
+            // relation name is case sensitive, trying to validate it when the relation is defined within this class
+            $method = new \ReflectionMethod($this, $getter);
+            $realName = lcfirst(substr($method->getName(), 3));
+            if ($realName !== $name) {
+                throw new InvalidParamException('Relation names are case sensitive. ' . get_class($this) . " has a relation named \"$realName\" instead of \"$name\".");
+            }
+        }
+
+        return $relation;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function createQuery()
+    {
+        return new ActiveQuery(get_called_class());
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function findAll($condition)
+    {
+        throw new NotSupportedException(__METHOD__ . ' is not supported.');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function primaryKey()
+    {
+        throw new NotSupportedException(__METHOD__ . ' is not supported.');
     }
 
     /**
      * (non-PHPdoc)
-     * @see \sweelix\yii2\nosql\riak\ActiveRecordInterface::hasIndex()
+     * @see \yii\base\Model::attributes()
      */
-    public function hasIndex($name)
+    public function attributes()
     {
-        return isset($this->indexes[$name]) || array_key_exists($name, $this->indexes());
+        $attributes = [];
+        foreach (static::attributeNames() as $key => $value) {
+            if (is_int($key)) {
+                $attributes[] = $value;
+            } else {
+                $attributes[] = $key;
+            }
+        }
+        return $attributes;
     }
 
     /**
      * (non-PHPdoc)
-     * @see \sweelix\yii2\nosql\riak\ActiveRecordInterface::getIndex()
+     * @see \yii\db\BaseActiveRecord::setAttribute()
      */
-    public function getIndex($name)
+    public function setAttribute($name, $value)
     {
-        return isset($this->indexes[$name]) ? $this->indexes[$name] : null;
+        parent::setAttribute($name, $value);
+        if ($this->hasIndex($name)) {
+            $this->indexes[$name] = $value;
+        }
+    }
+
+    /**
+     * Returns an an array of autoIndex property
+     *
+     * @return array
+     * @since  XXX
+     */
+    private function autoIndexes()
+    {
+        $autoIndexes = array();
+        foreach (static::attributeNames() as $key => $value) {
+            if (is_array($value) && isset($value['autoIndex']) === true) {
+                if ($value['autoIndex'] === IndexType::TYPE_BIN || $value['autoIndex'] === IndexType::TYPE_INT) {
+                    $autoIndexes[$key] = $value['autoIndex'];
+                } else {
+                    $autoIndexes[$key] = IndexType::TYPE_BIN;
+                }
+            }
+        }
+        return $autoIndexes;
     }
 
     /**
      * (non-PHPdoc)
-     * @see \sweelix\yii2\nosql\riak\ActiveRecordInterface::getIndexes()
+     * @see \sweelix\yii2\nosql\riak\ActiveRecordInterface::indexes()
      */
-    public function getIndexes()
+    public function indexes()
     {
-        return $this->indexes;
+        $indexes = $this->autoIndexes();
+        foreach (static::indexNames() as $key => $value) {
+            if (is_string($key)) {
+                if ($value === IndexType::TYPE_BIN || $value == IndexType::TYPE_INTEGER) {
+                    $indexes[$key] = $value;
+                } else {
+                    throw new InvalidConfigException('Type of index named' . $key . ' is invalid.');
+                }
+            } else {
+                $indexes[$value] = IndexType::TYPE_BIN;
+            }
+        }
+        return $indexes;
     }
 
     /**
@@ -760,123 +799,101 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
         }
     }
 
-    /**
-     * (non-PHPdoc)
-     * @see \yii\db\BaseActiveRecord::getIsNewRecord()
-     */
-    public function getIsNewRecord()
+    public function setIndexes($values)
     {
-        return !isset($this->vclock);
+        foreach ($values as $name => $value) {
+            $this->setIndex($name, $value);
+        }
     }
 
     /**
-     *
-     * @param unknown $context
-     * @throws InvalidParamException
-     * @return mixed
+     * (non-PHPdoc)
+     * @see \sweelix\yii2\nosql\riak\ActiveRecordInterface::getIndex()
      */
-    public static function resolveBucketName($context)
+    public function getIndex($name)
     {
-        $bucketName = static::bucketName();
-        if (self::isDynamicRecord()) {
-            $diff = array_diff(array_keys($context), self::getContextVars());
-            if (empty($diff) && !empty($context)) {
-                foreach ($context as $name => $replace) {
-                    $bucketName = str_replace('{' . $name . '}', $replace, $bucketName, $count);
-                }
-            } else {
-                throw new InvalidParamException('Context not valid.');
+        return isset($this->indexes[$name]) ? $this->indexes[$name] : null;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \sweelix\yii2\nosql\riak\ActiveRecordInterface::hasIndex()
+     */
+    public function hasIndex(&$name)
+    {
+        foreach ($this->indexes() as $indexName => $indexType) {
+            if (strtolower($indexName) === $name) {
+                $name = $indexName;
             }
         }
-        return $bucketName;
+        return isset($this->indexes[$name]) || array_key_exists($name, $this->indexes());
+    }
+
+    public function getIndexes()
+    {
+        return $this->indexes;
     }
 
     /**
      * (non-PHPdoc)
-     * @see \sweelix\yii2\nosql\riak\ActiveRecordInterface::getBucketName()
+     * @see \sweelix\yii2\nosql\riak\ActiveRecordInterface::metadata()
      */
-    public function getBucketName()
+    public function metadata()
     {
-        if ($this->bucketName === null) {
-            $this->bucketName = static::resolveBucketName($this->context);
-        }
-        return $this->bucketName;
+        return static::metadataNames();
     }
 
     /**
-     * @param unknown $bucket
+     * (non-PHPdoc)
+     * @see \sweelix\yii2\nosql\riak\ActiveRecordInterface::hasMetadata()
      */
-    public function setBucketName($bucket)
+    public function hasMetadata($name)
     {
-        $this->bucketName = $bucket;
+        return isset($this->meta[$name]) || in_array($name, $this->metadata());
     }
 
     /**
-     * @inheritdoc
+     * (non-PHPdoc)
+     * @see \sweelix\yii2\nosql\riak\ActiveRecordInterface::getMetadata()
      */
-    public function __get($name)
+    public function getMetadata($name = null)
     {
-        if (isset($this->indexes[$name]) || array_key_exists($name, $this->indexes)) {
-            return $this->indexes[$name];
-        } elseif ($this->hasIndex($name)) {
-            return null;
-        } elseif (isset($this->meta[$name]) || array_key_exists($name, $this->meta)) {
-            return $this->meta[$name];
-        } elseif ($this->hasMetadatum($name)) {
-            return null;
+        if ($name === null) {
+            return $this->meta;
         } else {
-            return parent::__get($name);
+            return isset($this->meta[$name]) ? $this->meta[$name] : null;
         }
     }
 
     /**
-     * @inheritdoc
+     * (non-PHPdoc)
+     * @see \sweelix\yii2\nosql\riak\ActiveRecordInterface::setMetadata()
      */
-    public function __set($name, $value)
+    public function setMetadata($name, $value = null)
     {
-        if ($this->hasIndex($name)) {
-            $this->setIndex($name, $value);
-        } elseif ($this->hasMetadatum($name)) {
-            $this->setMetadata($name, $value);
+        if ($value !== null) {
+            if ($this->hasMetadata($name)) {
+                $this->meta[$name] = $value;
+            } else {
+                throw new InvalidParamException(get_class($this).' has not metadata named '.$name.'.');
+            }
         } else {
-            parent::__set($name, $value);
+            foreach ($name as $nam => $value) {
+                if ($value === null) {
+                    if ($this->hasMetadata($nam)) {
+                        $this->meta[$nam] = null;
+                    } else {
+                        throw new InvalidParamException(get_class($this).' has not metadata named '. $nam . '.');
+                    }
+                } else {
+                    $this->setMetadata($nam, $value);
+                }
+            }
         }
     }
 
-    public static function createQuery()
+    public function getSiblings()
     {
-        return new ActiveQuery(get_called_class());
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function primaryKey()
-    {
-        throw new NotSupportedException(__METHOD__ . ' is not supported.');
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function updateAll($attributes, $condition = '')
-    {
-        throw new NotSupportedException(__METHOD__ . ' is not supported.');
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function deleteAll($condition = null)
-    {
-        throw new NotSupportedException(__METHOD__ . ' is not supported.');
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function updateAllCounters($counters, $condition = '', $params = [])
-    {
-        throw new NotSupportedException(__METHOD__ . ' is not supported.');
+        return $this->siblings;
     }
 }

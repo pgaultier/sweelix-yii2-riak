@@ -152,18 +152,6 @@ class Query extends Component
     protected $mapReduce;
 
     /**
-     * Generates a string select query of DB.
-     *
-     * @return Query (set select mode of Query)
-     * @since XXX
-     */
-    public function select()
-    {
-        // $this->_mode = 'select';
-        return $this;
-    }
-
-    /**
      * Create a Command instance
      *
      * @param Connection $noSqlDb
@@ -242,9 +230,6 @@ class Query extends Component
      */
     public function withKey($objectKey)
     {
-        if (isset($this->mode) === true) {
-            throw new Exception('Chained mulitiple with is forbidden');
-        }
         $this->mode = 'select';
         $this->key = $objectKey;
         return $this;
@@ -269,82 +254,10 @@ class Query extends Component
      * @return Query The query object itself
      * @since XXX
      */
-    public function withMapReduce($inputs = null)
+    public function withMapReduce(MapReduce $mapReduce)
     {
-        if (isset($this->mode) === true) {
-            throw new Exception('Chained mulitiple with is forbidden');
-        }
         $this->mode = 'selectWithMapReduce';
-        $this->mapReduce = new MapReduce();
-        if (is_string($inputs)) {
-            $this->mapReduce->addInput($inputs);
-        } elseif (is_array($inputs)) {
-            foreach ($inputs as $input) {
-                if (count($input) === 1) {
-                    $this->mapReduce->addInput($input[0]);
-                } elseif (count($input) === 2) {
-                    $this->mapReduce->addInput($input[0], $input[1]);
-                } else {
-                    $this->mapReduce->addInput($input[0], $input[1], $input[2]);
-                }
-            }
-        } elseif ($inputs === null) {
-            if ($this->bucket) {
-                $this->mapReduce->addInput($this->bucket);
-            } else {
-                throw new InvalidConfigException('No bucket setted');
-            }
-        } else {
-            throw new InvalidParamException(
-                'Inputs should be a string reprensenting a bucket or an
-                array of bucket, key, keydata. (array($bucket, $key, $keydata))'
-            );
-        }
-        return $this;
-    }
-
-    /**
-     * Add a map phase to the current query mapReduce.
-     *
-     * @param Map $map
-     *            The map phase to add to the mapReduce
-     *
-     * @return Query The query object itself
-     * @since XXX
-     */
-    public function map(Map $map)
-    {
-        $this->mapReduce->addPhase($map);
-        return $this;
-    }
-
-    /**
-     * Add a reduce phase to the current query mapReduce.
-     *
-     * @param Reduce $reduce
-     *            The reduce phase to add to the mapReduce.
-     *
-     * @return Query The query object itself
-     * @since XXX.
-     */
-    public function reduce(Reduce $reduce)
-    {
-        $this->mapReduce->addPhase($reduce);
-        return $this;
-    }
-
-    /**
-     * Add a link phase to the current query mapReduce.
-     *
-     * @param Link $link
-     *            The link phase to add to the mapReduce.
-     *
-     * @return Query The query object itself.
-     * @since XXX
-     */
-    public function link(Link $link)
-    {
-        $this->mapReduce->addPhase($link);
+        $this->mapReduce = $mapReduce;
         return $this;
     }
 
@@ -365,9 +278,6 @@ class Query extends Component
      */
     public function withIndex($indexName, $value, $endValue = null, $type = IndexType::TYPE_BIN)
     {
-        if (isset($this->mode) === true) {
-            throw new Exception('Chained mulitiple with is forbidden');
-        }
         $this->mode = 'selectWithIndex';
         $this->index = array(
             'indexName' => $indexName . $type,
