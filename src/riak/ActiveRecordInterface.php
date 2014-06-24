@@ -172,4 +172,13 @@ interface ActiveRecordInterface extends BaseActiveRecordInterface
      * @since  XXX
      */
     public static function metadataNames();
+
+    /**
+     * Returns the resolver class name
+     * If returns null, no resolve would be done while the saving process.
+     *
+     * @return string The resolver class name
+     * @since  XXX
+     */
+    public static function resolverClassName();
 }
