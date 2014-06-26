@@ -230,7 +230,7 @@ class Query extends Component
      */
     public function withKey($objectKey)
     {
-        $this->mode = 'select';
+        $this->mode = Command::MODE_INSERT;
         $this->key = $objectKey;
         return $this;
     }
@@ -256,7 +256,7 @@ class Query extends Component
      */
     public function withMapReduce(MapReduce $mapReduce)
     {
-        $this->mode = 'selectWithMapReduce';
+        $this->mode = Command::MODE_SELECT_WITH_MAPREDUCE;
         $this->mapReduce = $mapReduce;
         return $this;
     }
@@ -278,7 +278,7 @@ class Query extends Component
      */
     public function withIndex($indexName, $value, $endValue = null, $type = IndexType::TYPE_BIN)
     {
-        $this->mode = 'selectWithIndex';
+        $this->mode = Command::MODE_SELECT_WITH_INDEX;
         $this->index = array(
             'indexName' => $indexName . $type,
             'value' => $value,
@@ -308,7 +308,7 @@ class Query extends Component
      */
     public function linked($bucketName = '_', $riakTag = '_', $keep = 1)
     {
-        $this->mode = 'selectWithLink';
+        $this->mode = Command::MODE_SELECT_WITH_LINK;
         $this->links = array();
         return $this->addLinked($bucketName, $riakTag, $keep);
     }
