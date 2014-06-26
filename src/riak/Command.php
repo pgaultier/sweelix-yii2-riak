@@ -37,19 +37,30 @@ use yii\base\Component;
  */
 class Command extends Component
 {
+    const MODE_SELECT = 'select';
+    const MODE_SELECT_WITH_MAPREDUCE = 'selectWithMapReduce';
+    const MODE_SELECT_WITH_LINK = 'selectWithLink';
+    const MODE_SELECT_WITH_INDEX = 'selectWithIndex';
+    const MODE_SELECT_BUCKET_PROPS = 'selectBucketProps';
+    const MODE_SELECT_COUNTER = 'selectCounter';
+    const MODE_INSERT = 'insert';
+    const MODE_UPDATE = 'update';
+    const MODE_UPDATE_BUCKET_PROPS = 'updateBucketProps';
+    const MODE_UPDATE_COUNTER = 'updateCounter';
+    const MODE_DELETE = 'delete';
 
     public static $allowedMode = array(
-        'select',
-        'selectWithMapReduce',
-        'selectWithLink',
-        'selectWithIndex',
-        'selectBucketProps',
-        'selectCounter',
-        'insert',
-        'update',
-        'updateBucketProps',
-        'updateCounter',
-        'delete'
+        self::MODE_SELECT,
+        self::MODE_SELECT_WITH_MAPREDUCE,
+        self::MODE_SELECT_WITH_LINK,
+        self::MODE_SELECT_WITH_INDEX,
+        self::MODE_SELECT_BUCKET_PROPS,
+        self::MODE_SELECT_COUNTER,
+        self::MODE_INSERT,
+        self::MODE_UPDATE,
+        self::MODE_UPDATE_BUCKET_PROPS,
+        self::MODE_UPDATE_COUNTER,
+        self::MODE_DELETE
     );
 
     /**
@@ -399,7 +410,7 @@ class Command extends Component
         $result = null;
         $response = null;
         switch ($mode) {
-            case 'select':
+            case self::MODE_SELECT:
                 $response = $this->noSqlDb->client->getObject(
                     $this->bucket,
                     $this->key,
@@ -407,11 +418,11 @@ class Command extends Component
                     $this->headers
                 );
                 return ResponseBuilder::buildGetResponse($response, $this->bucket, $this->key);
-            case 'selectWithMapReduce':
+            case self::MODE_SELECT_WITH_MAPREDUCE:
                 $response = $this->noSqlDb->client->queryMapReduce($this->data);
                 return ResponseBuilder::buildMapReduceResponse($response);
                 break;
-            case 'selectWithIndex':
+            case self::MODE_SELECT_WITH_INDEX:
                 $response = $this->noSqlDb->client->queryIndexes(
                     $this->bucket,
                     $this->queryIndexName,
@@ -421,7 +432,7 @@ class Command extends Component
                 );
                 return ResponseBuilder::buildIndexResponse($response);
                 break;
-            case 'selectWithLink':
+            case self::MODE_SELECT_WITH_LINK:
                 $response = $this->noSqlDb->client->queryLinks(
                     $this->bucket,
                     $this->key,
@@ -429,7 +440,7 @@ class Command extends Component
                 );
                 return ResponseBuilder::buildLinkResponse($response, $this->bucket, $this->key);
                 break;
-            case 'insert':
+            case self::MODE_INSERT:
                 $queryParams = $this->queryParams;
                 if (isset($queryParams['returnbody']) === false) {
                     $queryParams['returnbody'] = 'true';
@@ -442,7 +453,7 @@ class Command extends Component
                     $this->headers
                 );
                 return ResponseBuilder::buildPutResponse($response, $this->bucket, $this->key);
-            case 'update':
+            case self::MODE_UPDATE:
                 if (isset($this->headers['X-Riak-Vclock']) === false) {
                     throw new RiakException('VClock is needed to update an object.', 400);
                 } else {
@@ -459,7 +470,7 @@ class Command extends Component
                     );
                 }
                 return ResponseBuilder::buildPutResponse($response, $this->bucket, $this->key);
-            case 'delete':
+            case self::MODE_DELETE:
                 $response = $this->noSqlDb->client->deleteObject(
                     $this->bucket,
                     $this->key,
@@ -468,13 +479,13 @@ class Command extends Component
                 );
                 return true;
                 break;
-            case 'selectCounter':
+            case self::MODE_SELECT_COUNTER:
                 $response = $this->noSqlDb->client->getCounter(
                     $this->bucket,
                     $this->key
                 );
                 return ResponseBuilder::buildGetCounterResponse($response);
-            case 'updateCounter':
+            case self::MODE_UPDATE_COUNTER:
                 $response = $this->noSqlDb->client->updateCounter(
                     $this->bucket,
                     $this->key,
@@ -482,10 +493,10 @@ class Command extends Component
                 );
                 return ResponseBuilder::buildPutCounterResponse($response);
                 break;
-            case 'selectBucketProps':
+            case self::MODE_SELECT_BUCKET_PROPS:
                 $response = $this->noSqlDb->client->getBucketProps($this->bucket);
                 return ResponseBuilder::buildGetBucketPropResponse($response, $this->bucket);
-            case 'updateBucketProps':
+            case self::MODE_UPDATE_BUCKET_PROPS:
                 $response = $this->noSqlDb->client->alterBucket($this->bucket, $this->data);
                 return ResponseBuilder::buildPutBucketPropResponse($response);
                 break;
