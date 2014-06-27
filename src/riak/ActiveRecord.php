@@ -210,7 +210,7 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
 
         $command = $this->createCommand('insert');
         $ret = $command->execute();
-        $this->afterSave(true);
+        $this->afterSave(true, null);
         $this->oldAttributes = $this->attributes;
         if (! static::isKeyMandatory()) {
             $this->key = $ret['key'];
@@ -254,7 +254,7 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
 
         try {
             $row = $command->execute();
-            $this->afterSave(false);
+            $this->afterSave(false, null);
             $this->oldAttributes = $this->attributes;
 
             self::populateRiakRecord($row, $this);
@@ -921,5 +921,4 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
     {
         return Yii::$app->riak;
     }
-
 }
