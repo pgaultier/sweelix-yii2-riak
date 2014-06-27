@@ -142,7 +142,15 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
         return $q->withMapReduce($mapReduce)->all(static::getDb());
     }
 
-    public static function findByMapReduce($mapReduce)
+    /**
+     * Find records by mapReduce
+     *
+     * @param MapReduce $mapReduce
+     *
+     * @return ActiveRecord[]
+     * @since  XXX
+     */
+    public static function findByMapReduce(MapReduce $mapReduce)
     {
         $q = self::find();
         return $q->withMapReduce($mapReduce)->all(static::getDb());
@@ -896,13 +904,22 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
         }
     }
 
+    /**
+     * Return siblings objects
+     *
+     * @return array of object's siblings.
+     */
     public function getSiblings()
     {
         return $this->siblings;
     }
 
-    public function getDb()
+    /**
+     * @inheritdoc
+     */
+    public static function getDb()
     {
         return Yii::$app->riak;
     }
+
 }

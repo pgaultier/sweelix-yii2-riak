@@ -45,6 +45,11 @@ class InvalidIndexConfig extends ActiveRecord
         ];
     }
 
+    public static function resolverClassName()
+    {
+        return null;
+    }
+
     public function rules()
     {
         // TODO: you should only define rules for those attributes that will receive user inputs.

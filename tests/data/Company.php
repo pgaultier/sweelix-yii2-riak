@@ -36,6 +36,11 @@ class Company extends ActiveRecord
         ];
     }
 
+    public static function resolverClassName()
+    {
+        return null;
+    }
+
     public static function getDb()
     {
         return Yii::$app->riak;
