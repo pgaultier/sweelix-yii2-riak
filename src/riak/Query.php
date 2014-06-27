@@ -230,7 +230,7 @@ class Query extends Component
      */
     public function withKey($objectKey)
     {
-        $this->mode = Command::MODE_INSERT;
+        $this->mode = Command::MODE_SELECT;
         $this->key = $objectKey;
         return $this;
     }
