@@ -70,7 +70,7 @@ class CreateAction extends Action
 
         if ($model->save()) {
             $response = Yii::$app->getResponse();
-            if (empty($model->siblings)) {
+            if (!empty($model->siblings)) {
                 $response->setStatusCode(300);
             } else {
                 $response->setStatusCode(201);
