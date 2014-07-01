@@ -18,12 +18,7 @@ namespace sweelix\yii2\nosql\riak;
 
 use sweelix\yii2\nosql\riak\IndexType;
 use sweelix\yii2\nosql\riak\MapReduce;
-use sweelix\yii2\nosql\riak\phase\Link;
-use sweelix\yii2\nosql\riak\phase\Map;
-use sweelix\yii2\nosql\riak\phase\Reduce;
 use yii\base\Component;
-use yii\base\InvalidConfigException;
-use yii\base\InvalidParamException;
 use Exception;
 
 /**
