@@ -14,9 +14,7 @@
  */
 namespace sweelix\yii2\nosql\riak;
 
-
 use sweelix\yii2\nosql\riak\Query;
-use sweelix\yii2\nosql\riak\phase\Map;
 use Yii;
 
 /**
