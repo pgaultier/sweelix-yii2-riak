@@ -1033,15 +1033,30 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
     {
         $scope = $formName === null ? $this->formName() : $formName;
         if ($scope === '' && !empty($data)) {
+            $data = $this->reverseFields($data);
             foreach ($data as $name => $value) {
                 $this->$name = $value;
             }
         } elseif (isset($data[$scope])) {
+            $data[$scope] = $this->reverseFields($data[$scope]);
             foreach ($data[$scope] as $name => $value) {
                     $this->$name = $value;
             }
         } else {
             return false;
         }
+    }
+
+    protected function reverseFields(array $data)
+    {
+        $fields = $this->fields();
+
+        foreach ($fields as $fieldName => $arName) {
+            if (isset($data[$fieldName]) === true) {
+                $data[$arName] = $data[$fieldName];
+                unset($data[$fieldName]);
+            }
+        }
+        return $data;
     }
 }
