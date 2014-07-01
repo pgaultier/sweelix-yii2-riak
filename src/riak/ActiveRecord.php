@@ -21,6 +21,7 @@ use yii\base\InvalidConfigException;
 use yii\base\InvalidParamException;
 use yii\base\NotSupportedException;
 use yii\db\BaseActiveRecord as BaseActiveRecordYii;
+use yii\helpers\ArrayHelper;
 use Yii;
 use yii\base\UnknownMethodException;
 
@@ -53,39 +54,47 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
     /**
      * @var string the object vclock
      */
-    private $vclock;
+    protected $vclock;
+
+    /**
+     * @var array key => value representing object indexes
+     */
+    protected $indexes = [];
+
+    /**
+     * @var array key => value representing object metadata
+     */
+    protected $meta = [];
+
+    /**
+     * @var array key => value representing object Link's (raw)
+     */
+    protected $rawLinks = [];
 
     /**
      * @var array
      */
-    private $indexes = [];
+    protected $virtualAttributes = [];
 
     /**
-     * @var array
+     * @var array of ActiveRecord representing object's links
      */
-    private $meta = [];
+    protected $related = [];
 
     /**
-     * @var array
+     * @var array of ActiveRecord representing all object's version
      */
-    private $rawLinks = [];
+    protected $siblings = [];
 
     /**
-     * @var array
+     * Retunrs a builed ActiveQuery
+     *
+     * @param string $context
+     *
+     * @return Ambigous \sweelix\yii2\nosql\riak\ActiveQuery
+     * @since  XXX
      */
-    private $virtualAttributes = [];
-
-    /**
-     * @var array
-     */
-    private $related = [];
-
-    /**
-     * @var unknown
-     */
-    private $siblings = [];
-
-    public static function find($context = null)
+    public static function find()
     {
         return static::createQuery(get_called_class())->fromBucket(static::bucketName());
     }
@@ -93,7 +102,7 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
     /**
      * Retunrs the object with the key $key as an ActiveRecord
      *
-     * @param string|int $key
+     * @param string|int $key Object's key to find
      *
      * @return ActiveRecord
      * @since  XXX
@@ -105,7 +114,26 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
     }
 
     /**
-     * @inheritdoc
+     * Returns ActiveRecord's array.
+     *
+     * ~~~
+     * User::findByIndex('userAge', 18);
+     * //Returns all users (as ActiveRecord) with the index "userAge" equals to 18
+     *
+     * User::findByIndex('userAge', 0, 18, false);
+     * //Returns all users (as array) with the index "userAge" between 0 and 18
+     *
+     * User::findByIndex('userAge', 0, 18);
+     * //Returns all users (as ActiveRecord) with the index "userAge" between 0 and 18
+     * ~~~
+     *
+     * @param string     $indexName      IndexName searched
+     * @param string|int $indexValue     IndexName (start) value
+     * @param string|int $endValue       IndexName end value
+     * @param boolean    $getFullObject  Whether to get populated record or not
+     *
+     * @return ActiveRecord[] || array
+     * @since  XXX
      */
     public static function findByIndex($indexName, $indexValue, $endValue = null, $getFullObject = true)
     {
@@ -132,6 +160,14 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
         return $ret;
     }
 
+    /**
+     * Returns ActiveRecord's array
+     *
+     * @param KeyFilter $keyFilter The keyFilter condition
+     *
+     * @return
+     * @since  XXX
+     */
     public static function findByKeyFilter(KeyFilter $keyFilter)
     {
         $q = self::find();
@@ -215,15 +251,21 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
         if (! static::isKeyMandatory()) {
             $this->key = $ret['key'];
         }
-//        $this->vclock = $ret['vclock'];
+
         self::populateRiakRecord($ret, $this);
         $ret = count($ret['values']);
+
 
         if ($ret > 1 && static::resolverClassName() !== null) {
             $resolver = Yii::createObject([ 'class' => static::resolverClassName() ]);
 
             $recordToSave = $resolver->resolve($this->siblings);
-            $ret = $recordToSave->update();
+            $command = $recordToSave->createCommand('update');
+
+            $response = $command->execute();
+            self::populateRiakRecord($response, $this);
+
+            $ret = count($response['values']);
         }
         return $ret;
     }
@@ -280,7 +322,7 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
     {
         $command = static::getDb()->createCommand(static::getDb());
         $data = array();
-        foreach ($this->attributes() as $name) {
+        foreach ($this->realAttributes() as $name) {
             $data[$name] = $this->$name;
         }
 
@@ -304,7 +346,6 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
                 $command = $command->addMetaData($name, $value);
             }
         }
-
 
         //Indexes
         foreach ($this->indexes() as $name => $type) {
@@ -520,12 +561,14 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
         if (is_array($row)) {
             if ($record === null) {
                 $record = static::instantiate($row);
+            } else {
+                $record->meta = [];
+                $record->attributes = [];
+                $record->rawLinks = [];
+                $record->related = [];
+                $record->indexes = [];
+                $record->siblings = [];
             }
-            $record->meta = [];
-            $record->attributes = [];
-            $record->rawLinks = [];
-            $record->related = [];
-            $record->indexes = [];
 
             $record->vclock = $row['vclock'];
             $record->key = $row['key'];
@@ -585,7 +628,6 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
     public function hasMany($class, $link)
     {
         $query = self::find()->withKey($this->key);
-//        $query->setMode('selectWithLink');
         $query->multiple = true;
         $query->link = $link;
         $query->linked($class::bucketName(), $link);
@@ -701,7 +743,10 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
     }
 
     /**
-     * @inheritdoc
+     * Returns a populate [[sweelix\yii2\nosql\ActiveQuery]]
+     *
+     * @return \sweelix\yii2\nosql\riak\ActiveQuery
+     * @since  XXX
      */
     public static function createQuery()
     {
@@ -725,20 +770,52 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
     }
 
     /**
+     * Returns all object's attributes (realAttributes, Indexes, metadata)
+     *
      * (non-PHPdoc)
      * @see \yii\base\Model::attributes()
      */
     public function attributes()
     {
-        $attributes = [];
+        $attributes = array_merge($this->realAttributes(), static::metadataNames());
+        return array_merge($attributes, array_keys($this->indexes()));
+    }
+
+    /**
+     * Returns the object's attributes name
+     *
+     * @return multitype:unknown
+     */
+    public function realAttributes()
+    {
+        $realAttributes = [];
         foreach (static::attributeNames() as $key => $value) {
             if (is_int($key)) {
-                $attributes[] = $value;
+                $realAttributes[] = $value;
             } else {
-                $attributes[] = $key;
+                $realAttributes[] = $key;
             }
         }
-        return $attributes;
+        return $realAttributes;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \yii\base\Model::getAttributes()
+     */
+    public function getAttributes($names = null, $except = [])
+    {
+        $values = [];
+        if ($names === null) {
+            $names = $this->realAttributes();
+        }
+        foreach ($names as $name) {
+            $values[$name] = $this->$name;
+        }
+        foreach ($except as $name) {
+            unset($values[$name]);
+        }
+        return $values;
     }
 
     /**
@@ -841,6 +918,9 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
         return isset($this->indexes[$name]) || array_key_exists($name, $this->indexes());
     }
 
+    /**
+     * @inheridoc
+     */
     public function getIndexes()
     {
         return $this->indexes;
@@ -920,5 +1000,48 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
     public static function getDb()
     {
         return Yii::$app->riak;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \yii\base\Arrayable::toArray()
+     */
+    public function toArray(array $fields = [], array $expand = [], $recursive = true)
+    {
+        if (empty($this->siblings)) {
+            foreach ($this->resolveFields($fields, $expand) as $field => $definition) {
+                $data[$field] = is_string($definition) ?
+                        $this->$definition :
+                        call_user_func($definition, $field, $this);
+            }
+
+            $data['_links'] = $this->rawLinks;
+        } else {
+            foreach ($this->siblings as $activeRecord) {
+                $data[] = $activeRecord->toArray($fields, $expand, $recursive);
+            }
+        }
+
+        return $recursive ? ArrayHelper::toArray($data) : $data;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \yii\base\Model::load()
+     */
+    public function load($data, $formName = null)
+    {
+        $scope = $formName === null ? $this->formName() : $formName;
+        if ($scope === '' && !empty($data)) {
+            foreach ($data as $name => $value) {
+                $this->$name = $value;
+            }
+        } elseif (isset($data[$scope])) {
+            foreach ($data[$scope] as $name => $value) {
+                    $this->$name = $value;
+            }
+        } else {
+            return false;
+        }
     }
 }
