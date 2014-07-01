@@ -55,8 +55,6 @@ class UpdateAction extends Action
 
         $model->scenario = $this->scenario;
         $model->load(Yii::$app->getRequest()->getBodyParams(), '');
-        var_dump($model);
-        die;
         $model->save();
 
         return $model;
