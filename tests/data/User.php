@@ -41,7 +41,7 @@ class User extends ActiveRecord
 
     public static function resolverClassName()
     {
-        return null;
+        return 'sweelix\yii2\nosql\tests\data\UserResolver';
     }
 
     public static function getDb()
