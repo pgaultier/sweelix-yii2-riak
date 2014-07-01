@@ -54,6 +54,9 @@ class ActiveRecordTest extends TestCase
         parent::tearDown();
     }
 
+    /**
+     * Test some getters/setters
+     */
     public function testSetterGetter()
     {
         $user = new User();
@@ -119,6 +122,9 @@ class ActiveRecordTest extends TestCase
         $this->assertEquals($date, $user->userDateCreate);
     }
 
+    /**
+     * Test insert without key (automatic key genration by riak)
+     */
     public function testInsertGetWithoutKey()
     {
         $recordWithRiakKey = new Company();
@@ -140,6 +146,9 @@ class ActiveRecordTest extends TestCase
         $this->assertTrue($recordWithRiakKey->delete());
     }
 
+    /**
+     * Test save into BDD
+     */
     public function testInsert()
     {
         $christophe = new User();
@@ -183,6 +192,9 @@ class ActiveRecordTest extends TestCase
 
     }
 
+    /**
+     * Test find By Key [[ActiveRecord::findOne()]]
+     */
     public function testFindByKey()
     {
         $christophe = User::findOne('clatour@ibitux.com|23|20130202');
@@ -208,7 +220,9 @@ class ActiveRecordTest extends TestCase
         $this->assertNull($userNotFound);
     }
 
-
+    /**
+     * Test update [[ActiveRecord]]
+     */
     public function testUpdate()
     {
         $christophe = User::findOne('clatour@ibitux.com|23|20130202');
@@ -229,20 +243,22 @@ class ActiveRecordTest extends TestCase
     }
 
 
+    /**
+     * Test findByKeyFilter
+     */
     public function testFindByKeyFilter()
     {
         $keyFilter = new KeyFilter();
         $keyFilter->tokenize('|', 1)->startsWith('c')->and()->endsWith('m')->and()->startsWith('clatour');
         $users = User::findByKeyFilter($keyFilter);
 
-        var_dump($keyFilter->build());
-
-//        $this->assertCount(1, $users);
-//        $this->assertEquals('clatour@ibitux.com|23|20130202', $users[0]->key);
+        $this->assertCount(1, $users);
+        $this->assertEquals('clatour@ibitux.com|23|20130202', $users[0]->key);
 
         $keyFilter->reset();
         $keyFilter->tokenize('|', 1)->startsWith('c');
         $users = User::findByKeyFilter($keyFilter);
+
 
         $this->assertCount(2, $users);
 
@@ -268,6 +284,9 @@ class ActiveRecordTest extends TestCase
         $this->assertCount(2, $users);
     }
 
+    /**
+     * Test find By Index
+     */
     public function testFindByIndex()
     {
         $users = User::findByIndex('userAge', 24, 37);
@@ -279,6 +298,9 @@ class ActiveRecordTest extends TestCase
 
     }
 
+    /**
+     * Test link between 2 [[ActiveRecord]]
+     */
     public function testLink()
     {
         $christophe = User::findOne('clatour@ibitux.com|23|20130202');
@@ -326,6 +348,9 @@ class ActiveRecordTest extends TestCase
         $this->assertTrue($mom->equals($momTmp));
     }
 
+    /**
+     * Test unlink between 2 [[ActiveRecord]]
+     */
     public function testUnlink()
     {
         $christophe = User::findOne('clatour@ibitux.com|23|20130202');
@@ -354,6 +379,9 @@ class ActiveRecordTest extends TestCase
         $this->assertNull($christophe->mom);
     }
 
+    /**
+     * Test equals method
+     */
     public function testEquals()
     {
         $user = User::findOne('mom');
@@ -371,7 +399,53 @@ class ActiveRecordTest extends TestCase
         $this->assertFalse($new->equals($new2));
     }
 
+    /**
+     * Siblings management.
+     */
+    public function testResolveSiblings()
+    {
+        $user = new User();
 
+        $user->key = 'key';
+        $user->userLogin = 'first';
+        $user->userFirstname = 'first';
+        $user->userLastname = 'first';
+        $user->userAge = 1;
+        $user->userDateCreate = date('c');
+        $this->assertEquals(1, $user->save());
+
+        sleep(3);
+
+        $user2 = new User();
+        $user2->key = 'key';
+        $user2->userLogin = 'second';
+        $user2->userFirstname = 'second';
+        $user2->userLastname = 'second';
+        $user2->userAge = 2;
+        $user2->userDateCreate = date('c');
+        //USER2 will erase user1 because he has been save after USER1 (see resolver).
+        $this->assertEquals(1, $user2->save());
+        $this->assertEmpty($user2->siblings);
+
+
+        $user = User::findOne('key');
+
+
+        $this->assertEquals('second', $user->userFirstname);
+        $this->assertEquals('second', $user->userLastname);
+        $this->assertEquals('second', $user->userLogin);
+        $this->assertEquals(2, $user->userAge);
+
+        $user->delete();
+
+    }
+
+
+
+    /**
+     * Trying to insert [[ActiveRecord]] without key setted.
+     * (When object method isKeyMandatory returning true)
+     */
     public function testFail()
     {
 
@@ -391,18 +465,27 @@ class ActiveRecordTest extends TestCase
         $user->save();
     }
 
+    /**
+     * [[ActiveRecord::FindAll()]] not supported
+     */
     public function testFail1()
     {
         $this->setExpectedException('yii\base\NotSupportedException');
         User::findAll('test');
     }
 
+    /**
+     * [[ActiveRecord::primaryKey()]] not supported
+     */
     public function testFail2()
     {
         $this->setExpectedException('yii\base\NotSupportedException');
         User::primaryKey();
     }
 
+    /**
+     * Call delete method on a new [[ActiveRecord]]
+     */
     public function testFail3()
     {
         $this->setExpectedException('yii\base\InvalidCallException');
@@ -410,12 +493,18 @@ class ActiveRecordTest extends TestCase
         $user->delete();
     }
 
+    /**
+     * Trying to frind from an inexistant index.
+     */
     public function testFail4()
     {
         $this->setExpectedException('InvalidArgumentException');
         User::findByIndex('indexNotValid', 'test');
     }
 
+    /**
+     * Trying to link 2 new [[ActiveRecord]]
+     */
     public function testFail5()
     {
         $user = new User();
@@ -426,6 +515,9 @@ class ActiveRecordTest extends TestCase
         $user->link('friends', $user2);
     }
 
+    /**
+     * Trying to link 1 new [[ActiveRecord]] with a fetched [[ActiveRecord]]
+     */
     public function testFail6()
     {
         $user = User::findOne('mom');
@@ -438,6 +530,9 @@ class ActiveRecordTest extends TestCase
         //SHOULD DO $user2->save() then $user->link('friends', $user2);
     }
 
+    /**
+     * Trying to set an inexistant index
+     */
     public function testFail7()
     {
         $user = new User();
@@ -446,6 +541,9 @@ class ActiveRecordTest extends TestCase
         $user->setIndex('toto', 'titi');
     }
 
+    /**
+     * Trying to set an inexistant metadata
+     */
     public function testFail8()
     {
         $user = new User();
@@ -454,6 +552,9 @@ class ActiveRecordTest extends TestCase
         $user->setMetadata('toto', 'titi');
     }
 
+    /**
+     * Invalid Index configuration (See InvalidIndexConfig to see error)
+     */
     public function testFail9()
     {
         $invalidRecord = new InvalidIndexConfig();
@@ -462,6 +563,9 @@ class ActiveRecordTest extends TestCase
         $invalidRecord->indexes;
     }
 
+    /**
+     * trying to set an inexistant metadata with the massive setter
+     */
     public function testFail10()
     {
         $meta = ['userDateCreate' => null];
@@ -475,6 +579,9 @@ class ActiveRecordTest extends TestCase
         $user->setMetadata($meta);
     }
 
+    /**
+     * Trying to link from an inexistant relation
+     */
     public function testFail11()
     {
         $user = User::findOne('mom');
@@ -484,6 +591,9 @@ class ActiveRecordTest extends TestCase
         $user->link('inexistantRelation', $user2);
     }
 
+    /**
+     * ...
+     */
     public function testFail12()
     {
         $user = User::findOne('mom');
@@ -493,23 +603,34 @@ class ActiveRecordTest extends TestCase
         $user->link('superFriends', $user2);
     }
 
+    /**
+     * and()|or()|not() can't be chained
+     */
     public function testFail13()
     {
         $keyFilter = new KeyFilter();
 
         $this->setExpectedException('yii\base\InvalidCallException');
+        //and()->or() Can't chain those functions
         $keyFilter->equals('test')->and()->or()->between('28', '27', true);
     }
 
+    /**
+     * Call an inexistant method on keyFilter
+     */
     public function testFail14()
     {
         $keyFilter = new KeyFilter();
 
         $this->setExpectedException('yii\base\InvalidCallException');
+        //SEE KeyFilter.php to see what functions are available
         $keyFilter->invalidCall();
 
     }
 
+    /**
+     * Trying to build a KeyFilter withtout setting on which bucket should be applied
+     */
     public function testFail15()
     {
         $keyFilter = new KeyFilter();
@@ -519,6 +640,10 @@ class ActiveRecordTest extends TestCase
         $keyFilter->build();
     }
 
+    /**
+     * Test delete
+     * (Reset bucket)
+     */
     public function testDelete()
     {
         $response = User::findOne('clatour@ibitux.com|23|20130202')->delete();
