@@ -1009,6 +1009,9 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
     public function toArray(array $fields = [], array $expand = [], $recursive = true)
     {
         if (empty($this->siblings)) {
+            if ($this->isNewRecord === false) {
+                $data['key'] = $this->key;
+            }
             foreach ($this->resolveFields($fields, $expand) as $field => $definition) {
                 $data[$field] = is_string($definition) ?
                         $this->$definition :
