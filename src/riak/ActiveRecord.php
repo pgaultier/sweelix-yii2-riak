@@ -575,7 +575,7 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
 
             if (count($row['values']) === 1) {
                 $object = $row['values'][0];
-                if ($object['metadata']['content-type'] !== 'application/json') {
+                if (strncmp($object['metadata']['content-type'], 'application/json', 16) !== 0) {
                     throw new Exception(
                         'Response content-type should be "application/json". Current content-type : "' .
                         $object['metadata']['content-type'] . "."
@@ -603,7 +603,7 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
                         ResponseBuilder::getLinkTemplate()
                     );
                 }
-                $record->setAttributes($attributes);
+                $record->setAttributes($attributes, false);
                 $record->setIndexes($indexes);
                 $record->setMetadata($metadata);
             } else { //SIBLINGS
@@ -1018,7 +1018,7 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
                         call_user_func($definition, $field, $this);
             }
 
-            $data['_links'] = $this->rawLinks;
+//            $data['_links'] = $this->rawLinks;
         } else {
             foreach ($this->siblings as $activeRecord) {
                 $data[] = $activeRecord->toArray($fields, $expand, $recursive);
