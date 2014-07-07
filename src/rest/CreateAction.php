@@ -17,6 +17,7 @@ namespace sweelix\yii2\nosql\rest;
 use Yii;
 use yii\base\Model;
 use yii\helpers\Url;
+use yii\web\HttpException;
 
 /**
  * CreateAction
@@ -61,13 +62,16 @@ class CreateAction extends Action
             'scenario' => $this->scenario
         ]);
 
-        $data = Yii::$app->getRequest()->getBodyParams();
-        if (isset($data['key'])) {
-            $model->key = $data['key'];
-            unset($data['key']);
+        if ($model::isKeyMandatory()) {
+            throw new HttpException(
+                405,
+                'Create object ['
+                . get_class($model)
+                . '] without key is not allowed. Use PUT instead.'
+            );
         }
-        $model->load($data, '');
 
+        $model->load(Yii::$app->getRequest()->getBodyParams(), '');
         if ($model->save()) {
             $response = Yii::$app->getResponse();
             if (!empty($model->siblings)) {
