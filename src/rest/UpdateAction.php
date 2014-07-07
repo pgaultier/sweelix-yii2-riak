@@ -46,16 +46,30 @@ class UpdateAction extends Action
      */
     public function run($id)
     {
-        /* @var $model ActiveRecord */
-        $model = $this->findModel($id);
 
-        if ($this->checkAccess) {
-            call_user_func($this->checkAccess, $this->id, $model);
+        $modelClass = $this->modelClass;
+        $model = $modelClass::findOne($id);
+        if ($model === null) {
+            $model = new $modelClass([
+                'scenario' => $this->scenario
+            ]);
+            $model->load(Yii::$app->getRequest()->getBodyParams(), '');
+            $model->save();
+            $response = Yii::$app->getRequest();
+            if (!empty($model->siblings)) {
+                $response->setStatusCode(300);
+            } else {
+                $response->setStatusCode(201);
+            }
+        } else {
+            if ($this->checkAccess) {
+                call_user_func($this->checkAccess, $this->id, $model);
+            }
+            $model->scenario = $this->scenario;
+            $model->load(Yii::$app->getRequest()->getBodyParams(), '');
+            $model->save();
         }
 
-        $model->scenario = $this->scenario;
-        $model->load(Yii::$app->getRequest()->getBodyParams(), '');
-        $model->save();
 
         return $model;
     }
