@@ -114,6 +114,26 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
     }
 
     /**
+     * Find the only one activeRecord with the indexName equals indexValue
+     * If mutliple activerRecord found or none found, return null.
+     *
+     * @param string $indexName  The indexName to search on
+     * @param string $indexValue The value to search.
+     *
+     * @return null|ActiveRecord
+     * @since  XXX
+     */
+    public function findOneByIndex($indexName, $indexValue)
+    {
+        $ret = null;
+        $activeRecords = self::findByIndex($indexName, $indexValue);
+        if (empty($activeRecords) && count($activeRecords) === 1) {
+            $ret = $activeRecords[0];
+        }
+        return $ret;
+    }
+
+    /**
      * Returns ActiveRecord's array.
      *
      * ~~~
