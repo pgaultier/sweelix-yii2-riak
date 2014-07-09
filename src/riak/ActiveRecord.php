@@ -127,7 +127,7 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
     {
         $ret = null;
         $activeRecords = self::findByIndex($indexName, $indexValue);
-        if (empty($activeRecords) && count($activeRecords) === 1) {
+        if (!empty($activeRecords) && count($activeRecords) === 1) {
             $ret = $activeRecords[0];
         }
         return $ret;
