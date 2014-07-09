@@ -123,7 +123,7 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
      * @return null|ActiveRecord
      * @since  XXX
      */
-    public function findOneByIndex($indexName, $indexValue)
+    public static function findOneByIndex($indexName, $indexValue)
     {
         $ret = null;
         $activeRecords = self::findByIndex($indexName, $indexValue);
