@@ -1057,6 +1057,7 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
         $scope = $formName === null ? $this->formName() : $formName;
         if ($scope === '' && !empty($data)) {
             $data = $this->reverseFields($data);
+
             foreach ($data as $name => $value) {
                 $this->$name = $value;
             }
@@ -1075,7 +1076,7 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
         $fields = $this->fields();
 
         foreach ($fields as $fieldName => $arName) {
-            if (isset($data[$fieldName]) === true) {
+            if (array_key_exists($fieldName, $data) === true) {
                 $data[$arName] = $data[$fieldName];
                 unset($data[$fieldName]);
             }
