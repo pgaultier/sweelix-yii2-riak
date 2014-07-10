@@ -983,7 +983,7 @@ abstract class ActiveRecord extends BaseActiveRecordYii implements ActiveRecordI
      */
     public function setMetadata($name, $value = null)
     {
-        if ($value !== null) {
+        if (is_string($name)) {
             if ($this->hasMetadata($name)) {
                 $this->meta[$name] = $value;
             } else {
