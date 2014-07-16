@@ -1,7 +1,10 @@
-Riak Extension for Yii 2
-========================
+Sweelix Yii2 Riak Extension
+===========================
 
-This extension provides the [Riak](http://basho.com//) integration for the Yii2 framework.
+This extension provides the [Riak 1.4+](http://basho.com/) integration for the Yii2 framework.
+
+Riak is not affiliated with Sweelix.
+
 
 
 Installation
@@ -40,3 +43,12 @@ return [
     ],
 ];
 ```
+
+Contributing
+------------
+
+All code contributions - including those of people having commit access -
+must go through a pull request and approved by a core developer before being
+merged. This is to ensure proper review of all the code.
+
+Fork the project, create a [feature branch ](http://nvie.com/posts/a-successful-git-branching-model/), and send us a pull request.
