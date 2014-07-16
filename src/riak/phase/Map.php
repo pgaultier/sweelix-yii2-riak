@@ -2,17 +2,17 @@
 /**
  * File Map.php
  *
- * PHP version 5.3+
+ * PHP version 5.4+
  *
- * @author    Philippe Gaultier <pgaultier@sweelix.net>
- * @copyright 2010-2013 Sweelix
+ * @author    Christophe Latour <clatour@ibitux.com>
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
+ * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   XXX
  * @link      http://www.sweelix.net
  * @category  nosql
  * @package   sweelix.nosql.riak.phase
  */
-
 namespace sweelix\yii2\nosql\riak\phase;
 
 /**
@@ -20,8 +20,9 @@ namespace sweelix\yii2\nosql\riak\phase;
  *
  * This class encapsulate a map phase
  *
- * @author    Philippe Gaultier <pgaultier@sweelix.net>
- * @copyright 2010-2013 Sweelix
+ * @author    Christophe Latour <clatour@ibitux.com>
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
+ * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   XXX
  * @link      http://www.sweelix.net
@@ -29,9 +30,11 @@ namespace sweelix\yii2\nosql\riak\phase;
  * @package   sweelix.nosql.riak.phase
  * @since     XXX
  */
-class Map extends Phase {
-	/**
-	 * @var string phase type
-	 */
-	protected $_phase = 'map';
+class Map extends Phase
+{
+
+    /**
+     * @var string phase type
+     */
+    protected $phase = 'map';
 }

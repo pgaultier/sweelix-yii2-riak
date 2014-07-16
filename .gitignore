@@ -4,3 +4,5 @@
 vendor/
 tests/runtime/logs/
 tests/rapport/
+tests/rapport-riak/
+*~

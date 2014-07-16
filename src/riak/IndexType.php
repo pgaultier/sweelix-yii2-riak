@@ -2,17 +2,17 @@
 /**
  * File IndexType.php
  *
- * PHP version 5.3+
+ * PHP version 5.4+
  *
  * @author    Christophe Latour <clatour@ibitux.com>
- * @copyright 2010-2013 Sweelix
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
+ * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   XXX
  * @link      http://www.sweelix.net
- * @category  nosql.riak
+ * @category  nosql
  * @package   sweelix.nosql.riak
  */
-
 namespace sweelix\yii2\nosql\riak;
 
 /**
@@ -21,7 +21,8 @@ namespace sweelix\yii2\nosql\riak;
  * Contains constant for index type (bin or int)
  *
  * @author    Christophe Latour <clatour@ibitux.com>
- * @copyright 2010-2013 Sweelix
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
+ * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   XXX
  * @link      http://www.sweelix.net
@@ -29,8 +30,8 @@ namespace sweelix\yii2\nosql\riak;
  * @package   sweelix.nosql
  * @since     XXX
  */
-
-class IndexType {
-	const TYPE_INTEGER = '_int';
-	const TYPE_BIN = '_bin';
+class IndexType
+{
+    const TYPE_INTEGER = '_int';
+    const TYPE_BIN = '_bin';
 }

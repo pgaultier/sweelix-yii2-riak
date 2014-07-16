@@ -13,6 +13,3 @@ require_once(__DIR__ . '/../vendor/yiisoft/yii2/Yii.php');
 
 
 Yii::setAlias('@sweelix/yii2/nosql/tests', __DIR__);
-
-/*Yii::setAlias('@sweelix/yii2/nosql', __DIR__.'/../src/');
-Yii::setAlias('@sweelix/curl', __DIR__.'/../vendor/sweelix/curl/');*/
