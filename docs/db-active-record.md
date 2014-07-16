@@ -134,14 +134,14 @@ Active Record provides four entry methods for building DB queries and populating
 
 ### [[sweelix\yii2\nosql\riak\ActiveRecord::findOne()]] :
 
-	//Returns the user with the key named 'clatour@ibitux.com'
-	$user = User::findOne('clatour@ibitux.com');
+	//Returns the user with the key named 'clatour@sweelix.net'
+	$user = User::findOne('clatour@sweelix.net');
 
 [[sweelix\yii2\nosql\riak\ActiveRecord::findOne()]] returns a populated ActiveRecord or null if the key doesn't exist
 
 ### [[sweelix\yii2\nosql\riak\ActiveRecord::findByIndex()]] :
 
-	$users = User::findByIndex('userLogin', 'clatour@ibitux.com'); //Will return array of user's ActiveRecord with the index 'userLogin' equals to 'clatour@ibitux.com'
+	$users = User::findByIndex('userLogin', 'clatour@sweelix.net'); //Will return array of user's ActiveRecord with the index 'userLogin' equals to 'clatour@sweelix.net'
 	
 	$users = User::findByIndex('userAge', 0, 18); //Will return an array of user's ActiveRecord with the index 'userAge' between 0 and 18.
 
