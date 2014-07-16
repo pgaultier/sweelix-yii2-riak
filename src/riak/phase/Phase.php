@@ -2,10 +2,11 @@
 /**
  * File Phase.php
  *
- * PHP version 5.3+
+ * PHP version 5.4+
  *
- * @author    Philippe Gaultier <pgaultier@sweelix.net>
- * @copyright 2010-2013 Sweelix
+ * @author    Christophe Latour <clatour@ibitux.com>
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
+ * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   XXX
  * @link      http://www.sweelix.net
@@ -23,14 +24,15 @@ use yii\web\HttpException;
  *
  * This class encapsulate a phase phase
  *
- * @author Philippe Gaultier <pgaultier@sweelix.net>
- * @copyright 2010-2013 Sweelix
- * @license http://www.sweelix.net/license license
- * @version XXX
- * @link http://www.sweelix.net
- * @category nosql
- * @package sweelix.nosql.riak.phase
- * @since XXX
+ * @author    Christophe Latour <clatour@ibitux.com>
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
+ * @copyright 2010-2014 Sweelix
+ * @license   http://www.sweelix.net/license license
+ * @version   XXX
+ * @link      http://www.sweelix.net
+ * @category  nosql
+ * @package   sweelix.nosql.riak.phase
+ * @since     XXX
  */
 class Phase extends Component implements InterfacePhase
 {
@@ -263,17 +265,16 @@ class Phase extends Component implements InterfacePhase
     public function setModule($module)
     {
         throw new HttpException(501);
-        // $this->_handler['module'] = $module;
     }
 
     /**
      * Get the module to use or null if not defined (Not implemented yet)
      *
-     * @return Ambigous <NULL, multitype:>
+     * @return void
+     * @since XXX
      */
     public function getModule()
     {
         throw new HttpException(501);
-        return (isset($this->handler['module']) === true) ? $this->handler['module'] : null;
     }
 }

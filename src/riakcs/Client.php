@@ -1,37 +1,43 @@
 <?php
-
 /**
  * File Client.php
  *
- * PHP version 5.3+
+ * PHP version 5.4+
  *
  * @author    Christophe Latour <clatour@ibitux.com>
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   XXX
  * @link      http://www.sweelix.net
  * @category  nosql
- * @package   sweelix.nosql.riak-cs
+ * @package   sweelix.nosql.riakcs
  */
+
 namespace sweelix\yii2\nosql\riakcs;
 
 use sweelix\curl\Request;
 use yii\base\Component;
 use yii\web\HttpException;
+use Yii;
+use DOMDocument;
+use Exception;
+use finfo;
 
 /**
  * Class Client
  *
  * The class is handle request & response to DB (noSql) server
  *
- * @author Christophe Latour <clatour@ibitux.com>
+ * @author    Christophe Latour <clatour@ibitux.com>
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
  * @copyright 2010-2014 Sweelix
- * @license http://www.sweelix.net/license license
- * @version XXX
- * @link http://www.sweelix.net
- * @category nosql
- * @package sweelix.nosql.riak-cs
- * @since XXX
+ * @license   http://www.sweelix.net/license license
+ * @version   XXX
+ * @link      http://www.sweelix.net
+ * @category  nosql
+ * @package   sweelix.nosql.riakcs
+ * @since     XXX
  */
 class Client extends Component
 {
@@ -412,7 +418,7 @@ class Client extends Component
     public function getBucket($bucket, $parameters = array(), $headers = array())
     {
         try {
-            \Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
+            Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
             $ret = false;
             $request = $this->createRequest('GET', $bucket, '', $headers, $parameters);
 
@@ -420,7 +426,7 @@ class Client extends Component
 
             if ($response->getStatus() === 200) {
                 $ret = array();
-                $doc = new \DOMDocument('1.0', 'UTF-8');
+                $doc = new DOMDocument('1.0', 'UTF-8');
                 $doc->loadXML($response->getData());
                 $contents = $doc->getElementsByTagName('Contents');
                 foreach ($contents as $content) {
@@ -451,7 +457,7 @@ class Client extends Component
                 throw new RiakException($response->getData(), $response->getStatus());
             }
             return $ret;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->handleException($e);
         }
     }
@@ -485,7 +491,7 @@ class Client extends Component
     public function getBucketAcl($bucket, $parameters = array(), $headers = array())
     {
         try {
-            \Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
+            Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
             $ret = false;
             $parameters = array_merge(array(
                 'acl' => ''
@@ -500,7 +506,7 @@ class Client extends Component
                 throw new RiakException($response->getData(), $response->getStatus());
             }
             return $ret;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->handleException($e);
         }
     }
@@ -545,7 +551,7 @@ class Client extends Component
     public function putBucket($bucket, $acl = self::ACL_PRIVATE, $headers = array())
     {
         try {
-            \Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
+            Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
             $ret = false;
             $headers['x-amz-acl'] = $acl;
             $request = $this->createRequest('PUT', $bucket, '', $headers);
@@ -558,7 +564,7 @@ class Client extends Component
                 throw new RiakException($response->getData(), $response->getStatus());
             }
             return $ret;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->handleException($e);
         }
     }
@@ -575,7 +581,7 @@ class Client extends Component
     public function deleteBucket($bucket)
     {
         try {
-            \Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
+            Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
             $ret = false;
             $request = $this->createRequest('DELETE', $bucket);
 
@@ -587,7 +593,7 @@ class Client extends Component
                 throw new RiakException($response->getData(), $response->getStatus());
             }
             return $ret;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->handleException($e);
         }
     }
@@ -610,7 +616,7 @@ class Client extends Component
     public function getObject($bucket, $objectKey)
     {
         try {
-            \Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
+            Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
             $object = false;
             $request = $this->createRequest('GET', $bucket, $objectKey);
 
@@ -623,7 +629,7 @@ class Client extends Component
                 throw new RiakException($response->getData(), $response->getStatus());
             }
             return $object;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->handleException($e);
         }
     }
@@ -642,7 +648,7 @@ class Client extends Component
     public function getObjectAcl($bucket, $objectKey)
     {
         try {
-            \Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
+            Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
             $acl = false;
             $request = $this->createRequest('GET', $bucket, $objectKey, array(), array(
                 'acl' => ''
@@ -666,7 +672,7 @@ class Client extends Component
                 throw new RiakException($response->getData(), $response->getStatus());
             }
             return $acl;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->handleException($e);
         }
     }
@@ -708,7 +714,7 @@ class Client extends Component
         $headers = array()
     ) {
         try {
-            \Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
+            Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
             $headers['x-amz-acl'] = $acl;
             $ret = false;
             $body = null;
@@ -740,7 +746,7 @@ class Client extends Component
                 throw new RiakException($response->getData(), $response->getStatus());
             }
             return $ret;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->handleException($e);
         }
     }
@@ -766,7 +772,7 @@ class Client extends Component
     public function headObject($bucket, $objectKey)
     {
         try {
-            \Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
+            Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
             $objectInfo = false;
 
             $request = $this->createRequest('HEAD', $bucket, $objectKey);
@@ -784,7 +790,7 @@ class Client extends Component
                 throw new RiakException($response->getData(), $response->getStatus());
             }
             return $objectInfo;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->handleException($e);
         }
     }
@@ -814,7 +820,7 @@ class Client extends Component
                 throw new RiakException($response->getData(), $response->getStatus());
             }
             return $ret;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->handleException($e);
         }
     }
@@ -848,20 +854,20 @@ class Client extends Component
         $acl = self::ACL_PRIVATE
     ) {
         try {
-            \Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
+            Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
             $ret = false;
 
             $uploadId = $this->initMultiPartUpload($bucket, $objectKey, $filename, $acl, $metaData);
-            \Yii::info('Init multi part upload succeed (uploadId : ' . $uploadId . '). Beginning upload.', __METHOD__);
+            Yii::info('Init multi part upload succeed (uploadId : ' . $uploadId . '). Beginning upload.', __METHOD__);
 
             $parts = $this->uploadAllPart($bucket, $objectKey, $filename, $acl, $uploadId, $partSize);
-            \Yii::info('Upload all parts succeed.', __METHOD__);
+            Yii::info('Upload all parts succeed.', __METHOD__);
 
             $ret = $this->completeMultiPartUpload($bucket, $objectKey, $parts, $uploadId);
-            \Yii::info('Complete upload part succeed', __METHOD__);
+            Yii::info('Complete upload part succeed', __METHOD__);
 
             return $ret;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->handleException($e);
         }
     }
@@ -896,7 +902,7 @@ class Client extends Component
         $partSize = 5
     ) {
         try {
-            \Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
+            Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
             $infoFile = $this->inputFile($filename);
             $ret = false;
 
@@ -913,7 +919,7 @@ class Client extends Component
                 $ret = $this->multiPartUpload($bucket, $objectKey, $filename, $partSize, $metaData, $acl);
             }
             return $ret;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->handleException($e);
         }
     }
@@ -937,7 +943,7 @@ class Client extends Component
      */
     public function initMultiPartUpload($bucket, $objectKey, $filename, $acl = self::ACL_PRIVATE, $metaData = array())
     {
-        \Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
+        Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
 
         $ret = false;
         $headers = array();
@@ -953,17 +959,17 @@ class Client extends Component
         ));
         $response = $request->execute();
 
-        \Yii::info('Response of initMutliPartUpload :' . var_export($response, true), __METHOD__);
+        Yii::info('Response of initMutliPartUpload :' . var_export($response, true), __METHOD__);
 
         if ($response->getStatus() === 200) {
-            $doc = new \DOMDocument('1.0', 'UTF-8');
+            $doc = new DOMDocument('1.0', 'UTF-8');
             $doc->loadXML($response->getData());
 
             $uploadIds = $doc->getElementsByTagName('UploadId');
             $ret = $uploadIds->item(0)->textContent;
         } else {
-            \Yii::error('Init multi part upload failed.', __METHOD__);
-            \Yii::error('Response :' . var_export($response, true), __METHOD__);
+            Yii::error('Init multi part upload failed.', __METHOD__);
+            Yii::error('Response :' . var_export($response, true), __METHOD__);
             throw new RiakException($response->getData(), $response->getStatus());
         }
 
@@ -998,7 +1004,7 @@ class Client extends Component
     public function uploadAllPart($bucket, $objectKey, $filename, $acl, $uploadId, $partSize)
     {
         try {
-            \Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
+            Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
             $parts = false;
 
             $f = @fopen($filename, 'r');
@@ -1013,7 +1019,7 @@ class Client extends Component
                     $parts = array();
                     $data = fread($f, $partSize);
 
-                    \Yii::info('Uploading part ' . $partNumber . ' of size ' . strlen($data), __METHOD__);
+                    Yii::info('Uploading part ' . $partNumber . ' of size ' . strlen($data), __METHOD__);
 
                     $headers['Content-Length'] = strlen($data);
                     $headers['x-amz-acl'] = $acl;
@@ -1024,7 +1030,7 @@ class Client extends Component
                     $request->setBody($data);
                     $response = $request->execute();
 
-                    \Yii::trace(
+                    Yii::trace(
                         'Response of upload part (' . $partNumber . ') :' . var_export($response, true),
                         __METHOD__
                     );
@@ -1041,7 +1047,7 @@ class Client extends Component
                 fclose($f);
             }
             return $parts;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->handleException($e);
         }
     }
@@ -1064,7 +1070,7 @@ class Client extends Component
     public function completeMultiPartUpload($bucket, $objectKey, $parts, $uploadId)
     {
         try {
-            \Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
+            Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
 
             $ret = false;
 
@@ -1080,14 +1086,14 @@ class Client extends Component
 
             if ($response->getStatus() === 200) {
                 $ret = true;
-                \Yii::trace('Complete multi part upload response : ' . var_export($response, true), __METHOD__);
+                Yii::trace('Complete multi part upload response : ' . var_export($response, true), __METHOD__);
             } else {
-                \Yii::error('Complete multipart upload failed. : ' . var_export($response, true), __METHOD__);
+                Yii::error('Complete multipart upload failed. : ' . var_export($response, true), __METHOD__);
                 $this->abortUpload($bucket, $objectKey, $uploadId);
                 throw new RiakException($response->getData(), $response->getStatus());
             }
             return $ret;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->handleException($e);
         }
     }
@@ -1104,7 +1110,7 @@ class Client extends Component
      */
     private function createXmlCompleteUpload($parts)
     {
-        $doc = new \DOMDocument('1.0', 'UTF-8');
+        $doc = new DOMDocument('1.0', 'UTF-8');
         $root = $doc->createElement('CompleteMultipartUpload');
         foreach ($parts as $partIndex => $etag) {
             $part = $doc->createElement('Part');
@@ -1152,7 +1158,7 @@ class Client extends Component
      */
     private function getFileType($filename)
     {
-        $finfo = new \finfo(FILEINFO_MIME);
+        $finfo = new finfo(FILEINFO_MIME);
         $type = $finfo->file($filename);
         if ($type !== false) {
             return $type;
@@ -1177,7 +1183,7 @@ class Client extends Component
     public function abortUpload($bucket, $objectKey, $uploadId)
     {
         try {
-            \Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
+            Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
 
             $ret = false;
             $request = $this->createRequest('DELETE', $bucket, $objectKey, array(), array(
@@ -1186,13 +1192,13 @@ class Client extends Component
 
             $response = $request->execute();
             if ($response->getStatus() === 204) {
-                \Yii::trace('Abort upload succeed', __METHOD__);
+                Yii::trace('Abort upload succeed', __METHOD__);
                 $ret = true;
             } else {
                 throw new RiakException($response->getData(), $response->getStatus());
             }
             return $ret;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->handleException($e);
         }
     }
@@ -1217,7 +1223,7 @@ class Client extends Component
     public function listMultiPartUploads($bucket)
     {
         try {
-            \Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
+            Yii::trace('Trace: ' . __CLASS__ . '::' . __FUNCTION__ . '()', __METHOD__);
 
             $request = $this->createRequest('GET', $bucket, '', array(), array(
                 'uploads' => ''
@@ -1228,7 +1234,7 @@ class Client extends Component
             if ($response->getStatus() === 200) {
                 $multiParts = array();
 
-                $doc = new \DOMDocument('1.0', 'UTF-8');
+                $doc = new DOMDocument('1.0', 'UTF-8');
                 $doc->loadXML($response->getData());
 
                 $uploads = $doc->getElementsByTagName('Upload');
@@ -1248,7 +1254,7 @@ class Client extends Component
                 throw new RiakException($response->getData(), $response->getStatus());
             }
             return $listUploads;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->handleException($e);
         }
     }
@@ -1280,7 +1286,7 @@ class Client extends Component
         }
         $request = new Request($baseUrl . $objectKey);
         $request->setUrlParameters($parameters);
-        \Yii::info(
+        Yii::info(
             'Creating request ' . $verb . ' ' . $baseUrl . $objectKey . $this->buildParams($parameters),
             __METHOD__
         );
@@ -1302,7 +1308,7 @@ class Client extends Component
         $request->setProxy($this->getProxyUrl());
 
         $request->setHeaders($headers);
-        \Yii::info('Headers : ' . var_export($headers, true), __METHOD__);
+        Yii::info('Headers : ' . var_export($headers, true), __METHOD__);
         return $request;
     }
 
@@ -1355,7 +1361,7 @@ class Client extends Component
         $amz = trim(implode("\n", $rawAmz));
         $amz = (empty($amz) === false ? "\n" . $amz : '');
         $stringToSign = $verb . "\n" . $contentMd5 . "\n" . $contentType . "\n" . '' . $amz . "\n" . $resource;
-        \Yii::info('StringToSign : ' . preg_replace("/\n/", '\n', $stringToSign), __METHOD__);
+        Yii::info('StringToSign : ' . preg_replace("/\n/", '\n', $stringToSign), __METHOD__);
         return 'AWS ' . $this->accessKey . ':' . $this->getHash($stringToSign);
     }
 
@@ -1423,7 +1429,7 @@ class Client extends Component
     private function buildAcl($data)
     {
         $ret = array();
-        $doc = new \DOMDocument('1.0', 'UTF-8');
+        $doc = new DOMDocument('1.0', 'UTF-8');
 
         $doc->loadXML($data);
 
@@ -1461,7 +1467,7 @@ class Client extends Component
         return $ret;
     }
 
-    private function handleException(\Exception $e, $retValue = false, $method = __METHOD__)
+    private function handleException(Exception $e, $retValue = false, $method = __METHOD__)
     {
         if ($e instanceof RiakException) {
             if ($this->useExceptions) {

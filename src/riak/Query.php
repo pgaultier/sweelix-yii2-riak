@@ -3,11 +3,11 @@
 /**
  * File Query.php
  *
- * PHP version 5.3+
+ * PHP version 5.4+
  *
- * @author    Dzung Nguyen <dungnh@ilucians.com>
  * @author    Christophe Latour <clatour@ibitux.com>
- * @copyright 2010-2013 Sweelix
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
+ * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   XXX
  * @link      http://www.sweelix.net
@@ -16,8 +16,6 @@
  */
 namespace sweelix\yii2\nosql\riak;
 
-use sweelix\yii2\nosql\riak\IndexType;
-use sweelix\yii2\nosql\riak\MapReduce;
 use yii\base\Component;
 use Exception;
 
@@ -35,21 +33,20 @@ use Exception;
  * $query->select()->withStorage('bucketTest')->withLink('')
  * </code>
  *
- * @author Dzung Nguyen <dungnh@ilucians.com>
- * @author Christophe Latour <clatour@ibitux.com>
- * @copyright 2010-2013 Sweelix
- * @license http://www.sweelix.net/license license
- * @version XXX
- * @link http://www.sweelix.net
- * @category nosql
- * @package sweelix.nosql
- * @since XXX
+ * @author    Christophe Latour <clatour@ibitux.com>
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
+ * @copyright 2010-2014 Sweelix
+ * @license   http://www.sweelix.net/license license
+ * @version   XXX
+ * @link      http://www.sweelix.net
+ * @category  nosql
+ * @package   sweelix.nosql
+ * @since     XXX
  */
 class Query extends Component
 {
 
     /**
-     *
      * @var Connection connection to nosql db
      */
     public $noSqlDb;
@@ -57,19 +54,16 @@ class Query extends Component
     protected $mode;
 
     /**
-     *
      * @var String bucket bucket name
      */
     protected $bucket = null;
 
     /**
-     *
      * @var String Int of bucket
      */
     protected $key = null;
 
     /**
-     *
      * @var Array indexes of object
      */
     protected $index = array();
@@ -81,38 +75,32 @@ class Query extends Component
     protected $links = array();
 
     /**
-     *
      * @var integer Number of replicas need to agree when retriving object.
      */
     protected $r;
 
     /**
-     *
      * @var integer Number of replicas need to be online when doing read.
      */
     protected $pr;
 
     /**
-     *
      * @var integer The basic_quorum
      */
     protected $basicQuorum;
 
     /**
-     *
      * @var string The notfound_ok query parameters
      */
     protected $notFounfOk;
 
     /**
-     *
      * @var boolean The queryParameters 'chunked'
      * @see http://docs.basho.com/riak/latest/dev/references/http/mapreduce/
      */
     protected $chunked;
 
     /**
-     *
      * @var string An additionnal request parameters to get a sibling.
      * @see http://docs.basho.com/riak/latest/dev/references/http/fetch-object/#Siblings-examples
      */
@@ -127,7 +115,6 @@ class Query extends Component
     protected $continuation;
 
     /**
-     *
      * @var string The header field 'If-None-Match'.
      */
     protected $etag;
@@ -135,13 +122,11 @@ class Query extends Component
     protected $accept;
 
     /**
-     *
      * @var string The header field 'If-Modified-Since'.
      */
     protected $lastModified;
 
     /**
-     *
      * @var array map/reduce/link of parameters's request
      */
     protected $mapReduce;

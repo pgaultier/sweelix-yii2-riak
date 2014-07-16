@@ -3,20 +3,23 @@
 /**
  * File Client.php
  *
- * PHP version 5.3+
+ * PHP version 5.4+
  *
  * @author    Christophe Latour <clatour@ibitux.com>
- * @copyright 2010-2013 Sweelix
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
+ * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   XXX
  * @link      http://www.sweelix.net
  * @category  nosql
  * @package   sweelix.nosql
  */
+
 namespace sweelix\yii2\nosql\riak;
 
 use sweelix\curl\Request;
 use yii\base\Component;
+use Yii;
 
 /**
  * Class Client
@@ -24,7 +27,8 @@ use yii\base\Component;
  * The class is handle request & response to DB (noSql) server
  *
  * @author    Christophe Latour <clatour@ibitux.com>
- * @copyright 2010-2013 Sweelix
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
+ * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   XXX
  * @link      http://www.sweelix.net
@@ -107,22 +111,22 @@ class Client extends Component
 
         if ($objectKey === null) {
             $request->setMethod('POST');
-            \Yii::info('StoreObject request : @POST ' . $url . "\n", __METHOD__);
+            Yii::info('StoreObject request : @POST ' . $url . "\n", __METHOD__);
         } else {
-            \Yii::info('StoreObject request : @PUT ' . $url . "\n", __METHOD__);
+            Yii::info('StoreObject request : @PUT ' . $url . "\n", __METHOD__);
             $request->setMethod('PUT');
         }
         $additionalHeaders['Content-Type'] = 'application/json';
 
-        \Yii::info('StoreObject body : ' . var_export($content, true) . "\n", __METHOD__);
-        \Yii::info('StoreObject headers : ' . var_export($additionalHeaders, true) . "\n", __METHOD__);
+        Yii::info('StoreObject body : ' . var_export($content, true) . "\n", __METHOD__);
+        Yii::info('StoreObject headers : ' . var_export($additionalHeaders, true) . "\n", __METHOD__);
 
         $request->setHeaders($additionalHeaders);
         $request->setUrlParameters($additionalParameters);
         $request->setBody(json_encode($content));
 
         $response = $request->execute();
-        \Yii::info('StoreObject response : ' . var_export($response, true) . "\n", __METHOD__);
+        Yii::info('StoreObject response : ' . var_export($response, true) . "\n", __METHOD__);
         return $response;
     }
 
@@ -143,15 +147,15 @@ class Client extends Component
             '{key}' => $counterKey
         ));
         $request = new Request($url);
-        \Yii::info('UpdateCounters request : @POST ' . $url . "\n", __METHOD__);
-        \Yii::info('UpdateCounters body : ' . var_export($incrementalValue, true) . "\n", __METHOD__);
+        Yii::info('UpdateCounters request : @POST ' . $url . "\n", __METHOD__);
+        Yii::info('UpdateCounters body : ' . var_export($incrementalValue, true) . "\n", __METHOD__);
 
         $request->setMethod('POST');
         $headers['Content-Type'] = 'application/json';
         $request->setBody("$incrementalValue");
 
         $response = $request->execute();
-        \Yii::info('UpdateCounters response : @POST ' . $url . "\n", __METHOD__);
+        Yii::info('UpdateCounters response : @POST ' . $url . "\n", __METHOD__);
         return $response;
     }
 
@@ -173,12 +177,12 @@ class Client extends Component
             '{key}' => $counterKey
         ));
         $request = new Request($url);
-        \Yii::info('GetCounters request : @GET ' . $url . "\n", __METHOD__);
+        Yii::info('GetCounters request : @GET ' . $url . "\n", __METHOD__);
 
         $request->setMethod('GET');
 
         $response = $request->execute();
-        \Yii::info('GetCounters response : ' . var_export($response, true) . "\n", __METHOD__);
+        Yii::info('GetCounters response : ' . var_export($response, true) . "\n", __METHOD__);
         return $response;
     }
 
@@ -199,8 +203,8 @@ class Client extends Component
             '{bucket}' => $bucketName
         ));
         $request = new Request($url);
-        \Yii::info('AlterBucket request : @PUT' . $url . "\n", __METHOD__);
-        \Yii::info('AlterBucket body : ' . var_export($properties, true) . "\n", __METHOD__);
+        Yii::info('AlterBucket request : @PUT' . $url . "\n", __METHOD__);
+        Yii::info('AlterBucket body : ' . var_export($properties, true) . "\n", __METHOD__);
 
         $request->setMethod('PUT');
         $request->setHeaders(array(
@@ -209,7 +213,7 @@ class Client extends Component
         $request->setBody(json_encode($properties));
 
         $response = $request->execute();
-        \Yii::info('AlterBucket response : ' . var_export($response, true) . "\n", __METHOD__);
+        Yii::info('AlterBucket response : ' . var_export($response, true) . "\n", __METHOD__);
 
         return $response;
     }
@@ -220,12 +224,12 @@ class Client extends Component
             '{bucket}' => $bucketName
         ));
 
-        \Yii::info('AlterBucket request : @GET' . $url . "\n", __METHOD__);
+        Yii::info('AlterBucket request : @GET' . $url . "\n", __METHOD__);
 
         $request = new Request($url);
 
         $response = $request->execute();
-        \Yii::info('AlterBucket response : ' . var_export($response, true) . "\n", __METHOD__);
+        Yii::info('AlterBucket response : ' . var_export($response, true) . "\n", __METHOD__);
 
         return $response;
     }
@@ -253,13 +257,13 @@ class Client extends Component
             '{key}' => $objectKey
         ));
         $request = new Request($url);
-        \Yii::info('GetObject request : @GET ' . $url . "\n", __METHOD__);
+        Yii::info('GetObject request : @GET ' . $url . "\n", __METHOD__);
 
         $request->setHeaders($additionalHeaders);
         $request->setUrlParameters($additionalParameters);
 
         $response = $request->execute();
-        \Yii::info('GetObject response : ' . var_export($response, true) . "\n", __METHOD__);
+        Yii::info('GetObject response : ' . var_export($response, true) . "\n", __METHOD__);
         return $response;
     }
 
@@ -284,13 +288,13 @@ class Client extends Component
             '{key}' => $objectKey
         ));
         $request = new Request($url);
-        \Yii::info('DeleteObject request : @DELETE ' . $url . "\n", __METHOD__);
+        Yii::info('DeleteObject request : @DELETE ' . $url . "\n", __METHOD__);
 
         $request->setMethod('DELETE');
         $request->setUrlParameters($additionalParameters);
 
         $response = $request->execute();
-        \Yii::info('DeleteObject response ' . var_export($response, true) . "\n", __METHOD__);
+        Yii::info('DeleteObject response ' . var_export($response, true) . "\n", __METHOD__);
         return $response;
     }
 
@@ -326,11 +330,11 @@ class Client extends Component
             '{index_end}' => $indexEndValue
         ));
         $request = new Request($url);
-        \Yii::info('QueryIndexes request : @GET ' . $url . "\n", __METHOD__);
+        Yii::info('QueryIndexes request : @GET ' . $url . "\n", __METHOD__);
         $request->setMethod('GET');
         $request->setUrlParameters($additionalParameters);
         $response = $request->execute();
-        \Yii::info('QueryIndexes resposne : ' . var_export($response, true) . "\n", __METHOD__);
+        Yii::info('QueryIndexes resposne : ' . var_export($response, true) . "\n", __METHOD__);
         return $response;
     }
 
@@ -358,14 +362,14 @@ class Client extends Component
         $url = $this->prepareUrl('mapReduce');
         $request = new Request($url);
 
-        \Yii::info('QueryMapReduce request : @POST ' . $url . "\n", __METHOD__);
-        \Yii::info('QueryMapReduce body : ' . var_export($mapReduce, true) . "\n", __METHOD__);
+        Yii::info('QueryMapReduce request : @POST ' . $url . "\n", __METHOD__);
+        Yii::info('QueryMapReduce body : ' . var_export($mapReduce, true) . "\n", __METHOD__);
         $request->setMethod('POST');
         $additionalHeaders['Content-Type'] = 'application/json';
         $request->setHeaders($additionalHeaders);
         $request->setBody($mapReduce);
         $response = $request->execute();
-        \Yii::info('QueryMapReduce response : ' . var_export($response, true) . "\n", __METHOD__);
+        Yii::info('QueryMapReduce response : ' . var_export($response, true) . "\n", __METHOD__);
         return $response;
     }
 
@@ -392,7 +396,7 @@ class Client extends Component
             'linkParams' => $links
         ));
         $request = new Request($url);
-        \Yii::info('QueryLink request : @GET ' . $url . "\n", __METHOD__);
+        Yii::info('QueryLink request : @GET ' . $url . "\n", __METHOD__);
         $request->setMethod('GET');
         $additionalHeaders['Content-Type'] = 'multipart/mixed';
         $request->setHeaders($additionalHeaders);
@@ -400,7 +404,7 @@ class Client extends Component
         $response = $request->execute();
         $responses = $response->extractMultipartDataAsResponse();
 
-        \Yii::info('QueryLink response : ' . var_export($response, true) . "\n", __METHOD__);
+        Yii::info('QueryLink response : ' . var_export($response, true) . "\n", __METHOD__);
         return $response;
     }
 

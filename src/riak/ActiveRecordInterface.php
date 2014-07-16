@@ -5,13 +5,15 @@
  * PHP version 5.4+
  *
  * @author    Christophe Latour <clatour@ibitux.com>
- * @copyright 2010-2014 Ibitux
- * @license   http://www.ibitux.com/license license
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
+ * @copyright 2010-2014 Sweelix
+ * @license   http://www.sweelix.net/license license
  * @version   XXX
- * @link      http://www.ibitux.com
+ * @link      http://www.sweelix.net
  * @category  nosql
  * @package   sweelix.nosql.riak
  */
+
 namespace sweelix\yii2\nosql\riak;
 
 use yii\db\ActiveRecordInterface as BaseActiveRecordInterface;
@@ -20,10 +22,11 @@ use yii\db\ActiveRecordInterface as BaseActiveRecordInterface;
  * Class ActiveRecordInterface
  *
  * @author    Christophe Latour <clatour@ibitux.com>
- * @copyright 2010-2014 Ibitux
- * @license   http://www.ibitux.com/license license
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
+ * @copyright 2010-2014 Sweelix
+ * @license   http://www.sweelix.net/license license
  * @version   XXX
- * @link      http://www.ibitux.com
+ * @link      http://www.sweelix.net
  * @category  nosql
  * @package   sweelix.nosql.riak
  * @since     XXX

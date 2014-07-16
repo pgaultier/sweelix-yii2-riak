@@ -3,31 +3,37 @@
 /**
  * File RiakException.php
  *
- * PHP version 5.3+
+ * PHP version 5.4+
  *
  * @author    Christophe Latour <clatour@ibitux.com>
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   XXX
  * @link      http://www.sweelix.net
  * @category  nosql
- * @package   sweelix.nosql.riakcs
+ * @package   sweelix.nosql.riak
  */
+
 namespace sweelix\yii2\nosql\riak;
 
+use DOMDocument;
+use Exception;
+
 /**
- * Class RiakException handles exception for riakcs.
+ * Class RiakException handles exception for riak(cs).
  *
- * @author Christophe Latour <clatour@ibitux.com>
+ * @author    Christophe Latour <clatour@ibitux.com>
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
  * @copyright 2010-2014 Sweelix
- * @license http://www.sweelix.net/license license
- * @version XXX
- * @link http://www.sweelix.net
- * @category nosql
- * @package sweelix.nosql.riakcs
- * @since XXX
+ * @license   http://www.sweelix.net/license license
+ * @version   XXX
+ * @link      http://www.sweelix.net
+ * @category  nosql
+ * @package   sweelix.nosql.riak
+ * @since     XXX
  */
-class RiakException extends \Exception
+class RiakException extends Exception
 {
 
     /**
@@ -47,7 +53,7 @@ class RiakException extends \Exception
     public function __construct($message = null, $code = null, $previous = null)
     {
         parent::__construct($message, $code, $previous);
-        $doc = new \DOMDocument('1.0', 'UTF-8');
+        $doc = new DOMDocument('1.0', 'UTF-8');
         try {
             $doc->loadXML($message);
             if ($doc->getElementsByTagName('Error')->length > 0) {
@@ -55,7 +61,7 @@ class RiakException extends \Exception
                 $this->message .= "\nResource : " . $doc->getElementsByTagName('Resource')->item(0)->textContent;
                 $this->message .= "\nCode : " . $doc->getElementsByTagName('Code')->item(0)->textContent;
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->message = $message;
         }
     }

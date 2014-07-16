@@ -2,7 +2,7 @@
 /**
  * File ResolverInterface.php
  *
- * PHP version 5.3+
+ * PHP version 5.4+
  *
  * @author    Christophe Latour <clatour@ibitux.com>
  * @copyright 2010-2013 Sweelix
@@ -12,6 +12,7 @@
  * @category  nosql
  * @package   sweelix.yii2.nosql.riak
  */
+
 namespace sweelix\yii2\nosql\riak;
 
 /**

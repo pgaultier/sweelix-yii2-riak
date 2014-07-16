@@ -1,37 +1,40 @@
 <?php
 /**
  * File Connection.php
-*
-* PHP version 5.3+
-*
-* @author    Christophe Latour <clatour@ibitux.com>
-* @copyright 2010-2014 Sweelix
-* @license   http://www.sweelix.net/license license
-* @version   XXX
-* @link      http://www.sweelix.net
-* @category  nosql
-* @package   sweelix.nosql.riakcs
-*/
+ *
+ * PHP version 5.4+
+ *
+ * @author    Christophe Latour <clatour@ibitux.com>
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
+ * @copyright 2010-2014 Sweelix
+ * @license   http://www.sweelix.net/license license
+ * @version   XXX
+ * @link      http://www.sweelix.net
+ * @category  nosql
+ * @package   sweelix.nosql.riakcs
+ */
+
 namespace sweelix\yii2\nosql\riakcs;
 
-use \Yii;
 use yii\base\Exception;
 use yii\base\InvalidConfigException;
 use yii\base\Component;
+use Yii;
 
 /**
  * Class Connection
  *
  * This class allow user to connect to a riak database
  *
- * @author Christophe Latour <clatour@ibitux.com>
+ * @author    Christophe Latour <clatour@ibitux.com>
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
  * @copyright 2010-2014 Sweelix
- * @license http://www.sweelix.net/license license
- * @version XXX
- * @link http://www.sweelix.net
- * @category nosql
- * @package sweelix.nosql.riakcs
- * @since XXX
+ * @license   http://www.sweelix.net/license license
+ * @version   XXX
+ * @link      http://www.sweelix.net
+ * @category  nosql
+ * @package   sweelix.nosql.riakcs
+ * @since     XXX
  */
 class Connection extends Component
 {

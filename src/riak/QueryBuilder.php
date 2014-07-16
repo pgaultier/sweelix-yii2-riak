@@ -3,10 +3,11 @@
 /**
  * File QueryBuilder.php
  *
- * PHP version 5.3+
+ * PHP version 5.4+
  *
- * @author    Philippe Gaultier <pgaultier@sweelix.net>
- * @copyright 2010-2013 Sweelix
+ * @author    Christophe Latour <clatour@ibitux.com>
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
+ * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   XXX
  * @link      http://www.sweelix.net
@@ -15,7 +16,6 @@
  */
 namespace sweelix\yii2\nosql\riak;
 
-use sweelix\yii2\nosql\riak\Query;
 use yii\base\Object;
 
 /**
@@ -23,26 +23,25 @@ use yii\base\Object;
  *
  * This class handle all the queries (findByKey, mapreduce, ...)
  *
- * @author Philippe Gaultier <pgaultier@sweelix.net>
- * @copyright 2010-2013 Sweelix
- * @license http://www.sweelix.net/license license
- * @version XXX
- * @link http://www.sweelix.net
- * @category nosql
- * @package sweelix.nosql.riak
- * @since XXX
+ * @author    Christophe Latour <clatour@ibitux.com>
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
+ * @copyright 2010-2014 Sweelix
+ * @license   http://www.sweelix.net/license license
+ * @version   XXX
+ * @link      http://www.sweelix.net
+ * @category  nosql
+ * @package   sweelix.nosql.riak
+ * @since     XXX
  */
 class QueryBuilder extends Object
 {
 
     /**
-     *
      * @var Connection connection to nosql db
      */
     public $noSqlDb;
 
     /**
-     *
      * @var String Int of bucket
      */
     public $key;
@@ -140,12 +139,9 @@ class QueryBuilder extends Object
      * ));
      * ~~~
      *
-     * @param string $bucket
-     *            The bucketName to work with.
-     * @param string $objectKey
-     *            The keys that will be put to get object update.
-     * @param array $data
-     *            The data (name => value) to be updated.
+     * @param string $bucket The bucketName to work with.
+     * @param string $objectKey The keys that will be put to get object update.
+     * @param array  $data The data (name => value) to be updated.
      *
      * @return array The settings array to execute Command
      * @since XXX
@@ -164,12 +160,9 @@ class QueryBuilder extends Object
      * Returns the configurated setting array to execute a Command to increment the counter ($counterKey)
      * by the given value ($incrementalValue) in the bucket ($bucketName).
      *
-     * @param unknown $bucketName
-     *            The bucket of the counter to update.
-     * @param unknown $counterKey
-     *            The key of the counter to update.
-     * @param unknown $incrementalValue
-     *            The incrementalValue to add to the counter.
+     * @param string  $bucketName The bucket of the counter to update.
+     * @param string  $counterKey The key of the counter to update.
+     * @param integer $incrementalValue The incrementalValue to add to the counter.
      *
      * @return array The configurated setting array to execute the updateCounter command.
      * @since  XXX
@@ -208,10 +201,8 @@ class QueryBuilder extends Object
     /**
      * Returns the configurated setting array to execute a Command to update bucket properties.
      *
-     * @param string $bucketName
-     *            The bucket name which wanted to update.
-     * @param array $props
-     *            The properties array for the bucket.
+     * @param string $bucketName The bucket name which wanted to update.
+     * @param array $props The properties array for the bucket.
      *
      * @return array
      * @since XXX
@@ -237,10 +228,8 @@ class QueryBuilder extends Object
      * );
      * </code>
      *
-     * @param string $key
-     *            The key of new query params (ex : 'returnbody')
-     * @param string $value
-     *            The value for the given key (ex : 'true')
+     * @param string $key The key of new query params (ex : 'returnbody')
+     * @param string $value The value for the given key (ex : 'true')
      *
      * @return array The formatted array to add in queryParams field of commandData
      * @since XXX
@@ -267,12 +256,9 @@ class QueryBuilder extends Object
      * );
      * </code>
      *
-     * @param string $indexName
-     *            The index name to create.
-     * @param string|int $value
-     *            The index value
-     * @param string $type
-     *            The type of the index value (TYPE_BIN by default. Other possibility : TYPE_INT)
+     * @param string $indexName The index name to create.
+     * @param string|int $value The index value
+     * @param string $type The type of the index value (TYPE_BIN by default. Other possibility : TYPE_INT)
      *
      * @return array The commandData with new index.
      * @since XXX
@@ -293,12 +279,9 @@ class QueryBuilder extends Object
      * '<riak/userBucket/userKey>; riaktag=friendTag';
      * </code>
      *
-     * @param string $bucket
-     *            The bucket name.
-     * @param string $key
-     *            The key of linked object.
-     * @param string $tag
-     *            The tag wanted to associate with object.
+     * @param string $bucket The bucket name.
+     * @param string $key The key of linked object.
+     * @param string $tag The tag wanted to associate with object.
      *
      * @return string
      */
@@ -316,10 +299,8 @@ class QueryBuilder extends Object
      * );
      * </code>
      *
-     * @param string $key
-     *            The metadata key.
-     * @param string $value
-     *            The metadata value.
+     * @param string $key The metadata key.
+     * @param string $value The metadata value.
      *
      * @return array
      * @since XXX
@@ -335,8 +316,7 @@ class QueryBuilder extends Object
     /**
      * Abstract calss to build current query
      *
-     * @param Query $query
-     *            current query
+     * @param Query $query current query
      *
      * @return array The settings array to execute Command
      * @since XXX
@@ -359,8 +339,7 @@ class QueryBuilder extends Object
     /**
      * Build the queryLinks
      *
-     * @param Query $query
-     *            The query to build
+     * @param Query $query The query to build
      *
      * @return array null no links is setted, return null,
      *         Else, returns the builded array for 'queryLinks' commandData.
@@ -382,8 +361,7 @@ class QueryBuilder extends Object
     /**
      * Build the queryIndex
      *
-     * @param Query $query
-     *            The query to build
+     * @param Query $query The query to build
      *
      * @return null array no searchIndex is settted, return null.
      *         Else returns the built array for 'queryIndex' commandData.
@@ -413,8 +391,7 @@ class QueryBuilder extends Object
     /**
      * Build the body of the query
      *
-     * @param Query $query
-     *            The query to build
+     * @param Query $query The query to build
      *
      * @return string null
      * @since XXX
@@ -431,8 +408,7 @@ class QueryBuilder extends Object
     /**
      * Build the correct GET parameters
      *
-     * @param Query $query
-     *            The query to build
+     * @param Query $query The query to build
      *
      * @return array The array of GET params
      */
@@ -455,8 +431,7 @@ class QueryBuilder extends Object
     /**
      * Build the correct headers from query
      *
-     * @param Query $query
-     *            The query to build
+     * @param Query $query The query to build
      *
      * @return array of headers.
      */
@@ -467,28 +442,4 @@ class QueryBuilder extends Object
             'If-None-Match' => $query->etag
         );
     }
-
-    /**
-     * Build functions map parameters's request.
-     * Analyzer the Query->_mapReduce array to json content to set body for request
-     *
-     * @param Query $query
-     *            is the query object
-     *
-     * @return none
-     * @since XXX
-     */
-/*    protected function buildMap($query)   {}*/
-
-    /**
-     * Build functions reduce parameters's request.
-     * Analyzer the Query->_mapReduce array to json content to set body for request
-     *
-     * @param Query $query
-     *            is the query object
-     *
-     * @return none
-     * @since XXX
-     */
- /*   protected function buildReduce($query)   {}*/
 }

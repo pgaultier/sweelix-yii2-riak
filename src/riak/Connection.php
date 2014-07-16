@@ -3,10 +3,11 @@
 /**
  * File Connection.php
  *
- * PHP version 5.3+
+ * PHP version 5.4+
  *
- * @author    Philippe Gaultier <pgaultier@sweelix.net>
- * @copyright 2010-2013 Sweelix
+ * @author    Christophe Latour <clatour@ibitux.com>
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
+ * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   XXX
  * @link      http://www.sweelix.net
@@ -17,22 +18,23 @@ namespace sweelix\yii2\nosql\riak;
 
 use yii\base\Component;
 use yii\base\InvalidConfigException;
-use Exception;
 use Yii;
+use Exception;
 
 /**
  * Class Connection
  *
  * This class allow user to connect to a riak database
  *
- * @author Philippe Gaultier <pgaultier@sweelix.net>
- * @copyright 2010-2013 Sweelix
- * @license http://www.sweelix.net/license license
- * @version XXX
- * @link http://www.sweelix.net
- * @category nosql
- * @package sweelix.nosql.riak
- * @since XXX
+ * @author    Christophe Latour <clatour@ibitux.com>
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
+ * @copyright 2010-2014 Sweelix
+ * @license   http://www.sweelix.net/license license
+ * @version   XXX
+ * @link      http://www.sweelix.net
+ * @category  nosql
+ * @package   sweelix.nosql.riak
+ * @since     XXX
  */
 class Connection extends Component
 {
@@ -46,7 +48,7 @@ class Connection extends Component
      *
      * @var string the Data Source Name, or DSN, contains the information required to connect to the riak server.
      *      DSN was created to be the most similar to PDO ones
-     *      riak:host=myhost;port=8098
+     *      riak:dsn=http://host:8098
      */
     public $dsn;
 

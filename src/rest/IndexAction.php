@@ -5,10 +5,11 @@
  * PHP version 5.4+
  *
  * @author    Christophe Latour <clatour@ibitux.com>
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   XXX
- * @link      http://code.ibitux.net/redlix/
+ * @link      http://www.sweelix.net
  * @category  controllers
  * @package   application
  */
@@ -19,14 +20,12 @@ use yii\base\NotSupportedException;
 /**
  * ActiveController
  *
- * PHP version 5.3+
- *
  * @author    Christophe Latour <clatour@ibitux.com>
- * @copyright 2010-2013 Sweelix
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
+ * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   XXX
- * @link      http://code.ibitux.net/redlix/
- * @category  controllers
+ * @link      http://www.sweelix.net
  * @package   application
  * @since     XXX
  */

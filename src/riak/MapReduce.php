@@ -2,10 +2,11 @@
 /**
  * File MapReduce.php
  *
- * PHP version 5.3+
+ * PHP version 5.4+
  *
- * @author    Philippe Gaultier <pgaultier@sweelix.net>
- * @copyright 2010-2013 Sweelix
+ * @author    Christophe Latour <clatour@ibitux.com>
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
+ * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   XXX
  * @link      http://www.sweelix.net
@@ -27,15 +28,15 @@ use sweelix\yii2\nosql\riak\phase\Map;
  *
  * This class encapsulate a map/reduce request
  *
- * @author Philippe Gaultier <pgaultier@sweelix.net>
- * @author Christophe Latour <clatour@ibitux.net>
- * @copyright 2010-2013 Sweelix
- * @license http://www.sweelix.net/license license
- * @version XXX
- * @link http://www.sweelix.net
- * @category nosql
- * @package sweelix.nosql.riak
- * @since XXX
+ * @author    Christophe Latour <clatour@ibitux.com>
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
+ * @copyright 2010-2014 Sweelix
+ * @license   http://www.sweelix.net/license license
+ * @version   XXX
+ * @link      http://www.sweelix.net
+ * @category  nosql
+ * @package   sweelix.nosql.riak
+ * @since     XXX
  */
 class MapReduce extends Component
 {

@@ -2,11 +2,11 @@
 /**
  * File Link.php
  *
- * PHP version 5.3+
+ * PHP version 5.4+
  *
- * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @author    Christophe Latour <clatour@ibitux.com>
- * @copyright 2010-2013 Sweelix
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
+ * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   XXX
  * @link      http://www.sweelix.net
@@ -15,22 +15,22 @@
  */
 namespace sweelix\yii2\nosql\riak\phase;
 
-use yii\base\Component;
 use sweelix\yii2\nosql\riak\interfaces\Phase as InterfacePhase;
+use yii\base\Component;
 
 /**
  * Class Link
  *
  * This class encapsulate a link phase
  *
- * @author Philippe Gaultier <pgaultier@sweelix.net>
- * @author Christophe Latour <clatour@ibitux.com>
- * @copyright 2010-2013 Sweelix
- * @license http://www.sweelix.net/license license
- * @version XXX
- * @link http://www.sweelix.net
- * @category nosql
- * @package sweelix.nosql.riak.phase
+ * @author    Christophe Latour <clatour@ibitux.com>
+ * @author    Philippe Gaultier <pgaultier@ibitux.com>
+ * @copyright 2010-2014 Sweelix
+ * @license   http://www.sweelix.net/license license
+ * @version   XXX
+ * @link      http://www.sweelix.net
+ * @category  nosql
+ * @package   sweelix.nosql.riak.phase
  * @since XXX
  */
 class Link extends Component implements InterfacePhase
